@@ -5,28 +5,18 @@
   >
     <div class="container-xxl d-flex">
       <span
-        class="navbar-brand cursor-pointer fw-bold mx-2 fs-4"
+        class="navbar-brand cursor-pointer fw-bold mx-1 fs-4"
         @click="router.push({ name: 'home' })"
         >Topluluk</span
       >
-      <!-- <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button> -->
-      <div class="d-flex align-items-center justify-content-center mx-2">
+
+      <div class="d-flex align-items-center justify-content-center">
         <div class="navbar-nav me-auto mb-2 mb-lg-0"></div>
         <template v-if="userIsAuthorized">
           <div class="d-flex align-items-center" v-if="user">
             <div class="dropdown create-nav">
               <button
-                class="btn btn-success dropdown-toggle py-2"
+                class="btn dropdown-toggle py-2"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -65,9 +55,9 @@
             </div>
 
             <div class="pointer">
-              <RouterLink :to="{ name: 'chat' }" disabled>
+              <RouterLink :to="{ name: 'chat' }">
                 <i
-                  class="fa-regular fa-xl fa-comments mx-2 ms-4 position-relative"
+                  class="fa-regular fa-xl fa-comments mx-2 ms-2 position-relative"
                 >
                   <span
                     class="position-absolute bottom-100 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
@@ -222,5 +212,10 @@ nav a.router-link-exact-active {
   border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
+}
+
+.create-nav button {
+  background-color: rgb(88, 141, 120);
+  color: white;
 }
 </style>

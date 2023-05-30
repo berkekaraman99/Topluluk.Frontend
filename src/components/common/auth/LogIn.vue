@@ -14,7 +14,7 @@
   <div
     class="container-fluid d-flex justify-content-center overflow-auto h-100"
   >
-    <div class="row w-100 align-items-center my-5 mx-5">
+    <div class="row w-100 align-items-center mx-3">
       <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
         <p class="fw-bold text-center fs-2 py-4">Welcome Back!</p>
 

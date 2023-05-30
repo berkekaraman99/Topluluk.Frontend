@@ -295,9 +295,9 @@ onBeforeUnmount(() => {
 }
 
 .selected {
-  color: dodgerblue;
+  color: var(--color-primary);
   background-color: rgb(255, 255, 255);
-  border: 1px solid dodgerblue;
+  border: 1px solid var(--color-primary);
 }
 
 .fade-enter-active,

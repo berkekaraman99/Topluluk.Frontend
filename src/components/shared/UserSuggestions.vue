@@ -1,10 +1,14 @@
 <template>
   <div class="">
-    <div class="card rounded-3 shadow-sm" id="suggestions" v-if="!loading">
-      <div class="card-header p-0">
+    <div class="card rounded-3" id="suggestions" v-if="!loading">
+      <div
+        class="card-header p-0 d-flex align-items-center justify-content-around"
+      >
+        <i class="fa-solid fa-chevron-left"></i>
         <h4 class="fw-bold my-3 text-center">Suggestions</h4>
+        <i class="fa-solid fa-chevron-right"></i>
       </div>
-      <div class="card-body p-0">
+      <div class="card-body py-0 px-1">
         <ul class="list-unstyled">
           <div
             v-if="suggestions.length === 0"
@@ -14,7 +18,7 @@
           </div>
           <li
             v-else
-            class="py-3 px-3 my-2 suggestion"
+            class="py-3 px-3 my-2 suggestion card shadow-sm"
             v-for="suggested in suggestions"
             v-bind:key="suggested.id"
           >
@@ -24,12 +28,13 @@
             >
               <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                  <img
-                    :src="suggested.profileImage"
-                    alt="profile image"
-                    class="suggestion-profile-image me-4 img-fluid shadow-sm"
+                  <div
+                    :style="{
+                      backgroundImage: `url(${suggested.profileImage})`,
+                    }"
+                    class="suggestion-profile-image me-4 shadow-sm"
                     v-if="suggested.profileImage"
-                  />
+                  ></div>
                   <img
                     src="@/assets/images/profile-man.png"
                     alt="profile-man"

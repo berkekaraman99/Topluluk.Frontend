@@ -1,6 +1,6 @@
 <template>
   <div
-    class="col-md-12 col-lg-3 mb-4 mb-md-4 mb-lg-0 d-none d-md-none d-lg-block my-2 shadow-sm"
+    class="col-md-12 col-lg-3 mb-4 mb-md-4 mb-lg-0 d-none d-md-none d-lg-block my-2"
   >
     <p class="fw-bold text-start text-lg-center">Community Suggestions</p>
 
@@ -24,12 +24,11 @@
         class="text-decoration-none"
       >
         <div class="d-flex align-items-center">
-          <img
-            :src="community.coverImage"
-            alt="profile image"
-            class="suggestion-profile-image me-4 img-fluid shadow-sm"
+          <div
+            :style="{ backgroundImage: `url(${community.coverImage})` }"
+            class="suggestion-profile-image me-4 shadow-sm"
             v-if="community.coverImage != null"
-          />
+          ></div>
           <div v-else class="suggestion-profile-image bg-secondary me-4"></div>
           <div>
             <div class="fw-bold text-black">

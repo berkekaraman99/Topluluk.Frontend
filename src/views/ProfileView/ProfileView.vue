@@ -27,28 +27,28 @@
             <div
               class="profile-banner rounded-top-4"
               :style="{
-                'background-image': `url(${currentUser.bannerImage})`,
+                'background-image': `url(${user.bannerImage})`,
                 'background-color': 'grey',
               }"
             ></div>
             <div
               class="profile-image shadow"
               :style="{
-                'background-image': 'url(' + currentUser.profileImage + ')',
+                'background-image': `url(${user.profileImage})`,
               }"
-              v-if="currentUser.profileImage != null"
+              v-if="user.profileImage != null"
             ></div>
             <img
               src="@/assets/images/profile-man.png"
               alt="profile-man"
               class="profile-image me-4"
-              v-else-if="currentUser.gender == 2"
+              v-else-if="user.gender == 2"
             />
             <img
               src="@/assets/images/profile-woman.png"
               alt="profile-woman"
               class="profile-image me-4"
-              v-else-if="currentUser.gender == 1"
+              v-else-if="user.gender == 1"
             />
             <img
               src="@/assets/images/user.png"
@@ -59,9 +59,9 @@
             <div class="profile-details">
               <div>
                 <h2 class="fw-bold">
-                  {{ currentUser.firstName }} {{ currentUser.lastName }}
+                  {{ user.firstName }} {{ user.lastName }}
                 </h2>
-                <h5 class="fw-normal">@{{ currentUser.userName }}</h5>
+                <h5 class="fw-normal">@{{ user.userName }}</h5>
                 <div class="d-flex flex-column flex-sm-row">
                   <div
                     class="me-3 pointer"
@@ -69,7 +69,7 @@
                     data-bs-target="#followers"
                   >
                     <h3 class="fw-bold d-inline-block">
-                      {{ currentUser.followersCount }}
+                      {{ user.followersCount }}
                     </h3>
                     Followers
                   </div>
@@ -79,7 +79,7 @@
                     data-bs-target="#followings"
                   >
                     <h3 class="fw-bold d-inline-block">
-                      {{ currentUser.followingCount }}
+                      {{ user.followingsCount }}
                     </h3>
                     Followings
                   </div>
@@ -90,7 +90,7 @@
                     Communities
                   </div>
                 </div>
-                <p v-if="currentUser.bio">{{ currentUser.bio }}</p>
+                <p v-if="user.bio != null">{{ user.bio }}</p>
               </div>
             </div>
           </div>
@@ -263,6 +263,7 @@ const { _user: user } = storeToRefs(authStore);
 const userId = user.value.id;
 
 const userStore = useUserStore();
+userStore.getFollowersRequests(userId);
 
 const category = ref("activities");
 const loading = ref(true);
@@ -276,7 +277,8 @@ const changeCategory = (tab: string) => {
   category.value = tab;
 };
 
-const { _currentUser: currentUser } = storeToRefs(userStore);
+const { _currentUser: currentUser, _userFollowersRequests: followersRequests } =
+  storeToRefs(userStore);
 
 onBeforeUnmount(() => {
   userStore.$patch({
@@ -326,31 +328,13 @@ label span {
   position: relative;
 }
 
-.category::before {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background-color: #dfe2ea;
-  border-radius: 8px 8px 0 0;
-  opacity: 0;
-  transition: 0.3s;
-}
-
-.category:hover::before {
-  opacity: 1;
-  bottom: 0;
-}
-
 .category:hover {
   color: #333;
 }
 
 .selected {
   transition: 0.3s all ease;
-  color: #24a0ed;
+  color: rgb(88, 141, 120);
   padding: 20px;
   margin: 0 6px;
   z-index: 2;

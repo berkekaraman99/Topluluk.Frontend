@@ -37,11 +37,11 @@
                   <div class="d-flex align-items-center">
                     <div
                       :style="{
-                        'background-image': 'url(' + user.profileImage + ')',
+                        'background-image': `url(${user.profileImage})`,
                       }"
                       alt="profile image"
                       class="post-profile-image me-4"
-                      v-if="user.profileImage"
+                      v-if="user.profileImage != null"
                     ></div>
                     <img
                       src="@/assets/images/profile-man.png"

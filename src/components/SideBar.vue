@@ -1,7 +1,7 @@
 <template>
   <div
     id="sidebar"
-    class="col-md-12 col-lg-2 mb-4 mb-md-4 mb-lg-0 d-flex align-items-start justify-content-start flex-column flex-sm-row flex-lg-column shadow-sm"
+    class="col-md-12 col-lg-2 mb-4 mb-md-4 mb-lg-0 d-flex align-items-start justify-content-start flex-column flex-sm-row flex-lg-column"
   >
     <RouterLink
       :to="{ name: 'home' }"
@@ -34,12 +34,6 @@
 <script setup lang="ts"></script>
 
 <style scoped lang="scss">
-a.router-link-exact-active {
-  color: dodgerblue;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid dodgerblue;
-}
-
 #sidebar {
   border-radius: 12px;
   padding: 11px 8px;
@@ -56,6 +50,7 @@ a.router-link-exact-active {
   padding: 0px 12px;
   margin: 3px 0px;
   border: 1px solid white;
+  box-shadow: 1px 1px 7px -5px black;
 
   &:hover {
     background-color: rgb(245, 245, 245);
@@ -64,5 +59,11 @@ a.router-link-exact-active {
   span {
     margin-left: 6px;
   }
+}
+
+a.router-link-exact-active {
+  color: var(--color-primary);
+  background-color: rgb(255, 255, 255);
+  border: 1px solid var(--color-primary);
 }
 </style>

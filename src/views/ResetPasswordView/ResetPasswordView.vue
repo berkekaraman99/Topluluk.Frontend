@@ -9,14 +9,15 @@
           <FormKit
             type="multi-step"
             tab-style="progress"
-            :hide-progress-labels="false"
-            :allow-incomplete="true"
+            :hide-progress-labels="true"
+            :allow-incomplete="false"
             :classes="{
               outer: 'mx-auto',
               wrapper: 'mx-auto',
             }"
           >
             <FormKit type="step" name="Enter email">
+              <h4 class="fw-bold mb-3">Enter your Email</h4>
               <FormKit
                 type="email"
                 label="Email"
@@ -27,9 +28,10 @@
             </FormKit>
 
             <FormKit type="step" name="Code sending method">
+              <h4 class="fw-bold mb-3">Choose where to send the code</h4>
               <FormKit
                 type="radio"
-                label="Choose where to send the code"
+                label=""
                 :options="[
                   { label: 'Email', value: 'email' },
                   { label: 'SMS', value: 'sms' },
@@ -56,7 +58,7 @@
             </FormKit>
             <FormKit type="step" name="Enter code">
               <h5 class="formkit-label">Enter your code here</h5>
-              <div class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center mb-3">
                 <input
                   type="number"
                   min="0"
@@ -118,6 +120,10 @@
                   v-model="codes[5]"
                 />
               </div>
+
+              <FormKit type="button" :disabled="codeSended" @click="sendCode">
+                Resend Code
+              </FormKit>
               <template #stepNext="{ handlers, node }">
                 <FormKit
                   type="button"
@@ -196,6 +202,7 @@ import { reactive, ref } from "vue";
 import { useAuthStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
+import moment from "moment";
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -234,6 +241,18 @@ const resetPasswordRequest = async () => {
   }
 };
 
+let a = moment.duration(2, "minutes");
+const b = moment.duration(1, "seconds");
+
+const codeSended = ref(false);
+const sendCode = () => {
+  codeSended.value = !codeSended.value;
+  a = moment.duration(2, "minutes");
+  setInterval(() => {
+    a.subtract(b);
+  }, 1000);
+};
+
 const checkCode = async (mail: string, code: string) => {
   await authStore.checkOTPCode(mail, code);
 };
@@ -267,6 +286,7 @@ input[type="number"] {
   border: 2px solid rgb(216, 216, 216);
   outline: none;
   font-size: 1.5rem;
+  box-shadow: 0px 2px 10px -5px black;
 
   &:not(:placeholder-shown) {
     border-color: palevioletred;
@@ -283,6 +303,12 @@ input[type="number"] {
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  @media screen and (max-width: 414px) {
+    & {
+      margin: 24px 2px;
+    }
   }
 }
 

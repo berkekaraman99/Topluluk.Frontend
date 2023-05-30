@@ -291,9 +291,9 @@ onUnmounted(() => {
 }
 
 .selected {
-  color: dodgerblue;
+  color: rgb(88, 141, 120);
   background-color: rgb(255, 255, 255);
-  border: 1px solid dodgerblue;
+  border: 1px solid rgb(88, 141, 120);
 }
 
 #eventAction {

@@ -2,7 +2,9 @@
   <LoadingSpinner v-if="loading" />
   <div class="container my-3" v-else-if="post">
     <div class="row">
-      <div class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 my-4">
+      <div
+        class="col-12 offset-0 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 my-4"
+      >
         <div class="card shadow-sm">
           <div class="card-header py-3">
             <div class="d-flex justify-content-between">
@@ -63,7 +65,7 @@
                 </div>
               </div>
               <button
-                class="carousel-control-prev"
+                class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y"
                 type="button"
                 :data-bs-target="`#carousel${post.id}`"
                 data-bs-slide="prev"
@@ -73,7 +75,7 @@
                 <span class="visually-hidden">Previous</span>
               </button>
               <button
-                class="carousel-control-next"
+                class="carousel-control-next position-absolute top-50 end-0 translate-middle-y"
                 type="button"
                 :data-bs-target="`#carousel${post.id}`"
                 data-bs-slide="next"
@@ -361,19 +363,21 @@
     </div>
 
     <div class="row">
-      <div class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 my-4">
+      <div
+        class="col-12 offset-0 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 my-4"
+      >
         <div class="card shadow-sm">
           <div class="card-header"><h1>Your comment</h1></div>
           <div class="card-body">
             <div class="d-flex align-items-center mb-3">
-              <div
-                class="post-profile-image px-4 me-3"
-                :style="{
-                  'background-image': 'url(' + user.profileImage + ')',
-                  'background-color': 'grey',
-                }"
-                v-if="user.profileImage != null"
-              ></div>
+              <div v-if="user.profileImage != null">
+                <div
+                  class="post-profile-image me-3 shadow-sm"
+                  :style="{
+                    'background-image': `url(${user.profileImage})`,
+                  }"
+                ></div>
+              </div>
               <img
                 src="@/assets/images/profile-man.png"
                 alt="profile-man"

@@ -13,7 +13,10 @@
         :data-index="index"
       >
         <RouterLink
-          :to="{ name: 'communitydetails', params: { id: community.id } }"
+          :to="{
+            name: 'communitydetails',
+            params: { id: community.id, name: community.title },
+          }"
           class="text-decoration-none text-dark"
         >
           <div class="container shadow mb-5 rounded-3">

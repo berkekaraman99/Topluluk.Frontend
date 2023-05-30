@@ -123,7 +123,7 @@ const updateProfile = async () => {
     email: userObject.email,
     birthdayDate: userObject.birthdayDate,
     gender: Number(userObject.gender),
-    title: user.value.title,
+    title: userObject.title,
   };
   changeLoadingState();
   await userStore.updateProfile(updateProfileModel).then(() => {

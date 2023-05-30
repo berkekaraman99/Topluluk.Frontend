@@ -34,11 +34,6 @@
               </small>
             </div>
           </div>
-          <!-- <div v-if="post.userId != user.id">
-            <a href="#" class="text-decoration-none">{{
-              post.isFollowing ? null : "+ Follow"
-            }}</a>
-          </div> -->
           <div class="delete" v-if="post.userId === user.id">
             <img
               src="@/assets/images/ic_delete.png"
@@ -83,7 +78,7 @@
             </div>
           </div>
           <button
-            class="carousel-control-prev"
+            class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y"
             type="button"
             :data-bs-target="`#carousel${post.id}`"
             data-bs-slide="prev"
@@ -93,7 +88,7 @@
             <span class="visually-hidden">Previous</span>
           </button>
           <button
-            class="carousel-control-next"
+            class="carousel-control-next position-absolute top-50 end-0 translate-middle-y"
             type="button"
             :data-bs-target="`#carousel${post.id}`"
             data-bs-slide="next"
@@ -159,221 +154,12 @@
           </span>
         </div>
         <div class="container">
-          <div class="row">
-            <div class="col-sm-6 col-md-3 text-center my-1 dropup-center">
-              <div
-                id="interactions"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
-              >
-                <div v-if="post.isInteracted == null">
-                  <i class="fa-regular fa-face-smile fa-lg my-3"></i>
-                  Interact
-                </div>
-                <div v-else-if="post.isInteracted.interaction === 0">
-                  <img
-                    src="@/assets/images/interactions/ic_like.png"
-                    alt="Like"
-                    height="32"
-                  />
-                  <div>Like</div>
-                </div>
-                <div v-else-if="post.isInteracted.interaction === 1">
-                  <img
-                    src="@/assets/images/interactions/ic_celebrate.png"
-                    alt="Like"
-                    height="32"
-                  />
-                  <div>Celebrate</div>
-                </div>
-                <div v-else-if="post.isInteracted.interaction === 2">
-                  <img
-                    src="@/assets/images/interactions/ic_support.png"
-                    alt="Like"
-                    height="32"
-                  />
-                  <div>Support</div>
-                </div>
-                <div v-else-if="post.isInteracted.interaction === 3">
-                  <img
-                    src="@/assets/images/interactions/ic_insight.png"
-                    alt="Like"
-                    height="32"
-                  />
-                  <div>Insightfull</div>
-                </div>
-                <div v-else-if="post.isInteracted.interaction === 4">
-                  <img
-                    src="@/assets/images/interactions/ic_dislike.png"
-                    alt="Like"
-                    height="32"
-                  />
-                  <div>Dislike</div>
-                </div>
-              </div>
-              <ul
-                class="dropdown-menu shadow border-2 border-black horizontal p-0"
-              >
-                <li>
-                  <a
-                    class="dropdown-item py-3"
-                    :class="{
-                      'bg-primary text-white':
-                        post.isInteracted == null
-                          ? false
-                          : post.isInteracted.interaction === 0,
-                    }"
-                    @click="
-                      post.isInteracted == null
-                        ? interactPost({
-                            type: 0,
-                            post,
-                          })
-                        : removeInteraction(post)
-                    "
-                    ><img
-                      src="@/assets/images/interactions/ic_like.png"
-                      alt="Like"
-                      height="32"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item py-3"
-                    :class="{
-                      'bg-primary text-white':
-                        post.isInteracted == null
-                          ? false
-                          : post.isInteracted.interaction === 1,
-                    }"
-                    @click="
-                      post.isInteracted == null
-                        ? interactPost({
-                            type: 1,
-                            post,
-                          })
-                        : removeInteraction(post)
-                    "
-                    ><img
-                      src="@/assets/images/interactions/ic_celebrate.png"
-                      alt="Celebrate"
-                      height="32"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item py-3"
-                    :class="{
-                      'bg-primary text-white':
-                        post.isInteracted == null
-                          ? false
-                          : post.isInteracted.interaction === 2,
-                    }"
-                    @click="
-                      post.isInteracted == null
-                        ? interactPost({
-                            type: 2,
-                            post,
-                          })
-                        : removeInteraction(post)
-                    "
-                    ><img
-                      src="@/assets/images/interactions/ic_support.png"
-                      alt="Support"
-                      height="32"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item py-3"
-                    :class="{
-                      'bg-primary text-white':
-                        post.isInteracted == null
-                          ? false
-                          : post.isInteracted.interaction === 3,
-                    }"
-                    @click="
-                      post.isInteracted == null
-                        ? interactPost({
-                            type: 3,
-                            post,
-                          })
-                        : removeInteraction(post)
-                    "
-                    ><img
-                      src="@/assets/images/interactions/ic_insight.png"
-                      alt="Insightfull"
-                      height="32"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item py-3"
-                    :class="{
-                      'bg-primary text-white':
-                        post.isInteracted == null
-                          ? false
-                          : post.isInteracted.interaction === 4,
-                    }"
-                    @click="
-                      post.isInteracted == null
-                        ? interactPost({
-                            type: 4,
-                            post,
-                          })
-                        : removeInteraction(post)
-                    "
-                    ><img
-                      src="@/assets/images/interactions/ic_dislike.png"
-                      alt="Dislike"
-                      height="32"
-                  /></a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-sm-6 col-md-3 text-center my-1">
-              <RouterLink
-                :to="{ name: 'postcomments', params: { id: post.id } }"
-                class="text-decoration-none text-black"
-              >
-                <div
-                  id="comments"
-                  class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
-                >
-                  <i class="fa-regular fa-message fa-lg my-3"></i>
-                  {{ post.commentCount }} Comments
-                </div>
-              </RouterLink>
-            </div>
-            <div class="col-sm-6 col-md-3 text-center my-1">
-              <div
-                id="share"
-                class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
-              >
-                <i class="fa-regular fa-paper-plane fa-lg my-3"></i>
-                Share
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3 text-center my-1">
-              <div
-                v-if="post.isSaved"
-                id="save"
-                class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
-              >
-                <i class="fa-solid fa-bookmark fa-lg my-3"></i> Saved
-              </div>
-              <div
-                v-else
-                @click="savePost(post)"
-                id="save"
-                class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
-              >
-                <i class="fa-regular fa-bookmark fa-lg my-3"></i>
-                Save
-              </div>
-            </div>
-          </div>
+          <PostActions
+            :post="post"
+            @interact-post="interactPost"
+            @remove-interaction="removeInteraction"
+            @save-post="savePost"
+          />
         </div>
       </div>
     </div>
@@ -386,6 +172,7 @@ import moment from "moment";
 import { usePostStore } from "@/store/post";
 import { useAuthStore } from "@/store/auth";
 import { storeToRefs } from "pinia";
+import PostActions from "./PostActions.vue";
 
 const props = defineProps({
   post: {

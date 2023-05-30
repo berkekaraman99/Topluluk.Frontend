@@ -196,7 +196,7 @@
                 />
                 <label for="radio-1">
                   <span
-                    class="fw-bold fs-5 px-2 py-1"
+                    class="fw-bold fs-5 px-2 py-1 category"
                     :class="{ selected: category === 'activities' }"
                     id="activities"
                     @click="changeCategory('activities')"
@@ -216,7 +216,7 @@
                 />
                 <label for="radio-2">
                   <span
-                    class="fw-bold fs-5 px-2 py-1"
+                    class="fw-bold fs-5 px-2 py-1 category"
                     :class="{ selected: category === 'posts' }"
                     id="posts"
                     @click="changeCategory('posts')"
@@ -236,7 +236,7 @@
                 />
                 <label for="radio-3">
                   <span
-                    class="fw-bold fs-5 px-2 py-1"
+                    class="fw-bold fs-5 px-2 py-1 category"
                     :class="{ selected: category === 'events' }"
                     id="events"
                     @click="changeCategory('events')"
@@ -256,7 +256,7 @@
                 />
                 <label for="radio-4">
                   <span
-                    class="fw-bold fs-5 px-2 py-1"
+                    class="fw-bold fs-5 px-2 py-1 category"
                     :class="{ selected: category === 'communities' }"
                     id="communities"
                     @click="changeCategory('communities')"
@@ -371,10 +371,26 @@ onBeforeUnmount(() => {
   background-color: #1b74ac;
 }
 
+.category {
+  transition: 0.3s;
+  color: #83818c;
+  padding: 20px;
+  margin: 0 6px;
+  z-index: 1;
+  position: relative;
+}
+
+.category:hover {
+  color: #333;
+}
+
 .selected {
-  border-bottom: 1px solid #24a0ed;
-  transition: 0.4s all ease;
-  color: #24a0ed;
+  transition: 0.3s all ease;
+  color: rgb(88, 141, 120);
+  padding: 20px;
+  margin: 0 6px;
+  z-index: 2;
+  position: relative;
 }
 
 .radio {

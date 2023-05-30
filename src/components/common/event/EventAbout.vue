@@ -50,35 +50,6 @@
         <div
           class="col-12 col-md-12 col-lg-6 d-flex align-items-end justify-content-end flex-column"
         >
-          <div
-            id="eventAction"
-            class="card-footer fw-bold pointer p-0 m-0"
-            v-if="currentEvent.userId !== user.id"
-          >
-            <button
-              class="btn btn-secondary w-100 h-100"
-              v-if="processing"
-              disabled
-            >
-              <div class="spinner-border text-info" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </button>
-            <button
-              class="btn btn-success w-100 h-100"
-              v-else-if="!currentEvent.isAttendeed"
-              @click="joinEvent(currentEvent)"
-            >
-              Join Event
-            </button>
-            <button
-              class="btn btn-danger w-100 h-100"
-              v-else-if="currentEvent.userId !== user.id"
-              @click="leaveEvent(currentEvent)"
-            >
-              Leave Event
-            </button>
-          </div>
           <div class="fw-bold text-end">Event Owner</div>
           <div class="d-flex align-items-center justify-content-end my-3">
             <div class="mx-3">
@@ -91,6 +62,35 @@
               }"
             ></div>
           </div>
+        </div>
+        <div
+          id="eventAction"
+          class="card-footer fw-bold pointer p-0 m-0 mt-3"
+          v-if="currentEvent.userId !== user.id"
+        >
+          <button
+            class="btn btn-secondary w-100 h-100"
+            v-if="processing"
+            disabled
+          >
+            <div class="spinner-border text-info" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </button>
+          <button
+            class="btn btn-success w-100 h-100"
+            v-else-if="!currentEvent.isAttendeed"
+            @click="joinEvent(currentEvent)"
+          >
+            Join Event
+          </button>
+          <button
+            class="btn btn-danger w-100 h-100"
+            v-else-if="currentEvent.userId !== user.id"
+            @click="leaveEvent(currentEvent)"
+          >
+            Leave Event
+          </button>
         </div>
       </div>
     </div>

@@ -1,3 +1,7 @@
+:root {
+  --color-primary: rgb(88, 141, 120);
+}
+
 .card-footer,
 .card-header {
   background-color: white;
@@ -66,8 +70,7 @@
 
 #save:hover {
   transition: 0.3s ease;
-  background-color: green;
-  color: white;
+  background-color: rgb(243, 243, 243);
 }
 
 #save:active {
@@ -83,8 +86,7 @@
 
 #share:hover {
   transition: 0.3s ease;
-  background-color: rgb(0, 153, 213);
-  color: white;
+  background-color: rgb(243, 243, 243);
 }
 
 #share:active {
@@ -100,8 +102,7 @@
 
 #comments:hover {
   transition: 0.3s ease;
-  background-color: rgb(0, 153, 213);
-  color: white;
+  background-color: rgb(243, 243, 243);
 }
 
 #comments:active {
@@ -117,8 +118,7 @@
 
 #interactions:hover {
   transition: 0.3s ease;
-  background-color: rgb(0, 153, 213);
-  color: white;
+  background-color: rgb(243, 243, 243);
 }
 
 #interactions:active {
