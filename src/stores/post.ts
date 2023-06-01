@@ -1,10 +1,11 @@
+import type IPost from "@/models/post-model";
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
 
 export const usePostStore = defineStore("postStore", {
   state: () => ({
     feed: [] as Array<any>,
-    userPosts: [],
+    userPosts: [] as Array<IPost>,
     savedPosts: [],
     post: {},
     postComments: [],

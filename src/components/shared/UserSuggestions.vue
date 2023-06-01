@@ -1,12 +1,8 @@
 <template>
   <div class="">
     <div class="card rounded-3" id="suggestions" v-if="!loading">
-      <div
-        class="card-header p-0 d-flex align-items-center justify-content-around"
-      >
-        <i class="fa-solid fa-chevron-left"></i>
+      <div class="card-header p-0">
         <h4 class="fw-bold my-3 text-center">Suggestions</h4>
-        <i class="fa-solid fa-chevron-right"></i>
       </div>
       <div class="card-body py-0 px-1">
         <ul class="list-unstyled">

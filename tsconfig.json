@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "useUnknownInCatchVariables": false,
+    "useUnknownInCatchVariables": true,
     "verbatimModuleSyntax": true,
     "esModuleInterop": true,
     "target": "ESNext",

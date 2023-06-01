@@ -136,7 +136,7 @@ export const useAuthStore = defineStore("authStore", {
         const getUserAfterLogin = await instance.get("/User/GetUserAfterLogin");
         this.user = getUserAfterLogin.data.data;
       }
-      console.log(this.user);
+      // console.log(this.user);
     },
 
     async getUserAfterLogin() {

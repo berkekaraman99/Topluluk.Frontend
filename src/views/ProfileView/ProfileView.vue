@@ -89,6 +89,16 @@
                     </h3>
                     Communities
                   </div>
+                  <div
+                    class="me-3 pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#followerRequests"
+                  >
+                    <h3 class="fw-bold d-inline-block">
+                      {{ followersRequests.length }}
+                    </h3>
+                    FollowerRequests
+                  </div>
                 </div>
                 <p v-if="user.bio != null">{{ currentUser.bio }}</p>
               </div>
@@ -100,6 +110,9 @@
 
           <!-- Followings Modal -->
           <FollowingsModal :id="userId" />
+
+          <!-- Follower Requests Modal -->
+          <FollowerRequestsModal :id="userId" />
         </div>
         <div class="col-lg-4 col-xl-3 d-none d-sm-none d-lg-block">
           <UserSuggestions v-if="sidebar === 'suggestions'" />
@@ -259,13 +272,13 @@ import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/user";
 import UserFollowRequests from "@/components/shared/UserFollowRequests.vue";
+import FollowerRequestsModal from "@/components/shared/FollowerRequestsModal.vue";
 
 const authStore = useAuthStore();
 const { _user: user } = storeToRefs(authStore);
 const userId = user.value.id;
 
 const userStore = useUserStore();
-userStore.getFollowersRequests(userId);
 
 const category = ref("activities");
 const loading = ref(true);

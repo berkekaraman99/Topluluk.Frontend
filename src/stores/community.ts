@@ -1,9 +1,10 @@
+import type ICommunity from "@/models/community-model";
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
 
 export const useCommunityStore = defineStore("communityStore", {
   state: () => ({
-    community: {},
+    community: {} as ICommunity,
     communityList: [],
     userCommunities: [],
     participiants: [],

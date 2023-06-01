@@ -1,16 +1,17 @@
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
 import { useAuthStore } from "./auth";
+import type IUser from "@/models/user-model";
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({
-    currentUser: {},
-    userFollowings: [],
-    searchedUserFollowings: [],
-    userFollowers: [],
-    userFollowersRequests: [],
-    userSuggestions: [],
-    statusCode: 0 as number,
+    currentUser: {} as IUser,
+    userFollowings: [] as Array<any>,
+    searchedUserFollowings: [] as Array<any>,
+    userFollowers: [] as Array<any>,
+    userFollowersRequests: [] as Array<any>,
+    userSuggestions: [] as Array<any>,
+    statusCode: 0 as Number,
   }),
   getters: {
     _currentUser: (state: any) => state.currentUser,
@@ -126,7 +127,19 @@ export const useUserStore = defineStore("userStore", {
 
     //ACCEPT FOLLOW REQUEST
     async acceptFollowRequest(targetId: string) {
-      const res = await instance.post(`/User/accept-request/${targetId}`);
+      const res = await instance.post(
+        `/User/accept-follow-request/${targetId}`
+      );
+      this.statusCode = res.data.statusCode;
+      console.log(res.data);
+    },
+
+    //DECLINE FOLLOW REQUEST
+    async declineFollowRequest(targetId: string) {
+      const res = await instance.post(
+        `/user/decline-follow-request/${targetId}`
+      );
+      this.statusCode = res.data.statusCode;
       console.log(res.data);
     },
 
