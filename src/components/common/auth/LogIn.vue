@@ -12,7 +12,7 @@
     :content="content"
   />
   <div
-    class="container-fluid d-flex justify-content-center overflow-auto h-100"
+    class="container-fluid d-flex align-items-center justify-content-center overflow-auto h-100"
   >
     <div class="row w-100 align-items-center mx-3">
       <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
@@ -130,7 +130,7 @@ import { reactive, ref } from "vue";
 import type ILogInModel from "@/models/login-model";
 import ToastSuccess from "@/components/shared/ToastSuccess.vue";
 import ToastDanger from "@/components/shared/ToastDanger.vue";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 

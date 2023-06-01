@@ -164,9 +164,9 @@
 import { ref, type Ref, onBeforeUnmount } from "vue";
 import CommunityAbout from "@/components/common/community/CommunityAbout.vue";
 import CommunityParticipiants from "@/components/common/community/CommunityParticipiants.vue";
-import { useCommunityStore } from "@/store/community";
+import { useCommunityStore } from "@/stores/community";
 import { storeToRefs } from "pinia";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import CommunitySettings from "@/components/common/community/CommunitySettings.vue";
 

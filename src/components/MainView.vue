@@ -40,7 +40,7 @@
           :is="Component"
           :key="route.path"
           style="overflow: hidden"
-          class="scrollable-panel mx-1"
+          class="scrollable-panel"
         />
       </Transition>
     </RouterView>
@@ -93,5 +93,6 @@ const route = useRoute();
   //   margin-top: 176px !important;
   // }
   min-height: 240px;
+  align-items: center;
 }
 </style>

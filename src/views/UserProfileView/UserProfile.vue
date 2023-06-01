@@ -290,8 +290,8 @@ import UserPosts from "@/components/common/userprofile/UserPosts.vue";
 import FollowingsModal from "@/components/shared/FollowingsModal.vue";
 import FollowersModal from "@/components/shared/FollowersModal.vue";
 import UserEvents from "@/components/common/userprofile/UserEvents.vue";
-import { useUserStore } from "@/store/user";
-import { useAuthStore } from "@/store/auth";
+import { useUserStore } from "@/stores/user";
+import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 
 const props = defineProps({

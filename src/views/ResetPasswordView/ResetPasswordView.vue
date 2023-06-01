@@ -199,7 +199,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import moment from "moment";

@@ -203,9 +203,9 @@
 <script setup lang="ts">
 import { ref, onUnmounted } from "vue";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
-import { useEventStore } from "@/store/event";
+import { useEventStore } from "@/stores/event";
 import { storeToRefs } from "pinia";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import EventAbout from "@/components/common/event/EventAbout.vue";
 import EventAttendees from "@/components/common/event/EventAttendees.vue";
 import EventComments from "@/components/common/event/EventComments.vue";

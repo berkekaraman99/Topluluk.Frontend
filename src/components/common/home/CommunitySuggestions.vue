@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { useCommunityStore } from "@/store/community";
+import { useCommunityStore } from "@/stores/community";
 import { storeToRefs } from "pinia";
 
 const communityStore = useCommunityStore();

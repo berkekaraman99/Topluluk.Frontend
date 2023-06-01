@@ -156,7 +156,7 @@
 import { reactive, ref, onBeforeUnmount } from "vue";
 import type ICreateEventModel from "../../models/create_event_model";
 import router from "@/router";
-import { useEventStore } from "@/store/event";
+import { useEventStore } from "@/stores/event";
 import { storeToRefs } from "pinia";
 
 const eventStore = useEventStore();

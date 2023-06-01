@@ -95,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@/store/user";
+import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
 
 const handleIconClick = (node: any, e: any) => {

@@ -68,7 +68,7 @@
 import { ref } from "vue";
 import gsap from "gsap";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
-import { useCommunityStore } from "@/store/community";
+import { useCommunityStore } from "@/stores/community";
 import { storeToRefs } from "pinia";
 
 const beforeEnterCommunity: any = (el: HTMLElement) => {

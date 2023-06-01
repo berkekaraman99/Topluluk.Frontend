@@ -149,7 +149,7 @@ import type ISignUpModel from "@/models/signup-model";
 import ToastSuccess from "@/components/shared/ToastSuccess.vue";
 import ToastDanger from "@/components/shared/ToastDanger.vue";
 import { storeToRefs } from "pinia";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 
 const isAccepted = ref(false);
 const authStore = useAuthStore();

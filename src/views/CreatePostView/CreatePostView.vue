@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePostStore } from "@/store/post";
+import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
 import { reactive, ref, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";

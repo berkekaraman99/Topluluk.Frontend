@@ -139,8 +139,8 @@
 
 <script setup lang="ts">
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
-import { useAuthStore } from "@/store/auth";
-import { useUserStore } from "@/store/user";
+import { useAuthStore } from "@/stores/auth";
+import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import ChangePassword from "@/components/common/settings/ChangePassword.vue";

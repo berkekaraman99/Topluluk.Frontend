@@ -28,7 +28,7 @@ import { ref } from "vue";
 import gsap from "gsap";
 import PostComponentProfile from "@/components/shared/PostComponentProfile.vue";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
-import { usePostStore } from "@/store/post";
+import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
 
 const props = defineProps({

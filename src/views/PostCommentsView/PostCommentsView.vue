@@ -492,9 +492,9 @@ import { ref, onBeforeUnmount } from "vue";
 import gsap from "gsap";
 import moment from "moment";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
-import { usePostStore } from "@/store/post";
+import { usePostStore } from "@/stores/post";
 
 const props = defineProps({
   id: {

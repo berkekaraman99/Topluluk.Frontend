@@ -1,5 +1,5 @@
-import type LogInModel from "@/models/login-model";
-import type SignUpModel from "@/models/signup-model";
+import type LogInModel from "../models/login-model";
+import type SignUpModel from "../models/signup-model";
 import { instance, auth_instance } from "./network_manager";
 import { defineStore } from "pinia";
 

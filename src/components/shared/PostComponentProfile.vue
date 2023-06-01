@@ -169,8 +169,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import moment from "moment";
-import { usePostStore } from "@/store/post";
-import { useAuthStore } from "@/store/auth";
+import { usePostStore } from "@/stores/post";
+import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import PostActions from "./PostActions.vue";
 

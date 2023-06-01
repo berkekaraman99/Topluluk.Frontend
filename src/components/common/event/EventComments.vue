@@ -119,8 +119,8 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "@/store/auth";
-import { useEventStore } from "@/store/event";
+import { useAuthStore } from "@/stores/auth";
+import { useEventStore } from "@/stores/event";
 import { storeToRefs } from "pinia";
 import { onBeforeUnmount, ref } from "vue";
 

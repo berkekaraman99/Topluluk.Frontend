@@ -165,9 +165,9 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
-import { useUserStore } from "@/store/user";
+import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
 const authStore = useAuthStore();

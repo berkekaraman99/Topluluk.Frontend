@@ -77,9 +77,9 @@
 import { ref } from "vue";
 import gsap from "gsap";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
-import { useCommunityStore } from "@/store/community";
+import { useCommunityStore } from "@/stores/community";
 
 const beforeEnterCommunity: any = (el: HTMLElement) => {
   el.style.opacity = "0";

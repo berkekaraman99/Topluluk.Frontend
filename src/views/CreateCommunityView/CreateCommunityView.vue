@@ -45,6 +45,22 @@
               validation="required"
               v-model="communityObject.Location"
             />
+            <FormKit
+              type="select"
+              label="Where would you prefer to live?"
+              name="planet"
+              v-model="communityObject.Location"
+            >
+              <optgroup label="Inner Planets">
+                <option
+                  v-for="location in locationInfo"
+                  :key="location.ilce"
+                  :value="location.il + location.ilce"
+                >
+                  {{ location.ilce }}
+                </option>
+              </optgroup>
+            </FormKit>
           </FormKit>
 
           <FormKit type="step">
@@ -110,12 +126,17 @@
 </template>
 
 <script setup lang="ts">
+import data from "@/data/location-data.json";
 import { reactive, ref, onBeforeUnmount } from "vue";
 import type ICreateCommunityModel from "../../models/create_community_model";
 import router from "@/router";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
-import { useCommunityStore } from "@/store/community";
+import { useCommunityStore } from "@/stores/community";
+import ILocation from "@/models/location-model";
+
+console.log(data);
+const locationInfo: Array<ILocation> = data;
 
 const authStore = useAuthStore();
 const { _user: user } = storeToRefs(authStore);

@@ -14,7 +14,7 @@
 import { ref } from "vue";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import PostComponentFeed from "@/components/shared/PostComponentFeed.vue";
-import { usePostStore } from "@/store/post";
+import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
 
 const postStore = usePostStore();

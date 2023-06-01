@@ -12,12 +12,11 @@ import "@formkit/themes/genesis";
 import "@formkit/addons/css/multistep";
 import "./assets/css/normalize.css";
 import "./assets/css/main.css";
-import { useAuthStore } from "./store/auth";
+import { useAuthStore } from "./stores/auth";
 
-const pinia = createPinia();
 const app = createApp(App);
 
-app.use(pinia);
+app.use(createPinia());
 app.use(router);
 app.use(
   formKitPlugin,

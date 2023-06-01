@@ -170,7 +170,7 @@
 
 <script setup lang="ts">
 import moment from "moment";
-import { usePostStore } from "@/store/post";
+import { usePostStore } from "@/stores/post";
 import PostActions from "./PostActions.vue";
 
 const props = defineProps({

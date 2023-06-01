@@ -32,7 +32,7 @@ import { onBeforeUnmount, ref } from "vue";
 import gsap from "gsap";
 import PostComponentFeed from "@/components/shared/PostComponentFeed.vue";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
-import { usePostStore } from "@/store/post";
+import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
 
 const beforeEnterFeed: any = (el: HTMLElement) => {

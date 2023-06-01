@@ -82,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@/store/user";
+import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";

@@ -87,8 +87,8 @@ import { ref } from "vue";
 import gsap from "gsap";
 import moment from "moment";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
-import { useAuthStore } from "@/store/auth";
-import { useEventStore } from "@/store/event";
+import { useAuthStore } from "@/stores/auth";
+import { useEventStore } from "@/stores/event";
 import { storeToRefs } from "pinia";
 
 const beforeEnterEvent: any = (el: HTMLElement) => {

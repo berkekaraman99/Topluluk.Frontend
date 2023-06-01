@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { instance } from "@/store/network_manager";
+import { instance } from "./network_manager";
 
 export const useSearchStore = defineStore("searchStore", {
   state: () => ({

@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { useEventStore } from "@/store/event";
+import { useEventStore } from "@/stores/event";
 import { storeToRefs } from "pinia";
 import { onBeforeUnmount, ref } from "vue";
 import { useRouter } from "vue-router";

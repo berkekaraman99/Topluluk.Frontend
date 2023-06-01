@@ -87,7 +87,7 @@ import { ref } from "vue";
 import gsap from "gsap";
 import moment from "moment";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
-import { useEventStore } from "@/store/event";
+import { useEventStore } from "@/stores/event";
 import { storeToRefs } from "pinia";
 
 const props = defineProps({

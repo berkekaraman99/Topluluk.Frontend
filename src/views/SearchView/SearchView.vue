@@ -80,7 +80,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { reactive } from "vue";
-import { useSearchStore } from "@/store/search";
+import { useSearchStore } from "@/stores/search";
 import gsap from "gsap";
 
 const beforeEnterTitle: any = (el: HTMLElement) => {

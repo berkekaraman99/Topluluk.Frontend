@@ -27,28 +27,28 @@
             <div
               class="profile-banner rounded-top-4"
               :style="{
-                'background-image': `url(${user.bannerImage})`,
+                'background-image': `url(${currentUser.bannerImage})`,
                 'background-color': 'grey',
               }"
             ></div>
             <div
               class="profile-image shadow"
               :style="{
-                'background-image': `url(${user.profileImage})`,
+                'background-image': `url(${currentUser.profileImage})`,
               }"
-              v-if="user.profileImage != null"
+              v-if="currentUser.profileImage != null"
             ></div>
             <img
               src="@/assets/images/profile-man.png"
               alt="profile-man"
               class="profile-image me-4"
-              v-else-if="user.gender == 2"
+              v-else-if="currentUser.gender == 2"
             />
             <img
               src="@/assets/images/profile-woman.png"
               alt="profile-woman"
               class="profile-image me-4"
-              v-else-if="user.gender == 1"
+              v-else-if="currentUser.gender == 1"
             />
             <img
               src="@/assets/images/user.png"
@@ -59,9 +59,9 @@
             <div class="profile-details">
               <div>
                 <h2 class="fw-bold">
-                  {{ user.firstName }} {{ user.lastName }}
+                  {{ currentUser.firstName }} {{ currentUser.lastName }}
                 </h2>
-                <h5 class="fw-normal">@{{ user.userName }}</h5>
+                <h5 class="fw-normal">@{{ currentUser.userName }}</h5>
                 <div class="d-flex flex-column flex-sm-row">
                   <div
                     class="me-3 pointer"
@@ -69,7 +69,7 @@
                     data-bs-target="#followers"
                   >
                     <h3 class="fw-bold d-inline-block">
-                      {{ user.followersCount }}
+                      {{ currentUser.followersCount }}
                     </h3>
                     Followers
                   </div>
@@ -79,7 +79,7 @@
                     data-bs-target="#followings"
                   >
                     <h3 class="fw-bold d-inline-block">
-                      {{ user.followingsCount }}
+                      {{ currentUser.followingCount }}
                     </h3>
                     Followings
                   </div>
@@ -90,7 +90,7 @@
                     Communities
                   </div>
                 </div>
-                <p v-if="user.bio != null">{{ user.bio }}</p>
+                <p v-if="user.bio != null">{{ currentUser.bio }}</p>
               </div>
             </div>
           </div>
@@ -102,7 +102,8 @@
           <FollowingsModal :id="userId" />
         </div>
         <div class="col-lg-4 col-xl-3 d-none d-sm-none d-lg-block">
-          <UserSuggestions />
+          <UserSuggestions v-if="sidebar === 'suggestions'" />
+          <UserFollowRequests :user-id="userId" v-else />
         </div>
       </div>
 
@@ -254,9 +255,10 @@ import FollowersModal from "@/components/shared/FollowersModal.vue";
 import UserSuggestions from "@/components/shared/UserSuggestions.vue";
 import UserEvents from "@/components/common/profile/UserEvents.vue";
 import UserSavedPosts from "@/components/common/profile/UserSavedPosts.vue";
-import { useAuthStore } from "@/store/auth";
+import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
-import { useUserStore } from "@/store/user";
+import { useUserStore } from "@/stores/user";
+import UserFollowRequests from "@/components/shared/UserFollowRequests.vue";
 
 const authStore = useAuthStore();
 const { _user: user } = storeToRefs(authStore);
@@ -276,6 +278,8 @@ userStore.getUserById(user.value.id).then(changeLoadingState);
 const changeCategory = (tab: string) => {
   category.value = tab;
 };
+
+const sidebar = ref("suggestions");
 
 const { _currentUser: currentUser, _userFollowersRequests: followersRequests } =
   storeToRefs(userStore);
