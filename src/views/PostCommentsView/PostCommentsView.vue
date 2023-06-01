@@ -141,7 +141,7 @@
               </span>
             </div>
             <div class="container">
-              <div class="row">
+              <div class="row d-flex align-items-center justify-content-around">
                 <div class="col-sm-6 col-md-3 text-center my-1 dropup-center">
                   <div
                     id="interactions"
@@ -314,7 +314,7 @@
                     </li>
                   </ul>
                 </div>
-                <div class="col-sm-6 col-md-3 text-center my-1">
+                <!-- <div class="col-sm-6 col-md-3 text-center my-1">
                   <RouterLink
                     :to="{ name: 'postcomments', params: { id: post.id } }"
                     class="text-decoration-none text-black"
@@ -327,7 +327,7 @@
                       {{ post.commentCount }} Comments
                     </div>
                   </RouterLink>
-                </div>
+                </div> -->
                 <div class="col-sm-6 col-md-3 text-center my-1">
                   <div
                     id="share"
@@ -397,9 +397,9 @@
                 v-else
               />
               <textarea
-                class="form-control rounded-5 px-4"
+                class="form-control rounded-3 px-2"
                 id="message"
-                rows="2"
+                rows="4"
                 placeholder="Your message"
                 v-model="message"
               ></textarea>
@@ -632,5 +632,26 @@ onBeforeUnmount(() => {
 }
 .horizontal.dropdown-menu.show {
   display: flex;
+}
+
+#message {
+  width: 100%;
+  box-sizing: border-box;
+  direction: ltr;
+  display: block;
+  max-width: 100%;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  padding: 15px 15px 30px;
+  border-radius: 3px;
+  border: 1px solid #f7e98d;
+  font: 13px Tahoma, cursive;
+  transition: box-shadow 0.5s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(#f9efaf, #f7e98d);
+  background: -o-linear-gradient(#f9efaf, #f7e98d);
+  background: -ms-linear-gradient(#f9efaf, #f7e98d);
+  background: -moz-linear-gradient(#f9efaf, #f7e98d);
+  background: -webkit-linear-gradient(#f9efaf, #f7e98d);
 }
 </style>

@@ -18,7 +18,7 @@ const route = useRoute();
   />
 
   <!-- Main -->
-  <MainVue />
+  <MainVue class="d-flex flex-column flex-lg-row" />
 
   <!-- Footer -->
   <PageFooter

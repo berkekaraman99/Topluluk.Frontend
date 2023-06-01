@@ -1,6 +1,7 @@
 <template>
   <div
-    class="col-md-12 col-lg-3 mb-4 mb-md-4 mb-lg-0 d-none d-md-none d-lg-block my-2"
+    id="community-suggestions"
+    class="mb-4 mb-md-4 mb-lg-0 d-none d-md-none d-lg-flex flex-column my-2 position-fixed"
   >
     <p class="fw-bold text-start text-lg-center">Community Suggestions</p>
 
@@ -50,4 +51,10 @@ communityStore.getCommunities();
 const { _communityList: communityList } = storeToRefs(communityStore);
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+#community-suggestions {
+  @media screen and (min-width: 993px) {
+    width: 272px;
+  }
+}
+</style>

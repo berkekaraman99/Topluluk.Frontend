@@ -5,7 +5,7 @@
       style="width: 300px"
       v-if="showToast && statusCode === 200"
     >
-      <div class="card border-1 border-white shadow-lg">
+      <div class="card border-1 border-white shadow">
         <div class="card-header bg-success text-white">
           <div class="d-flex align-items-center justify-content-between">
             <strong>{{ header }}</strong>

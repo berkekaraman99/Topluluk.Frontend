@@ -54,7 +54,7 @@
             <div
               class="profile-banner rounded-top-4"
               :style="{
-                'background-image': 'url(' + currentUser.bannerImage + ')',
+                'background-image': `url(${currentUser.bannerImage})`,
                 'background-color': 'grey',
               }"
             ></div>

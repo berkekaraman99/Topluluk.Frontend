@@ -190,9 +190,7 @@ const handleSignUp = async () => {
       password: userObject.password,
       gender: Number(userObject.gender),
     };
-
     changeLoadingState();
-
     try {
       await authStore
         .signup(signUpObject)
@@ -210,10 +208,13 @@ const handleSignUp = async () => {
               "Email adresi kullanılmaktadır. Lütfen başka bir email adresi giriniz";
             handleToast();
           } else if (statusCode.value === 200) {
+            header.value = "Kayıt Başarılı";
+            content.value =
+              "Başarıyla kayıt oldunuz. Ana sayfaya yönlendiriliyorsunuz.";
             handleToast();
             setTimeout(() => {
-              router.push("/");
-            }, 3000);
+              router.push({ name: "home" });
+            }, 2500);
           }
         });
       console.log(userObject);

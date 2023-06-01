@@ -1,14 +1,14 @@
 <template>
   <Transition name="toast">
     <div
-      class="position-absolute end-0 bottom-0 m-3 shadow"
+      class="position-absolute end-0 bottom-0 m-3"
       style="width: 300px"
       v-if="
         showToast &&
         (statusCode === 10001 || statusCode === 10002 || statusCode === 10401)
       "
     >
-      <div class="card">
+      <div class="card border-1 border-white shadow">
         <div class="card-header bg-danger text-white">
           <div class="d-flex align-items-center justify-content-between">
             <strong>{{ header }}</strong>

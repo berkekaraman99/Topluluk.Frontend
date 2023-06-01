@@ -1,7 +1,7 @@
 <template>
   <div
     id="sidebar"
-    class="col-md-12 col-lg-2 mb-4 mb-md-4 mb-lg-0 d-flex align-items-start justify-content-start flex-column flex-sm-row flex-lg-column"
+    class="mb-4 mb-md-4 mb-lg-0 d-flex align-items-start justify-content-start flex-column flex-sm-row flex-lg-column"
   >
     <RouterLink
       :to="{ name: 'home' }"
@@ -31,7 +31,18 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// window.onscroll = () => {
+//   if (
+//     window.matchMedia("(max-width: 576px)").matches &&
+//     window.pageYOffset > 0
+//   ) {
+//     document.getElementById("sidebar").style.top = "-176px";
+//   } else {
+//     document.getElementById("sidebar").style.top = "60px";
+//   }
+// };
+</script>
 
 <style scoped lang="scss">
 #sidebar {
@@ -40,6 +51,18 @@
   height: fit-content;
   background-color: rgb(253, 253, 253);
   // transition: 0.3s ease;
+  z-index: 1;
+
+  @media screen and (max-width: 992px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 576px) {
+    top: 60px;
+  }
+  @media screen and (min-width: 993px) {
+    position: fixed;
+    width: 200px;
+  }
 }
 
 .nav-link {
@@ -65,5 +88,6 @@ a.router-link-exact-active {
   color: var(--color-primary);
   background-color: rgb(255, 255, 255);
   border: 1px solid var(--color-primary);
+  font-weight: bold;
 }
 </style>
