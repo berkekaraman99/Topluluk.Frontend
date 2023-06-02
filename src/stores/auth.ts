@@ -1,3 +1,4 @@
+import type { IAuthUser } from "@/models/auth_user_model";
 import type LogInModel from "../models/login-model";
 import type SignUpModel from "../models/signup-model";
 import { instance, auth_instance } from "./network_manager";
@@ -5,7 +6,7 @@ import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("authStore", {
   state: () => ({
-    user: null as null | object,
+    user: null as IAuthUser | null,
     userIsAuthorized: false as boolean,
     statusCode: 0 as number,
   }),

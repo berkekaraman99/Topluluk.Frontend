@@ -1,13 +1,14 @@
-import type IPost from "@/models/post-model";
+import type { IFeedPost } from "@/models/feed-post-model";
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
+import type { IPostModel } from "@/models/post_model";
 
 export const usePostStore = defineStore("postStore", {
   state: () => ({
-    feed: [] as Array<any>,
-    userPosts: [] as Array<IPost>,
-    savedPosts: [],
-    post: {},
+    feed: [] as Array<IFeedPost>,
+    userPosts: [] as Array<IFeedPost>,
+    savedPosts: [] as Array<IFeedPost>,
+    post: {} as IPostModel,
     postComments: [],
     statusCode: 0 as number,
   }),
@@ -24,7 +25,7 @@ export const usePostStore = defineStore("postStore", {
       try {
         const res = await instance.get(`/Post/feed?take=10&skip=${skip}`);
         console.log(res.data.data);
-        res.data.data.forEach((element: object) => this.feed.push(element));
+        res.data.data.forEach((element: IFeedPost) => this.feed.push(element));
       } catch (error: any) {
         console.log(error.message);
       }

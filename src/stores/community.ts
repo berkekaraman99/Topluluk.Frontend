@@ -1,12 +1,13 @@
 import type ICommunity from "@/models/community-model";
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
+import type { ICommunityPreview } from "@/models/community_preview_model";
 
 export const useCommunityStore = defineStore("communityStore", {
   state: () => ({
     community: {} as ICommunity,
-    communityList: [],
-    userCommunities: [],
+    communityList: [] as Array<ICommunityPreview>,
+    userCommunities: [] as Array<ICommunityPreview>,
     participiants: [],
     statusCode: 0 as number,
   }),

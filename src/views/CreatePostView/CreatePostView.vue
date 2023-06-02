@@ -52,7 +52,7 @@ import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
 import { reactive, ref, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
-import type ICreatePostModel from "../../models/post_model";
+import type { ICreatePostModel } from "../../models/create_post_model";
 
 const postStore = usePostStore();
 const router = useRouter();

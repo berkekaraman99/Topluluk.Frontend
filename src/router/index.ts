@@ -1,24 +1,8 @@
-import CommunityAboutVue from "@/components/common/community/CommunityAbout.vue";
-import CommunityParticipiantsVue from "@/components/common/community/CommunityParticipiants.vue";
 import { createRouter, createWebHistory } from "vue-router";
-// import { storeToRefs } from "pinia";
-// import { useAuthStore } from "@/store/modules/auth";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // {
-    //   path: "/",
-    //   name: "landing",
-    //   redirect: () => {
-    //     const { _user } = storeToRefs(useAuthStore());
-    //     if (_user.value == null) {
-    //       return "login";
-    //     } else {
-    //       return "home";
-    //     }
-    //   },
-    // },
     {
       path: "/",
       name: "login",

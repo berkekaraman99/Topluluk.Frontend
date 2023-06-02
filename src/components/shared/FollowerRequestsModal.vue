@@ -69,20 +69,20 @@
                     </RouterLink>
                     <div class="text-secondary">@{{ user.userName }}</div>
                   </div>
-                  <div class="d-flex align-items-center justify-content-around">
-                    <span
-                      class="btn btn-primary mx-1"
-                      @click="acceptFollowRequest(user.id, user)"
-                    >
-                      Accept
-                    </span>
-                    <span
-                      class="btn btn-danger"
-                      @click="declineFollowRequest(user.id, user)"
-                    >
-                      Decline
-                    </span>
-                  </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-around">
+                  <span
+                    class="btn btn-primary mx-1"
+                    @click="acceptFollowRequest(user.id, user)"
+                  >
+                    Accept
+                  </span>
+                  <span
+                    class="btn btn-danger"
+                    @click="declineFollowRequest(user.id, user)"
+                  >
+                    Decline
+                  </span>
                 </div>
               </div>
             </li>

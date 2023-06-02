@@ -24,7 +24,7 @@ export const useUserStore = defineStore("userStore", {
   },
   actions: {
     //FOLLOW
-    async followUser(targetId: string) {
+    async followUser(targetId: String) {
       const res = await instance.post("/User/follow", { targetId });
       console.log(res);
     },
@@ -140,6 +140,14 @@ export const useUserStore = defineStore("userStore", {
         `/user/decline-follow-request/${targetId}`
       );
       this.statusCode = res.data.statusCode;
+      console.log(res.data);
+    },
+
+    //DECLINE FOLLOW REQUEST
+    async removeFollowRequest(targetId: String) {
+      const res = await instance.post(
+        `/User/remove-follow-request/${targetId}`
+      );
       console.log(res.data);
     },
 

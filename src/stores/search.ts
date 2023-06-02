@@ -3,7 +3,7 @@ import { instance } from "./network_manager";
 
 export const useSearchStore = defineStore("searchStore", {
   state: () => ({
-    searchItemList: [],
+    searchItemList: [] as Array<any>,
   }),
   getters: {
     _searchItemList: (state: any) => state.searchItemList,

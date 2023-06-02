@@ -131,18 +131,20 @@
               <div class="d-flex justify-content-center align-self-baseline">
                 <button
                   class="btn follow px-4"
+                  @click="removeFollowRequest(currentUser)"
+                  v-if="currentUser.isFollowRequestSent"
+                >
+                  Cancel Follow Request
+                </button>
+                <button
+                  class="btn follow px-4"
                   @click="followUser(currentUser)"
-                  v-if="currentUser.id !== user.id && !currentUser.isFollowing"
+                  v-else-if="
+                    currentUser.id !== user.id && !currentUser.isFollowing
+                  "
                 >
                   Follow
                 </button>
-                <!-- <button
-                  class="btn follow px-4"
-                  @click="unfollowUser(currentUser)"
-                  v-else
-                >
-                  Unfollow
-                </button> -->
                 <div class="d-flex align-items-center pointer ms-3">
                   <div class="dropdown">
                     <i
@@ -293,6 +295,7 @@ import UserEvents from "@/components/common/userprofile/UserEvents.vue";
 import { useUserStore } from "@/stores/user";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
+import type IUser from "@/models/user-model";
 
 const props = defineProps({
   id: {
@@ -318,11 +321,13 @@ const changeCategory = (tab: string) => {
   category.value = tab;
 };
 
-const followUser = async (user: any) => {
+const followUser = async (currentUser: IUser) => {
   try {
-    await userStore.followUser(user.id).then(() => {
-      if (!user.isPrivate) {
-        user.isFollowing = true;
+    await userStore.followUser(currentUser.id).then(() => {
+      if (!currentUser.isPrivate) {
+        currentUser.isFollowing = true;
+      } else {
+        currentUser.isFollowRequestSent = true;
       }
     });
   } catch (error: any) {
@@ -338,6 +343,12 @@ const unfollowUser = async (user: any) => {
   } catch (error: any) {
     console.log(error.response.data);
   }
+};
+
+const removeFollowRequest = async (currentUser: IUser) => {
+  await userStore
+    .removeFollowRequest(currentUser.id)
+    .then(() => (currentUser.isFollowRequestSent = false));
 };
 
 onBeforeUnmount(() => {

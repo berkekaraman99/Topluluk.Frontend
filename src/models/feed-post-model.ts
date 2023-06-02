@@ -1,4 +1,4 @@
-interface IPost {
+export interface IFeedPost {
   commentCount: Number;
   community: Object | null;
   createdAt: String;
@@ -17,5 +17,3 @@ interface IPost {
   profileImage: String | null;
   userId: String;
 }
-
-export default IPost;
