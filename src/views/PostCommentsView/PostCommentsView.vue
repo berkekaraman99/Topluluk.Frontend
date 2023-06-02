@@ -626,12 +626,17 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .delete {
   cursor: pointer;
 }
-.horizontal.dropdown-menu.show {
-  display: flex;
+
+.horizontal {
+  border: 1px solid var(--color-primary);
+
+  &.dropdown-menu.show {
+    display: flex;
+  }
 }
 
 #message {
@@ -644,14 +649,18 @@ onBeforeUnmount(() => {
   letter-spacing: 1px;
   padding: 15px 15px 30px;
   border-radius: 3px;
-  border: 1px solid #f7e98d;
+  border: 1px solid grey;
   font: 13px Tahoma, cursive;
-  transition: box-shadow 0.5s ease;
+  transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(#f9efaf, #f7e98d);
+  /* background: linear-gradient(#f9efaf, #f7e98d);
   background: -o-linear-gradient(#f9efaf, #f7e98d);
   background: -ms-linear-gradient(#f9efaf, #f7e98d);
   background: -moz-linear-gradient(#f9efaf, #f7e98d);
-  background: -webkit-linear-gradient(#f9efaf, #f7e98d);
+  background: -webkit-linear-gradient(#f9efaf, #f7e98d); */
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
 }
 </style>

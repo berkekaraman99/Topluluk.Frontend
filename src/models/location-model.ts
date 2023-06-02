@@ -1,10 +1,17 @@
-interface ILocation {
-  ilce: string;
-  il: string;
-  ilce_id: Number;
-  il_id: Number;
-  bolge: string;
-  bolge_id: Number;
-}
+import type { ILocationIlce } from "./location_ilce_model";
 
-export default ILocation;
+export interface ILocation {
+  il_adi: string;
+  plaka_kodu: string;
+  alan_kodu: string;
+  nufus: string;
+  bolge: string;
+  yuzolcumu: string;
+  nufus_artisi: string;
+  erkek_nufus_yuzde: string;
+  erkek_nufus: string;
+  kadin_nufus_yuzde: string;
+  kadin_nufus: string;
+  nufus_yuzdesi_genel: string;
+  ilceler: Array<ILocationIlce>;
+}

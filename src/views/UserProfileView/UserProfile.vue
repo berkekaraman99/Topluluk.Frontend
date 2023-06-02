@@ -186,8 +186,10 @@
             class="container my-4"
             v-if="!currentUser.isPrivate || currentUser.isFollowing"
           >
-            <div class="row">
-              <div class="col-sm-12 col-md-3 text-center my-2">
+            <div
+              class="d-flex align-items-center justify-content-around flex-column flex-sm-column flex-md-row"
+            >
+              <div class="text-center my-2">
                 <input
                   type="radio"
                   name="group-radio"
@@ -198,7 +200,7 @@
                 />
                 <label for="radio-1">
                   <span
-                    class="fw-bold fs-5 px-2 py-1 category"
+                    class="fw-bold fs-5 category"
                     :class="{ selected: category === 'activities' }"
                     id="activities"
                     @click="changeCategory('activities')"
@@ -207,7 +209,7 @@
                 </label>
               </div>
 
-              <div class="col-sm-12 col-md-3 text-center my-2">
+              <div class="text-center my-2">
                 <input
                   type="radio"
                   name="group-radio"
@@ -218,7 +220,7 @@
                 />
                 <label for="radio-2">
                   <span
-                    class="fw-bold fs-5 px-2 py-1 category"
+                    class="fw-bold fs-5 category"
                     :class="{ selected: category === 'posts' }"
                     id="posts"
                     @click="changeCategory('posts')"
@@ -227,7 +229,7 @@
                 </label>
               </div>
 
-              <div class="col-sm-12 col-md-3 text-center my-2">
+              <div class="text-center my-2">
                 <input
                   type="radio"
                   name="group-radio"
@@ -238,7 +240,7 @@
                 />
                 <label for="radio-3">
                   <span
-                    class="fw-bold fs-5 px-2 py-1 category"
+                    class="fw-bold fs-5 category"
                     :class="{ selected: category === 'events' }"
                     id="events"
                     @click="changeCategory('events')"
@@ -247,7 +249,7 @@
                 </label>
               </div>
 
-              <div class="col-sm-12 col-md-3 text-center my-2">
+              <div class="text-center my-2">
                 <input
                   type="radio"
                   name="group-radio"
@@ -258,7 +260,7 @@
                 />
                 <label for="radio-4">
                   <span
-                    class="fw-bold fs-5 px-2 py-1 category"
+                    class="fw-bold fs-5 category"
                     :class="{ selected: category === 'communities' }"
                     id="communities"
                     @click="changeCategory('communities')"

@@ -77,11 +77,38 @@
                 v-model="eventObject.isLocationOnline"
               />
               <FormKit
+                v-if="!eventObject.isLocationOnline"
                 type="text"
                 label="Location"
                 validation="required"
                 v-model="eventObject.location"
+                disabled=""
               />
+
+              <FormKit
+                v-if="!eventObject.isLocationOnline"
+                type="select"
+                label="Select Community Location"
+                name="planet"
+                v-model="eventObject.location"
+              >
+                <optgroup
+                  class="group-header"
+                  v-for="location in locationInfo"
+                  :key="location.plaka_kodu"
+                  :label="location.il_adi"
+                >
+                  <option
+                    class="group-text"
+                    v-for="ilce in location.ilceler"
+                    :key="ilce.ilce_kodu"
+                    :value="location.il_adi + ' - ' + ilce.ilce_adi"
+                  >
+                    {{ ilce.ilce_adi }}
+                  </option>
+                </optgroup>
+              </FormKit>
+
               <FormKit
                 type="select"
                 label="Event Is Visible?"
@@ -153,11 +180,14 @@
 </template>
 
 <script setup lang="ts">
+import { data } from "@/data/il-ilce.json";
 import { reactive, ref, onBeforeUnmount } from "vue";
 import type ICreateEventModel from "../../models/create_event_model";
 import router from "@/router";
 import { useEventStore } from "@/stores/event";
 import { storeToRefs } from "pinia";
+
+const locationInfo: Array<ILocation> = data;
 
 const eventStore = useEventStore();
 
@@ -251,4 +281,12 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.group-header {
+  color: var(--color-primary);
+}
+
+.group-text {
+  font-weight: 300;
+}
+</style>

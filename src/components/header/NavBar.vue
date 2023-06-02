@@ -5,7 +5,7 @@
   >
     <div class="container-xxl d-flex">
       <span
-        class="navbar-brand cursor-pointer fw-bold mx-1 fs-4"
+        class="navbar-brand pointer fw-bold mx-1 fs-4"
         @click="router.push({ name: 'home' })"
         >Topluluk</span
       >
@@ -16,14 +16,14 @@
           <div class="d-flex align-items-center" v-if="user">
             <div class="dropdown create-nav">
               <button
-                class="btn dropdown-toggle py-2"
+                class="dropdown-toggle py-2"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Create
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu dropdown-menu-end">
                 <li>
                   <RouterLink
                     :to="{ name: 'createCommunity' }"
@@ -187,15 +187,7 @@ const logout = async () => {
 };
 </script>
 
-<style scoped>
-nav a.router-link-exact-active {
-  color: dodgerblue;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
+<style scoped lang="scss">
 .user-options {
   display: flex;
   align-items: center;
@@ -205,11 +197,12 @@ nav a.router-link-exact-active {
   text-decoration: none;
   margin-left: 16px;
 }
+
 .create-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 8px;
+
   cursor: pointer;
   text-decoration: none;
 }
@@ -217,5 +210,18 @@ nav a.router-link-exact-active {
 .create-nav button {
   background-color: rgb(88, 141, 120);
   color: white;
+  border-radius: 8px;
+  border: none;
+  padding: 12px;
+  transition: all 0.3s ease;
+  margin: 0px 4px;
+
+  &:hover {
+    background-color: rgb(66, 105, 89);
+  }
+
+  &:active {
+    background-color: rgb(88, 141, 120);
+  }
 }
 </style>

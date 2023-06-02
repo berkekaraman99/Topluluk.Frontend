@@ -4,7 +4,7 @@
       <div class="card-header p-0">
         <h4 class="fw-bold my-3 text-center">Suggestions</h4>
       </div>
-      <div class="card-body py-0 px-1">
+      <div class="card-body py-0 px-1 overflow-auto">
         <ul class="list-unstyled">
           <div
             v-if="suggestions.length === 0"

@@ -259,8 +259,4 @@ const formatTime = (time: any) => {
   justify-content: center;
   cursor: pointer;
 }
-
-.horizontal.dropdown-menu.show {
-  display: flex;
-}
 </style>

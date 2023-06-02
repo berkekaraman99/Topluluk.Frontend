@@ -38,4 +38,15 @@ const props = defineProps({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.toast-enter-from,
+.toast-leave-to {
+  opacity: 0;
+  /* transform: translateY(-20px); */
+}
+
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.4s ease;
+}
+</style>

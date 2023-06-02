@@ -1,5 +1,8 @@
 <template>
   <LoadingSpinner v-if="loading" />
+  <div v-else-if="userCommunities.length === 0">
+    <h1 class="text-center fw-light">There is no communities here...</h1>
+  </div>
   <div class="row" v-else-if="userCommunities.length">
     <TransitionGroup
       appear

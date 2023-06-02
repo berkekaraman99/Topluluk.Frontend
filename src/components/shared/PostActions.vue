@@ -53,7 +53,7 @@
           <div>Dislike</div>
         </div>
       </div>
-      <ul class="dropdown-menu shadow border-2 border-black horizontal p-0">
+      <ul class="dropdown-menu shadow horizontal p-0">
         <li>
           <a
             class="dropdown-item py-3"
@@ -210,5 +210,9 @@ const savePost = () => {
 <style scoped>
 .horizontal.dropdown-menu.show {
   display: flex;
+}
+
+.horizontal {
+  border: 1px solid var(--color-primary);
 }
 </style>

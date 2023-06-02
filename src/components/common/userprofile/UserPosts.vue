@@ -1,5 +1,8 @@
 <template>
   <LoadingSpinner v-if="loading" />
+  <div v-else-if="userPosts.length === 0">
+    <h1 class="text-center fw-light">There is no posts here...</h1>
+  </div>
   <div class="container my-3" v-else-if="userPosts.length">
     <TransitionGroup
       appear

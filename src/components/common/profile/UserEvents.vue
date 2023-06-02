@@ -1,6 +1,9 @@
 <template>
   <div>
     <LoadingSpinner v-if="loading" />
+    <div v-else-if="userEvents.length === 0">
+      <h1 class="text-center fw-light">There is no events here...</h1>
+    </div>
     <div
       class="row d-flex justify-content-center align-items-center"
       v-else-if="userEvents.length"

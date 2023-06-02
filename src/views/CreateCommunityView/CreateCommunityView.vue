@@ -44,20 +44,27 @@
               label="Location"
               validation="required"
               v-model="communityObject.Location"
+              disabled
             />
             <FormKit
               type="select"
-              label="Where would you prefer to live?"
+              label="Select Community Location"
               name="planet"
               v-model="communityObject.Location"
             >
-              <optgroup label="Inner Planets">
+              <optgroup
+                class="group-header"
+                v-for="location in locationInfo"
+                :key="location.plaka_kodu"
+                :label="location.il_adi"
+              >
                 <option
-                  v-for="location in locationInfo"
-                  :key="location.ilce"
-                  :value="location.il + location.ilce"
+                  class="group-text"
+                  v-for="ilce in location.ilceler"
+                  :key="ilce.ilce_kodu"
+                  :value="location.il_adi + ' - ' + ilce.ilce_adi"
                 >
-                  {{ location.ilce }}
+                  {{ ilce.ilce_adi }}
                 </option>
               </optgroup>
             </FormKit>
@@ -126,14 +133,14 @@
 </template>
 
 <script setup lang="ts">
-import data from "@/data/location-data.json";
+import { data } from "@/data/il-ilce.json";
 import { reactive, ref, onBeforeUnmount } from "vue";
 import type ICreateCommunityModel from "../../models/create_community_model";
 import router from "@/router";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { useCommunityStore } from "@/stores/community";
-import ILocation from "@/models/location-model";
+import type { ILocation } from "@/models/location-model";
 
 console.log(data);
 const locationInfo: Array<ILocation> = data;
@@ -220,5 +227,13 @@ onBeforeUnmount(() => {
 <style scoped>
 div .row {
   min-width: 300px;
+}
+
+.group-header {
+  color: var(--color-primary);
+}
+
+.group-text {
+  font-weight: 300;
 }
 </style>

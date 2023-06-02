@@ -1,5 +1,8 @@
 <template>
   <LoadingSpinner v-if="loading" />
+  <div v-else-if="savedPosts.length === 0">
+    <h1 class="text-center fw-light">There is no saved posts here...</h1>
+  </div>
   <div v-else-if="savedPosts.length">
     <div class="row" v-for="post in savedPosts" v-bind:key="post.id">
       <PostComponentFeed :post="post" />
