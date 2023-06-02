@@ -62,9 +62,13 @@
                   class="group-text"
                   v-for="ilce in location.ilceler"
                   :key="ilce.ilce_kodu"
-                  :value="location.il_adi + ' - ' + ilce.ilce_adi"
+                  :value="
+                    location.il_adi +
+                    ' - ' +
+                    changeLetterToLowercase(ilce.ilce_adi)
+                  "
                 >
-                  {{ ilce.ilce_adi }}
+                  {{ changeLetterToLowercase(ilce.ilce_adi) }}
                 </option>
               </optgroup>
             </FormKit>
@@ -135,12 +139,12 @@
 <script setup lang="ts">
 import { data } from "@/data/il-ilce.json";
 import { reactive, ref, onBeforeUnmount } from "vue";
-import type ICreateCommunityModel from "../../models/create_community_model";
+import type { ICreateCommunityModel } from "../../models/create_community_model";
 import router from "@/router";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { useCommunityStore } from "@/stores/community";
-import type { ILocation } from "@/models/location-model";
+import type { ILocation } from "@/models/location_model";
 
 console.log(data);
 const locationInfo: Array<ILocation> = data;
@@ -215,6 +219,14 @@ const submitCommunity = async () => {
     changeLoadingState();
     console.log(error.message);
   }
+};
+
+const changeLetterToLowercase = (item: string) => {
+  let changedItem: string = item[0];
+  for (let index = 1; index < item.length; index++) {
+    changedItem += item[index].toLowerCase();
+  }
+  return changedItem;
 };
 
 onBeforeUnmount(() => {

@@ -100,7 +100,10 @@
                     FollowerRequests
                   </div>
                 </div>
-                <p v-if="user.bio != null">{{ currentUser.bio }}</p>
+                <!-- Bio -->
+                <p v-if="user.bio != null" class="my-3">
+                  {{ currentUser.bio }}
+                </p>
               </div>
             </div>
           </div>
@@ -346,41 +349,15 @@ label span {
 }
 
 .category:hover {
-  color: #333;
+  color: #111;
 }
 
 .selected {
   transition: 0.3s all ease;
-  color: rgb(88, 141, 120);
+  color: var(--color-primary);
   padding: 20px;
   margin: 0 6px;
   z-index: 2;
   position: relative;
 }
-
-/* .selected::before {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background-color: #24a0ed;
-  border-radius: 8px 8px 0 0;
-  opacity: 0;
-  transition: 0.3s;
-}
-
-.selected::after {
-  content: "";
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background-color: #24a0ed;
-  border-radius: 8px 8px 0 0;
-  opacity: 1;
-  transition: 0.3s;
-} */
 </style>

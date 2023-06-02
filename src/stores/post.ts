@@ -1,4 +1,4 @@
-import type { IFeedPost } from "@/models/feed-post-model";
+import type { IFeedPost } from "@/models/feed_post_model";
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
 import type { IPostModel } from "@/models/post_model";

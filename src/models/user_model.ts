@@ -1,4 +1,4 @@
-interface IUser {
+export interface IUser {
   bannerImage: String | null;
   bio: String | null;
   communities: Array<any>;
@@ -18,5 +18,3 @@ interface IUser {
   profileImage: String | null;
   userName: String;
 }
-
-export default IUser;

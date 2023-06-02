@@ -12,7 +12,7 @@
     :content="content"
   />
   <div
-    class="container-fluid d-flex justify-content-center overflow-auto h-100"
+    class="container-fluid d-flex justify-content-center overflow-auto vh-100"
   >
     <div class="row w-100 align-items-center mt-4">
       <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
@@ -100,7 +100,10 @@
             type="submit"
             label="Sign Up"
             :disabled="!isAccepted"
-            wrapper-class="mx-auto text-center"
+            :wrapper-class="{
+              'formkit-wrapper': false,
+              'mx-auto text-center': true,
+            }"
             :classes="{
               input: 'w-100',
             }"
@@ -145,7 +148,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import type ISignUpModel from "@/models/signup-model";
+import type { ISignUpModel } from "@/models/signup_model";
 import ToastSuccess from "@/components/shared/ToastSuccess.vue";
 import ToastDanger from "@/components/shared/ToastDanger.vue";
 import { storeToRefs } from "pinia";

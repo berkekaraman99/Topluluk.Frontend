@@ -8,18 +8,18 @@
         </div>
       </div>
       <div class="card-body">
-        <p>
-          <button
-            class="btn btn-primary rounded-3"
-            type="button"
+        <div>
+          <div
+            class="tile"
             data-bs-toggle="collapse"
             data-bs-target="#collapseEditCommunity"
             aria-expanded="false"
             aria-controls="collapseExample"
           >
-            Edit Community
-          </button>
-        </p>
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span class="ms-2 text-primary">Edit Community</span>
+          </div>
+        </div>
         <div class="collapse" id="collapseEditCommunity">
           <div class="card card-body">
             <FormKit type="form" submit-label="Create" :actions="false">
@@ -122,19 +122,20 @@
             </FormKit>
           </div>
         </div>
-      </div>
-      <div v-if="adminId === user.id" class="align-self-center">
-        <button class="btn btn-danger" type="button" disabled v-if="loading">
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-          Deleting...
-        </button>
-        <button class="btn btn-danger" @click="deleteCommunity" v-else>
-          Delete Community
-        </button>
+        <div v-if="adminId === user.id" class="tile">
+          <div disabled v-if="loading">
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Deleting...
+          </div>
+          <div class="text-danger" @click="deleteCommunity" v-else>
+            <i class="fa-solid fa-trash-can"></i>
+            <span class="ms-2">Delete Community</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -202,4 +203,17 @@ const deleteCommunity = async () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.tile {
+  transition: all 0.4s ease;
+  border: 1px solid white;
+  padding: 12px 8px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: rgb(241, 241, 241);
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+  }
+}
+</style>

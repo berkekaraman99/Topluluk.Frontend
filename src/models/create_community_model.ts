@@ -1,4 +1,4 @@
-interface ICreateCommunityModel {
+export interface ICreateCommunityModel {
   Location: string;
   IsVisible: string;
   IsPublic: string;
@@ -9,5 +9,3 @@ interface ICreateCommunityModel {
   CreatedById: string;
   BannerImage: File;
 }
-
-export default ICreateCommunityModel;

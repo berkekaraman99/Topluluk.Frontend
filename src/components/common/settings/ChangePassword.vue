@@ -40,7 +40,7 @@
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { reactive, ref } from "vue";
-import type ChangePasswordModel from "@/models/ChangePasswordModel";
+import type { ChangePassword } from "@/models/change_password_model";
 
 const authStore = useAuthStore();
 const { _statusCode: statusCode } = storeToRefs(authStore);
@@ -57,7 +57,7 @@ const userInfo = reactive({
 
 const changePassword = async () => {
   console.log(userInfo);
-  const model: ChangePasswordModel = {
+  const model: ChangePassword = {
     oldPassword: userInfo.oldPassword,
     newPassword: userInfo.newPassword,
   };

@@ -1,4 +1,4 @@
-interface ICommunity {
+export interface ICommunity {
   adminGender: Number;
   adminId: String;
   adminImage: String;
@@ -17,5 +17,3 @@ interface ICommunity {
   participiantCount: Number;
   title: String;
 }
-
-export default ICommunity;

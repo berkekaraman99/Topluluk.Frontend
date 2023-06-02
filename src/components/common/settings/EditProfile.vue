@@ -36,9 +36,10 @@
         <FormKit
           type="date"
           label="Birthday"
-          validation="required|date_before:2023-05-03"
+          :validation="`required|date_before:${new Date()}`"
           v-model="userObject.birthdayDate"
         />
+
         <FormKit
           type="select"
           label="Gender"
@@ -80,10 +81,9 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { useUserStore } from "@/stores/user";
-import moment from "moment";
 import { storeToRefs } from "pinia";
 import { reactive, ref } from "vue";
-import type UpdateProfileModel from "../../../models/UpdateProfileModel";
+import type { UpdateProfileModel } from "../../../models/update_profile_model";
 
 const authStore = useAuthStore();
 const { _user: user } = storeToRefs(authStore);
@@ -95,13 +95,16 @@ const changeLoadingState = () => {
   loading.value = !loading.value;
 };
 
-const formatTime = async (date: Date) => {
-  const formattedTime = moment(date).format("YYYY-MM-DD").toString();
-  console.log(formattedTime);
-  return formattedTime;
-};
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
 
-console.log(user.value.birthdayDate);
+  console.log(`${day}-${month}-${year}`);
+
+  return `${year}-${month}-${day}`;
+};
 
 const userObject = reactive({
   firstName: user.value.firstName,
@@ -109,7 +112,7 @@ const userObject = reactive({
   userName: user.value.userName,
   bio: user.value.bio,
   email: user.value.email,
-  birthdayDate: formatTime(user.value.birthdayDate),
+  birthdayDate: formatDate(user.value.birthdayDate),
   gender: user.value.gender,
   title: user.value.title,
 });

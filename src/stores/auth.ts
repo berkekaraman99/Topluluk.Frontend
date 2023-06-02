@@ -1,6 +1,6 @@
 import type { IAuthUser } from "@/models/auth_user_model";
-import type LogInModel from "../models/login-model";
-import type SignUpModel from "../models/signup-model";
+import type { ILogInModel } from "../models/login_model";
+import type { ISignUpModel } from "../models/signup_model";
 import { instance, auth_instance } from "./network_manager";
 import { defineStore } from "pinia";
 
@@ -18,7 +18,7 @@ export const useAuthStore = defineStore("authStore", {
 
   actions: {
     // LOGIN
-    async login(logInObject: LogInModel) {
+    async login(logInObject: ILogInModel) {
       try {
         const res = await auth_instance.post(
           "/Authentication/SignIn",
@@ -54,7 +54,7 @@ export const useAuthStore = defineStore("authStore", {
     },
 
     // SIGNUP
-    async signup(signUpObject: SignUpModel) {
+    async signup(signUpObject: ISignUpModel) {
       try {
         this.statusCode = 0;
         const res = await auth_instance.post(

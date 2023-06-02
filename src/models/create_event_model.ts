@@ -1,4 +1,4 @@
-interface ICreateEventModel {
+export interface ICreateEventModel {
   title: string;
   description: string;
   isLimited: boolean;
@@ -12,5 +12,3 @@ interface ICreateEventModel {
   price: string;
   isVisible: boolean;
 }
-
-export default ICreateEventModel;

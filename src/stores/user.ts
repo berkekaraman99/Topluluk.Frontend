@@ -1,7 +1,7 @@
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
 import { useAuthStore } from "./auth";
-import type IUser from "@/models/user-model";
+import type { IUser } from "@/models/user_model";
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({

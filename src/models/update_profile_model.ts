@@ -1,4 +1,4 @@
-interface UpdateProfileModel {
+export interface UpdateProfileModel {
   firstName: String;
   lastName: String;
   userName: String;
@@ -8,5 +8,3 @@ interface UpdateProfileModel {
   gender: Number;
   title: String;
 }
-
-export default UpdateProfileModel;

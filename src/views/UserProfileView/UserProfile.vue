@@ -126,7 +126,8 @@
                     Communities
                   </div>
                 </div>
-                <p v-if="currentUser.bio">{{ currentUser.bio }}</p>
+                <!-- Bio -->
+                <p v-if="currentUser.bio" class="my-3">{{ currentUser.bio }}</p>
               </div>
               <div class="d-flex justify-content-center align-self-baseline">
                 <button
@@ -297,7 +298,7 @@ import UserEvents from "@/components/common/userprofile/UserEvents.vue";
 import { useUserStore } from "@/stores/user";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
-import type IUser from "@/models/user-model";
+import type { IUser } from "@/models/user_model";
 
 const props = defineProps({
   id: {
@@ -394,12 +395,12 @@ onBeforeUnmount(() => {
 }
 
 .category:hover {
-  color: #333;
+  color: #111;
 }
 
 .selected {
   transition: 0.3s all ease;
-  color: rgb(88, 141, 120);
+  color: var(--color-primary);
   padding: 20px;
   margin: 0 6px;
   z-index: 2;

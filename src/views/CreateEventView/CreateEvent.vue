@@ -182,10 +182,11 @@
 <script setup lang="ts">
 import { data } from "@/data/il-ilce.json";
 import { reactive, ref, onBeforeUnmount } from "vue";
-import type ICreateEventModel from "../../models/create_event_model";
+import type { ICreateEventModel } from "../../models/create_event_model";
 import router from "@/router";
 import { useEventStore } from "@/stores/event";
 import { storeToRefs } from "pinia";
+import type { ILocation } from "@/models/location_model";
 
 const locationInfo: Array<ILocation> = data;
 

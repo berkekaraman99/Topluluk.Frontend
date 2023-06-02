@@ -1,6 +1,6 @@
 <template>
   <Transition>
-    <div class="d-flex align-items-center justify-content-center">
+    <div id="loading">
       <div class="lds-roller">
         <div></div>
         <div></div>
@@ -16,6 +16,12 @@
 </template>
 
 <style scoped>
+#loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+}
 .lds-roller {
   position: relative;
   width: 80px;

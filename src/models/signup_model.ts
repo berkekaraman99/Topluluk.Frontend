@@ -1,4 +1,4 @@
-interface ISignUpModel {
+export interface ISignUpModel {
   firstName: string;
   lastName: string;
   userName: string;
@@ -6,5 +6,3 @@ interface ISignUpModel {
   password: string;
   gender: number;
 }
-
-export default ISignUpModel;

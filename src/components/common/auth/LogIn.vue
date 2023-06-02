@@ -12,7 +12,7 @@
     :content="content"
   />
   <div
-    class="container-fluid d-flex align-items-center justify-content-center overflow-auto h-100"
+    class="container-fluid d-flex align-items-center justify-content-center overflow-auto vh-100"
   >
     <div class="row w-100 align-items-center mx-3">
       <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
@@ -25,8 +25,9 @@
           :config="{
             classes: {
               outer: 'mx-auto',
-              wrapper: 'mx-auto',
+              wrapper: 'mx-auto w-100',
               messages: 'text-center',
+              input: 'w-100',
             },
           }"
         >
@@ -37,6 +38,9 @@
             prefix-icon="avatarMan"
             validation="required"
             v-model="userObject.userName"
+            :wrapper-class="{
+              'formkit-wrapper': false,
+            }"
           />
           <FormKit
             type="password"
@@ -48,6 +52,9 @@
             suffix-icon="eyeClosed"
             @suffix-icon-click="handleIconClick"
             v-model="userObject.password"
+            :wrapper-class="{
+              'formkit-wrapper': false,
+            }"
           />
           <div class="d-flex justify-content-between align-items-center my-3">
             <FormKit
@@ -73,9 +80,12 @@
           <FormKit
             type="submit"
             :label="loading ? 'Loading' : 'Login'"
-            wrapper-class="mx-auto text-center"
             :classes="{ input: 'w-100' }"
             :disabled="loading || statusCode === 200"
+            :wrapper-class="{
+              'formkit-wrapper': false,
+              'mx-auto text-center': true,
+            }"
           />
         </FormKit>
 
@@ -127,7 +137,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import type ILogInModel from "@/models/login-model";
+import type { ILogInModel } from "@/models/login_model";
 import ToastSuccess from "@/components/shared/ToastSuccess.vue";
 import ToastDanger from "@/components/shared/ToastDanger.vue";
 import { useAuthStore } from "@/stores/auth";
