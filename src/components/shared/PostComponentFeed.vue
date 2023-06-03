@@ -43,6 +43,18 @@
               </small>
             </div>
           </div>
+          <div class="dropdown">
+            <i
+              class="fa-solid fa-ellipsis fa-2xl"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            ></i>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li class="dropdown-item text-danger">
+                <i class="fa-regular fa-flag"></i> Report
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="card-body p-0">

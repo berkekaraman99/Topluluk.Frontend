@@ -1,7 +1,19 @@
 <template>
   <div class="collapse" id="collapsePassword">
     <div class="card card-body">
-      <FormKit type="form" @submit="changePassword" :actions="false">
+      <FormKit
+        type="form"
+        @submit="changePassword"
+        :actions="false"
+        :config="{
+          classes: {
+            outer: 'mx-auto',
+            wrapper: 'mx-auto',
+            messages: 'text-center',
+            help: 'text-center',
+          },
+        }"
+      >
         <FormKit
           type="password"
           name="old_password"

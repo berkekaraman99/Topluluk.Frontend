@@ -283,6 +283,7 @@ onUnmounted(() => {
 
   &:hover {
     background-color: rgb(245, 245, 245);
+    color: var(--color-text-dark);
   }
 
   span {
@@ -291,9 +292,9 @@ onUnmounted(() => {
 }
 
 .selected {
-  color: rgb(88, 141, 120);
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(88, 141, 120);
+  color: var(--color-text);
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary-hover);
 }
 
 #eventAction {

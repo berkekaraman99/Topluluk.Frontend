@@ -444,44 +444,12 @@
         v-bind:key="comment"
         :data-index="index"
       >
-        <div v-if="comments.length" class="row">
-          <div class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 my-4">
-            <div class="card shadow-sm">
-              <div class="card-header">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                    <div
-                      class="post-profile-image"
-                      :style="{
-                        'background-image': 'url(' + comment.profileImage + ')',
-                        'background-color': 'grey',
-                      }"
-                    ></div>
-                    <div class="mx-3">
-                      <div>
-                        <div class="fw-bold">
-                          {{ comment.firstName }} {{ comment.lastName }}
-                        </div>
-                        <small>
-                          {{ formatTime(comment.createdAt) }}
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                  <div v-if="comment.userId === user.id" class="delete">
-                    <img
-                      src="@/assets/images/ic_delete.png"
-                      alt="delete"
-                      height="24"
-                      @click="deleteComment(comment.id, post.id)"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">{{ comment.message }}</div>
-            </div>
-          </div>
-        </div>
+        <CommentVue
+          :comment="comment"
+          :user-id="user.id"
+          :post-id="post.id"
+          @delete-comment="deleteComment"
+        />
       </div>
     </TransitionGroup>
   </div>
@@ -495,6 +463,7 @@ import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { usePostStore } from "@/stores/post";
+import CommentVue from "@/components/shared/CommentVue.vue";
 
 const props = defineProps({
   id: {
@@ -544,6 +513,10 @@ const savePost = async (post: any) => {
   await postStore.savePost(post.id).then(() => {
     post.isSaved = true;
   });
+};
+
+const formatTime = (time: any) => {
+  return moment(time).fromNow();
 };
 
 const { _statusCode: statusCode } = storeToRefs(postStore);
@@ -613,10 +586,6 @@ const removeInteraction = async (post: any) => {
 };
 
 const { _post: post, _postComments: comments } = storeToRefs(postStore);
-
-const formatTime = (time: any) => {
-  return moment(time).fromNow();
-};
 
 onBeforeUnmount(() => {
   postStore.$patch({

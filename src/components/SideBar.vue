@@ -77,6 +77,7 @@
 
   &:hover {
     background-color: rgb(245, 245, 245);
+    color: black;
   }
 
   span {
@@ -85,8 +86,8 @@
 }
 
 a.router-link-exact-active {
-  color: var(--color-primary);
-  background-color: rgb(255, 255, 255);
+  color: var(--color-text);
+  background-color: var(--color-primary);
   border: 1px solid var(--color-primary);
   font-weight: bold;
 }

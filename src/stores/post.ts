@@ -2,6 +2,7 @@ import type { IFeedPost } from "@/models/feed_post_model";
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
 import type { IPostModel } from "@/models/post_model";
+import type { IComment } from "@/models/comment_model";
 
 export const usePostStore = defineStore("postStore", {
   state: () => ({
@@ -9,7 +10,7 @@ export const usePostStore = defineStore("postStore", {
     userPosts: [] as Array<IFeedPost>,
     savedPosts: [] as Array<IFeedPost>,
     post: {} as IPostModel,
-    postComments: [],
+    postComments: [] as Array<IComment>,
     statusCode: 0 as number,
   }),
   getters: {

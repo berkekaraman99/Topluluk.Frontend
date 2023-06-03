@@ -208,20 +208,20 @@ const logout = async () => {
 }
 
 .create-nav button {
-  background-color: rgb(88, 141, 120);
+  background-color: var(--color-primary);
   color: white;
-  border-radius: 8px;
+  border-radius: 6px;
   border: none;
   padding: 12px;
   transition: all 0.3s ease;
   margin: 0px 4px;
 
   &:hover {
-    background-color: rgb(66, 105, 89);
+    background-color: var(--color-primary-hover);
   }
 
   &:active {
-    background-color: rgb(88, 141, 120);
+    background-color: var(--color-primary);
   }
 }
 </style>

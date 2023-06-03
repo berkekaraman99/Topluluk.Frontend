@@ -34,13 +34,25 @@
               </small>
             </div>
           </div>
-          <div class="delete" v-if="post.userId === user.id">
-            <img
-              src="@/assets/images/ic_delete.png"
-              alt="delete"
-              height="24"
-              @click="deletePost(post)"
-            />
+          <div class="dropdown">
+            <i
+              class="fa-solid fa-ellipsis fa-2xl"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            ></i>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li
+                class="dropdown-item text-danger"
+                @click="deletePost(post)"
+                v-if="post.userId === user.id"
+              >
+                <i class="fa-regular fa-trash-can"></i>
+                Delete
+              </li>
+              <li class="dropdown-item text-danger">
+                <i class="fa-regular fa-flag"></i> Report
+              </li>
+            </ul>
           </div>
         </div>
       </div>

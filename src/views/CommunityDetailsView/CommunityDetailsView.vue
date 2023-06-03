@@ -287,6 +287,7 @@ onBeforeUnmount(() => {
 
   &:hover {
     background-color: rgb(245, 245, 245);
+    color: var(--color-text-dark);
   }
 
   span {
@@ -295,9 +296,9 @@ onBeforeUnmount(() => {
 }
 
 .selected {
-  color: var(--color-primary);
-  background-color: rgb(255, 255, 255);
-  border: 1px solid var(--color-primary);
+  color: var(--color-text);
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary-hover);
 }
 
 .fade-enter-active,
