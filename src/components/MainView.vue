@@ -12,11 +12,13 @@
       'container-fluid px-0':
         route.name === 'login' ||
         route.name === 'signup' ||
-        route.name === 'forgetpassword',
+        route.name === 'forgetpassword' ||
+        route.name === 'chat',
       container:
         route.name !== 'login' &&
         route.name !== 'signup' &&
-        route.name !== 'forgetpassword',
+        route.name !== 'forgetpassword' &&
+        route.name !== 'chat',
     }"
   >
     <Transition mode="out-in" name="fade">
@@ -36,12 +38,7 @@
 
     <RouterView v-slot="{ Component, route }">
       <Transition mode="out-in" name="fade">
-        <component
-          :is="Component"
-          :key="route.path"
-          style="overflow: hidden"
-          class="scrollable-panel"
-        />
+        <component :is="Component" :key="route.path" class="scrollable-panel" />
       </Transition>
     </RouterView>
 
@@ -64,7 +61,7 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import SideBar from "@/components/SideBar.vue";
+import SideBar from "@/components/shared/SideBar.vue";
 import CommunitySuggestions from "@/components/common/home/CommunitySuggestions.vue";
 const route = useRoute();
 </script>
@@ -88,11 +85,9 @@ const route = useRoute();
 
 .scrollable-panel {
   flex: 1;
-  overflow-y: auto;
-  // @media screen and (max-width: 576px) {
-  //   margin-top: 176px !important;
-  // }
-  min-height: 240px;
+  overflow-y: hidden;
+  min-height: 440px;
   align-items: center;
+  min-height: calc(100vh - 144px);
 }
 </style>

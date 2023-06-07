@@ -16,7 +16,7 @@
   >
     <div class="row w-100 align-items-center mx-3">
       <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-        <p class="fw-bold text-center fs-2 py-4">Welcome Back!</p>
+        <p class="fw-bold text-center fs-2 py-4">Login to The Topluluk</p>
 
         <FormKit
           type="form"
@@ -119,16 +119,6 @@
             <i class="fa-brands fa-apple fa-lg me-2"></i>
             <span class="fw-bold">Login with Apple</span>
           </div>
-        </div>
-
-        <div
-          v-if="user"
-          id="back"
-          class="btn mt-2 text-black d-inline-block position-fixed top-0 start-0 ms-2 mt-1"
-          @click="router.push({ name: 'home' })"
-        >
-          <i class="fa-solid fa-angle-left"></i>
-          <span class="ps-2">Back</span>
         </div>
       </div>
     </div>

@@ -94,7 +94,8 @@
             @click="handleCheckbox"
             validation="accepted"
             validation-visibility="dirty"
-            wrapper-class="text-center"
+            wrapper-class="justify-content-center mx-auto"
+            outer-class="text-center"
           />
           <FormKit
             type="submit"
@@ -105,7 +106,7 @@
               'mx-auto text-center': true,
             }"
             :classes="{
-              input: 'w-100',
+              input: 'rounded-5',
             }"
           />
         </FormKit>
@@ -116,7 +117,7 @@
 
         <!-- ALTERNATIVE SIGNUPS -->
         <div class="alternative-signups my-4">
-          <div class="btn btn-white d-block shadow-sm mt-3">
+          <div class="btn btn-white w-75 shadow-sm mt-3 rounded-1">
             <img
               src="@/assets/images/logos/ic_google.png"
               height="16"
@@ -126,7 +127,7 @@
             />
             <span class="fw-bold">Signup with Google</span>
           </div>
-          <div class="btn btn-dark d-block shadow-sm mt-3">
+          <div class="btn btn-dark w-75 shadow-sm mt-3 rounded-1">
             <i class="fa-brands fa-apple fa-lg me-2"></i>
             <span class="fw-bold">Signup with Apple</span>
           </div>
@@ -275,5 +276,12 @@ div .row {
     border: 1px solid rgb(90, 90, 90);
     background-color: rgba(215, 215, 215, 0.34);
   }
+}
+
+.alternative-signups {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 </style>

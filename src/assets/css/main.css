@@ -5,6 +5,8 @@
   --color-text: #ffffff;
   --color-text-dark: #000000;
   --color-accent: #ff9c66;
+  --color-bg-light: #fff;
+  --color-bg-dark: #111;
 }
 
 .profile-image {

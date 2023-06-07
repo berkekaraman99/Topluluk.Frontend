@@ -57,7 +57,7 @@ export const useCommunityStore = defineStore("communityStore", {
     //JOIN COMMUNITY
     async joinCommunity(communityId: string) {
       try {
-        const res = await instance.post("/community/join", { communityId });
+        const res = await instance.post(`/community/${communityId}/join`, {});
         console.log(res.data);
       } catch (error: any) {
         console.log(error.message);

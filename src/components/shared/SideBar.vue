@@ -83,6 +83,10 @@
   span {
     margin-left: 6px;
   }
+
+  @media screen and (max-width: 992px) {
+    margin: 0px 6px;
+  }
 }
 
 a.router-link-exact-active {

@@ -1,236 +1,310 @@
 <template>
-  <div></div>
+  <div class="container px-3">
+    <div class="row h-100 pb-3">
+      <div class="card">
+        <div class="col-12 h-100">
+          <div class="row h-100">
+            <div
+              class="chat-section"
+              style="background-color: var(--color-secondary)"
+            >
+              <div class="d-flex align-items-center my-1 mx-1">
+                <div>
+                  <div
+                    :style="{
+                      backgroundImage: `url(${mainUser.profileImage})`,
+                    }"
+                    class="chat-profile-image me-3 shadow-sm"
+                    v-if="mainUser.profileImage"
+                  ></div>
+                  <img
+                    src="@/assets/images/profile-man.png"
+                    alt="profile-man"
+                    class="chat-profile-image me-3"
+                    v-else-if="mainUser.gender == 2"
+                  />
+                  <img
+                    src="@/assets/images/profile-woman.png"
+                    alt="profile-woman"
+                    class="chat-profile-image me-3"
+                    v-else-if="mainUser.gender == 1"
+                  />
+                  <img
+                    src="@/assets/images/user.png"
+                    alt="profile"
+                    class="chat-profile-image me-3"
+                    v-else
+                  />
+                </div>
+                <div>
+                  <div class="fw-bold text-black">
+                    {{ mainUser.firstName }} {{ mainUser.lastName }}
+                  </div>
+                </div>
+              </div>
+              <input
+                class="form-control form-control-sm rounded-5 px-3 my-3"
+                type="text"
+                placeholder="Search"
+              />
+              <div
+                class="chat-users d-flex align-items-center my-3 py-2 mx-1 px-2 rounded-2"
+                v-for="usr in users"
+                :key="usr.id"
+              >
+                <div>
+                  <div
+                    :style="{
+                      backgroundImage: `url(${usr.profileImage})`,
+                    }"
+                    class="chat-user-image me-3 shadow-sm"
+                    v-if="usr.profileImage"
+                  ></div>
+                  <img
+                    src="@/assets/images/profile-man.png"
+                    alt="profile-man"
+                    class="chat-user-image me-3"
+                    v-else-if="usr.gender == 2"
+                  />
+                  <img
+                    src="@/assets/images/profile-woman.png"
+                    alt="profile-woman"
+                    class="chat-user-image me-3"
+                    v-else-if="usr.gender == 1"
+                  />
+                  <img
+                    src="@/assets/images/user.png"
+                    alt="profile"
+                    class="chat-user-image me-3"
+                    v-else
+                  />
+                </div>
+                <div>
+                  <div class="fw-bold text-black">
+                    {{ usr.firstName }} {{ usr.lastName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="chat-main p-0">
+              <div class="chat-header">
+                <div
+                  class="d-flex align-items-center justify-content-between my-3 me-3"
+                >
+                  <div class="d-flex align-items-center">
+                    <div
+                      :style="{
+                        backgroundImage: `url(${mainUser.profileImage})`,
+                      }"
+                      class="chat-profile-image me-3 shadow-sm"
+                      v-if="mainUser.profileImage"
+                    ></div>
+                    <img
+                      src="@/assets/images/profile-man.png"
+                      alt="profile-man"
+                      class="chat-profile-image me-3"
+                      v-else-if="mainUser.gender == 2"
+                    />
+                    <img
+                      src="@/assets/images/profile-woman.png"
+                      alt="profile-woman"
+                      class="chat-profile-image me-3"
+                      v-else-if="mainUser.gender == 1"
+                    />
+                    <img
+                      src="@/assets/images/user.png"
+                      alt="profile"
+                      class="chat-profile-image me-3"
+                      v-else
+                    />
+                    <div>
+                      <div class="fw-bold text-black">
+                        {{ mainUser.firstName }} {{ mainUser.lastName }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+              </div>
+
+              <div class="chat-screen"></div>
+
+              <div class="chat-send">
+                <input
+                  class="form-control form-control-lg rounded-5 px-3 chat-input"
+                  type="text"
+                  placeholder="Write Something"
+                  v-model="text"
+                  @keydown.enter="sendMsg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { useAuthStore } from "@/stores/auth";
+import { storeToRefs } from "pinia";
+import { inject, ref, watch } from "vue";
+import { HubConnection } from "@microsoft/signalr";
+import { useUserStore } from "@/stores/user";
 
-export default defineComponent({
-  setup() {
-    return {};
+const connection: HubConnection | any = inject("connection");
+const hubConnection = ref<HubConnection>(connection);
+const text = ref("");
+const msgList = ref<any>([]);
+const idRef = ref("");
+
+const authStore = useAuthStore();
+const { _user: mainUser } = storeToRefs(authStore);
+
+const userStore = useUserStore();
+userStore.getUserFollowings(mainUser.value.id.toString());
+const { _userFollowings: users } = storeToRefs(userStore);
+
+const getConnectionId = async () => {
+  await hubConnection.value.invoke("getconnectionid").then((data: any) => {
+    console.log("Connection Id: ", data);
+    idRef.value = data;
+  });
+  await hubConnection.value.invoke("assignconnectionid", mainUser.value.id);
+};
+
+watch(
+  hubConnection,
+  () => {
+    if (hubConnection.value) {
+      console.log("Bağlantı Başarılı");
+
+      getConnectionId().then((res: any) => {
+        console.log("GetConnectionId then:", res);
+      });
+    }
   },
+  { immediate: true }
+);
+
+watch(hubConnection, () => {
+  if (hubConnection.value) {
+    const receiveMessageHandler = (msg: any) => {
+      console.log("Mesaj Alındı: ", msg);
+      msgList.value = (prevMsgList: any) => [...prevMsgList, msg];
+    };
+
+    hubConnection.value.on("receiveMessage", receiveMessageHandler);
+
+    return () => {
+      hubConnection.value.off("receiveMessage", receiveMessageHandler);
+    };
+  }
 });
+
+const sendMsg = () => {
+  const user = {
+    id: mainUser.value.id,
+    firstName: mainUser.value.firstName,
+    lastName: mainUser.value.lastName,
+    profileImage: mainUser.value.profileImage,
+    gender: mainUser.value.gender,
+  };
+
+  const message = {
+    from: user,
+    message: text,
+    createdAt: new Date(),
+  };
+  if (hubConnection.value) {
+    hubConnection.value
+      .invoke(
+        "SendMessageAsync",
+        mainUser.value.id === user.id ? "64748660ff20ce1a9a2091bf" : user.id,
+        message
+      )
+      .then((res: any) => {
+        console.log("Response", res);
+      });
+  }
+};
 </script>
 
-<style scoped>
-#container {
-  width: 100%;
-  height: 800px;
-  background: #eff3f7;
-  margin: 0 auto;
-  font-size: 0;
-  border-radius: 5px;
-  overflow: hidden;
-}
-aside {
-  width: 260px;
-  height: 800px;
-  background-color: #3b3e49;
-  display: inline-block;
-  font-size: 15px;
-  vertical-align: top;
-}
-main {
-  height: 800px;
-  display: inline-block;
-  font-size: 15px;
-  vertical-align: top;
+<style scoped lang="scss">
+.card {
+  border: 2px solid var(--color-primary);
+  border-radius: 8px;
 }
 
-aside header {
-  padding: 30px 20px;
-}
-aside input {
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  padding: 0 50px 0 20px;
-  background-color: #5e616a;
-  border: none;
-  border-radius: 3px;
-  color: #fff;
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_search.png);
+.chat-profile-image {
   background-repeat: no-repeat;
-  background-position: 170px;
-  background-size: 40px;
-}
-aside input::placeholder {
-  color: #fff;
-}
-aside ul {
-  padding-left: 0;
-  margin: 0;
-  list-style-type: none;
-  overflow-y: auto;
-  height: 690px;
-}
-aside li {
-  padding: 10px 0;
-}
-aside li:hover {
-  background-color: #5e616a;
-}
-h2,
-h3 {
-  margin: 0;
-}
-aside li img {
-  border-radius: 50%;
-  margin-left: 20px;
-  margin-right: 8px;
-}
-aside li div {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: 12px;
-}
-aside li h2 {
-  font-size: 14px;
-  color: #fff;
-  font-weight: normal;
-  margin-bottom: 5px;
-}
-aside li h3 {
-  font-size: 12px;
-  color: #7e818a;
-  font-weight: normal;
+  background-position: center;
+  background-size: cover;
+  background-color: grey;
+  border-radius: 99px;
+  height: 64px;
+  width: 64px;
 }
 
-.status {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 7px;
-}
-.green {
-  background-color: #58b666;
-}
-.orange {
-  background-color: #ff725d;
-}
-.blue {
-  background-color: #6fbced;
-  margin-right: 0;
-  margin-left: 7px;
+.chat-user-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: grey;
+  border-radius: 99px;
+  height: 48px;
+  width: 48px;
 }
 
-main header {
-  height: 110px;
-  padding: 30px 20px 30px 40px;
-}
-main header > * {
-  display: inline-block;
-  vertical-align: top;
-}
-main header img:first-child {
-  border-radius: 50%;
-}
-main header img:last-child {
-  width: 24px;
-  margin-top: 8px;
-}
-main header div {
-  margin-left: 10px;
-  margin-right: 145px;
-}
-main header h2 {
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-main header h3 {
-  font-size: 14px;
-  font-weight: normal;
-  color: #7e818a;
+.chat-users {
+  transition: all 0.4s ease;
+  background-color: var(--color-bg-light);
+
+  &:hover {
+    background-color: var(--color-accent);
+  }
 }
 
-#chat {
-  padding-left: 0;
-  margin: 0;
-  list-style-type: none;
-  overflow-y: scroll;
-  height: 535px;
-  border-top: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-}
-#chat li {
-  padding: 10px 30px;
-}
-#chat h2,
-#chat h3 {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: normal;
-}
-#chat h3 {
-  color: #bbb;
-}
-#chat .entete {
-  margin-bottom: 5px;
-}
-#chat .message {
-  padding: 20px;
-  color: #fff;
-  line-height: 25px;
-  max-width: 90%;
-  display: inline-block;
-  text-align: left;
-  border-radius: 5px;
-}
-#chat .me {
-  text-align: right;
-}
-#chat .you .message {
-  background-color: #58b666;
-}
-#chat .me .message {
-  background-color: #6fbced;
-}
-#chat .triangle {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
-}
-#chat .you .triangle {
-  border-color: transparent transparent #58b666 transparent;
-  margin-left: 15px;
-}
-#chat .me .triangle {
-  border-color: transparent transparent #6fbced transparent;
-  margin-left: 375px;
+.chat-section {
+  flex: 0 0 300px;
+  border-radius: 8px;
+  height: 100%;
+  padding: 12px 6px;
 }
 
-main footer {
-  height: 155px;
-  padding: 20px 30px 10px 20px;
+.chat-main {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-main footer textarea {
-  resize: none;
-  border: none;
-  display: block;
+.chat-screen {
+  height: 100%;
   width: 100%;
-  height: 80px;
-  border-radius: 3px;
-  padding: 20px;
-  font-size: 13px;
-  margin-bottom: 13px;
+  background-color: var(--color-secondary);
 }
-main footer textarea::placeholder {
-  color: #ddd;
+
+.chat-header {
+  width: 100%;
+  border-bottom: 1px solid var(--color-secondary);
+  padding: 0px 16px;
 }
-main footer img {
-  height: 30px;
-  cursor: pointer;
+
+.chat-send {
+  width: 100%;
+  border-top: 1px solid var(--color-secondary);
+  padding: 12px 16px;
 }
-main footer a {
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: bold;
-  color: #6fbced;
-  vertical-align: top;
-  margin-left: 333px;
-  margin-top: 5px;
-  display: inline-block;
+
+.chat-input {
+  transition: all 0.4s ease;
+  background-color: var(--color-secondary);
+
+  &:focus {
+    background-color: white;
+  }
 }
 </style>

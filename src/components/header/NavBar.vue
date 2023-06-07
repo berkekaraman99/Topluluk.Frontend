@@ -176,7 +176,7 @@ const { _user: user, _userIsAuthorized: userIsAuthorized } =
 
 const userStore = useUserStore();
 if (user.value != null) {
-  userStore.getFollowersRequests(user.value.id);
+  userStore.getFollowersRequests(user.value.id.toString());
 }
 
 const { _userFollowersRequests: userFollowersRequests } =

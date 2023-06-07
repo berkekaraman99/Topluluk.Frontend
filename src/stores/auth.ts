@@ -11,7 +11,7 @@ export const useAuthStore = defineStore("authStore", {
     statusCode: 0 as number,
   }),
   getters: {
-    _user: (state: any) => state.user,
+    _user: (state: any) => state.user as IAuthUser,
     _userIsAuthorized: (state: any) => state.userIsAuthorized,
     _statusCode: (state: any) => state.statusCode,
   },
