@@ -30,16 +30,22 @@
       <div class="container">
         <RouterLink
           :to="{ name: 'userprofile', params: { id: item.id } }"
-          class="card shadow-sm px-4 py-3 my-4 col-12 col-sm-12 col-md-8 offset-md-2"
+          class="card px-4 py-3 my-4 col-12 col-sm-12 col-md-8 offset-md-2"
           v-for="item in searchItems"
           v-bind:key="item.id"
           id="search-highlights"
         >
+          <div
+            class="search-user-background position-absolute top-0 start-0 end-0 bottom-0"
+            :style="{
+              'background-image': `url(${item.profileImage})`,
+            }"
+          ></div>
           <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
               <div
                 :style="{
-                  'background-image': 'url(' + item.profileImage + ')',
+                  'background-image': `url(${item.profileImage})`,
                 }"
                 alt="profile image"
                 class="post-profile-image me-4"
@@ -64,10 +70,10 @@
                 v-else
               />
               <div>
-                <div class="fw-bold">
+                <div class="fw-bold text-white">
                   {{ item.firstName }} {{ item.lastName }}
                 </div>
-                <div class="text-secondary">@{{ item.userName }}</div>
+                <div class="text-white-50">@{{ item.userName }}</div>
               </div>
             </div>
           </div>
@@ -135,5 +141,8 @@ const handleSearch = async () => {
     width: 100%;
     border-radius: 0.5rem;
   }
+}
+.card {
+  background-color: rgba(0, 0, 0, 0.62);
 }
 </style>

@@ -7,6 +7,7 @@ import {
   createFloatingLabelsPlugin,
   createMultiStepPlugin,
 } from "@formkit/addons";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import "@formkit/themes/genesis";
 import "@formkit/addons/css/multistep";
@@ -14,8 +15,18 @@ import "./assets/css/normalize.css";
 import "./assets/css/main.css";
 import { useAuthStore } from "./stores/auth";
 
+const connection = new HubConnectionBuilder()
+  .withUrl("https://localhost:7287/chat-hub", {
+    skipNegotiation: true,
+    transport: 1,
+  })
+  .withAutomaticReconnect()
+  .configureLogging(1)
+  .build();
+
 const app = createApp(App);
 
+app.provide("connection", connection);
 app.use(createPinia());
 app.use(router);
 app.use(
@@ -35,7 +46,6 @@ const loadUser = async () => {
   const authStore = useAuthStore();
   await authStore.loadUser().then(() => (authStore.userIsAuthorized = true));
 };
-
 loadUser();
 
 router.beforeEach((to, from, next) => {

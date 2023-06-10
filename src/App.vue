@@ -1,57 +1,3 @@
-<script setup lang="ts">
-import SidebarLeft from "./components/Sidebar/Left/SidebarLeft.vue";
-import SidebarRight from "./components/Sidebar/Right/SidebarRight.vue";
-import NavBar from "./components/header/NavBar.vue";
-import { ref, provide } from "vue";
-import { onMounted } from "vue";
-import { HubConnectionBuilder } from "@microsoft/signalr";
-
-const connection = new HubConnectionBuilder()
-  .withUrl("https://localhost:7287/chat-hub", {
-    skipNegotiation: true,
-    transport: 1,
-  })
-  .withAutomaticReconnect()
-  .configureLogging(1)
-  .build();
-
-provide("connection", connection);
-
-const hubConnection: any = ref(connection);
-
-onMounted(async () => {
-  // connection.value = new HubConnectionBuilder()
-  //   .withUrl("https://localhost:7287/chat-hub", {
-  //     skipNegotiation: true,
-  //     transport: 1,
-  //   })
-  //   .withAutomaticReconnect()
-  //   .configureLogging(1)
-  //   .build();
-
-  await hubConnection.value
-    .start()
-    .then(() => {
-      console.log("SignalR bağlantısı başlatıldı");
-    })
-    .catch((error: any) => {
-      console.error("SignalR bağlantısı başlatılamadı: ", error);
-    });
-
-  await hubConnection.value.on("ReceiveMessage", (user: any, message: any) => {
-    console.log("Yeni mesaj alındı:", user, message);
-  });
-});
-
-// const sendMessage = (user: any, message: any) => {
-//   hubConnection.value
-//     .invoke("SendMessage", user, message)
-//     .catch((error: any) => {
-//       console.error("Mesaj gönderilemedi: ", error);
-//     });
-// };
-</script>
-
 <template>
   <div class="h-100">
     <Transition name="fade">
@@ -141,6 +87,31 @@ onMounted(async () => {
     </Transition>
   </div>
 </template>
+
+<script setup lang="ts">
+import SidebarLeft from "./components/Sidebar/Left/SidebarLeft.vue";
+import SidebarRight from "./components/Sidebar/Right/SidebarRight.vue";
+import NavBar from "./components/header/NavBar.vue";
+import { ref, onMounted, inject } from "vue";
+
+const connection = inject("connection");
+const hubConnection: any = ref(connection);
+
+onMounted(async () => {
+  await hubConnection.value
+    .start()
+    .then(() => {
+      console.log("SignalR bağlantısı başlatıldı");
+    })
+    .catch((error: any) => {
+      console.error("SignalR bağlantısı başlatılamadı: ", error);
+    });
+
+  await hubConnection.value.on("ReceiveMessage", (user: any, message: any) => {
+    console.log("Yeni mesaj alındı:", user, message);
+  });
+});
+</script>
 
 <style lang="scss">
 .carousel-control-prev,

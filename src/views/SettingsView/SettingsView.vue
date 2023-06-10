@@ -95,7 +95,7 @@
                 Change Profile Image
               </div>
             </div>
-            <ChangeProfileImage />
+            <ChangeProfileImage :id="userId.toString()" />
           </div>
 
           <!-- CHANGE BANNER IMAGE -->
@@ -112,7 +112,7 @@
                 Change Banner Image
               </div>
             </div>
-            <ChangeBannerImage />
+            <ChangeBannerImage :id="userId.toString()" />
           </div>
 
           <!-- DARK MODE -->
@@ -152,6 +152,7 @@ import DeleteAccount from "@/components/common/settings/DeleteAccount.vue";
 const authStore = useAuthStore();
 const { _user: user } = storeToRefs(authStore);
 const userStore = useUserStore();
+const userId = user.value.id;
 
 const loading = ref(false);
 const changeLoadingState = () => {
@@ -163,7 +164,7 @@ const changeSettingsLoading = () => {
   isSettingsLoading.value = !isSettingsLoading.value;
 };
 
-userStore.getUserById(user.value.id).then(changeSettingsLoading);
+userStore.getUserById(userId.toString()).then(changeSettingsLoading);
 const changePrivacy: Function = async (isPrivate: boolean) => {
   changeLoadingState();
   await userStore.changeUserPrivacy({ isPrivate }).then(changeLoadingState);

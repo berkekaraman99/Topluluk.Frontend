@@ -20,19 +20,22 @@
           multiple="true"
           v-on:change="onFileChangeProfile"
         />
-        <FormKit
-          type="submit"
-          :label="
-            loading
-              ? 'Loading'
-              : statusCode !== 200
-              ? 'Change Profile Image'
-              : 'Success'
-          "
-          wrapper-class="text-center"
-          :classes="{ input: 'w-100' }"
-          :disabled="loading || statusCode === 200"
-        />
+        <div class="d-flex align-items-center justify-content center">
+          <FormKit
+            type="submit"
+            label="Change Profile Image"
+            wrapper-class="text-center"
+            :classes="{ input: '' }"
+          />
+          <FormKit
+            type="button"
+            :label="loading ? 'Loading' : 'Remove Profile Image'"
+            @click="removeProfileImage"
+            wrapper-class="text-center"
+            :classes="{ input: 'bg-danger' }"
+            :disabled="loading"
+          />
+        </div>
       </FormKit>
     </div>
   </div>
@@ -40,11 +43,16 @@
 
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
-import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+});
+
 const userStore = useUserStore();
-const { _statusCode: statusCode } = storeToRefs(userStore);
 
 const loading = ref(false);
 const changeLoadingState = () => {
@@ -63,19 +71,23 @@ const changeProfileImage = async () => {
   const body = new FormData();
   body.append("files", profileImage.value);
   try {
-    changeLoadingState();
-    await userStore.changeProfileImage(body).then(() => {
-      changeLoadingState();
-      setTimeout(() => {
-        userStore.$patch({
-          statusCode: 0,
-        });
-      }, 2000);
-    });
+    await userStore.changeProfileImage(body).then(() => {});
   } catch (error: any) {
-    changeLoadingState();
     console.log(error.response.data);
   }
+};
+
+const removeProfileImage = async () => {
+  changeLoadingState();
+  await userStore.removeProfileImage().then(async () => {
+    changeLoadingState();
+    await userStore.getUserById(props.id);
+    setTimeout(() => {
+      userStore.$patch({
+        statusCode: 0,
+      });
+    }, 2000);
+  });
 };
 </script>
 

@@ -8,120 +8,128 @@
         </div>
       </div>
       <div class="card-body">
+        <!-- Change Cover Image -->
         <div>
           <div
             class="tile"
             data-bs-toggle="collapse"
-            data-bs-target="#collapseEditCommunity"
+            data-bs-target="#collapseChangeCoverImage"
             aria-expanded="false"
             aria-controls="collapseExample"
           >
             <i class="fa-solid fa-pen-to-square"></i>
-            <span class="ms-2 text-primary">Edit Community</span>
+            <span class="ms-2 text-primary">Change Community Cover</span>
           </div>
         </div>
-        <div class="collapse" id="collapseEditCommunity">
+        <div class="collapse" id="collapseChangeCoverImage">
           <div class="card card-body">
-            <FormKit type="form" submit-label="Create" :actions="false">
+            <FormKit
+              type="form"
+              @submit="changeCoverImage"
+              submit-label="Create"
+              :actions="false"
+            >
               <FormKit
-                type="multi-step"
-                tab-style="progress"
-                :hide-progress-labels="true"
-                :allow-incomplete="true"
-                :classes="{
-                  outer: 'mx-auto',
-                  wrapper: 'mx-auto',
-                }"
-              >
-                <FormKit type="step">
-                  <FormKit
-                    type="text"
-                    label="Community Name"
-                    validation="required"
-                    v-model="communityObject.Title"
-                  />
-                  <FormKit
-                    type="textarea"
-                    label="Community Description"
-                    validation="required"
-                    v-model="communityObject.Description"
-                  />
-                  <FormKit
-                    type="number"
-                    label="Participiant Limit"
-                    value="1"
-                    step="1"
-                    min="1"
-                    v-model="communityObject.ParticipiantLimit"
-                  />
-                  <FormKit
-                    type="text"
-                    label="Location"
-                    validation="required"
-                    v-model="communityObject.Location"
-                  />
-                </FormKit>
-
-                <FormKit type="step">
-                  <FormKit
-                    type="file"
-                    label="Cover Image"
-                    accept=".png,.jpg,.jpeg"
-                    multiple="false"
-                    validation="required"
-                    v-on:change="onFileChangeCoverImage"
-                  />
-
-                  <FormKit
-                    type="file"
-                    label="Banner Image"
-                    accept=".png,.jpg,.jpeg"
-                    multiple="false"
-                    validation="required"
-                    v-on:change="onFileChangeBannerImage"
-                  />
-
-                  <FormKit
-                    type="select"
-                    label="Community Is Public?"
-                    placeholder="Select..."
-                    :options="[
-                      { label: 'True', value: true },
-                      { label: 'False', value: false },
-                    ]"
-                    validation="required"
-                    v-model="communityObject.IsPublic"
-                  />
-
-                  <FormKit
-                    type="select"
-                    label="Community Is Visible?"
-                    placeholder="Select..."
-                    :options="[
-                      { label: 'True', value: true },
-                      { label: 'False', value: false },
-                    ]"
-                    validation="required"
-                    v-model="communityObject.IsVisible"
-                  />
-                </FormKit>
-              </FormKit>
-              <FormKit
-                type="submit"
-                :label="
-                  loading
-                    ? 'Loading'
-                    : statusCode !== 200
-                    ? 'Edit Community'
-                    : 'Success'
-                "
-                wrapper-class="mx-auto text-center"
-                :classes="{ input: 'w-100' }"
-                :disabled="loading || statusCode === 200"
+                type="file"
+                label="Files"
+                accept=".png,.jpg,.jpeg,.jfif,.webp"
+                multiple="true"
+                v-on:change="onFileChangeCoverImage"
               />
+              <div class="d-flex align-items-center">
+                <FormKit
+                  type="submit"
+                  :label="
+                    loading
+                      ? 'Loading'
+                      : statusCode !== 200
+                      ? 'Change Cover Image'
+                      : 'Success'
+                  "
+                  wrapper-class="text-center"
+                  :classes="{ input: '' }"
+                  :disabled="loading || statusCode === 200"
+                />
+                <FormKit
+                  type="button"
+                  :label="
+                    loading
+                      ? 'Loading'
+                      : statusCode !== 200
+                      ? 'Remove Cover Image'
+                      : 'Success'
+                  "
+                  @click="removeCoverImage"
+                  wrapper-class="text-center"
+                  :classes="{ input: 'bg-danger' }"
+                  :disabled="loading || statusCode === 200"
+                />
+              </div>
             </FormKit>
           </div>
         </div>
+
+        <!-- Change Banner Image -->
+        <div>
+          <div
+            class="tile"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseChangeBannerImage"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span class="ms-2 text-primary">Change Community Banner</span>
+          </div>
+        </div>
+        <div class="collapse" id="collapseChangeBannerImage">
+          <div class="card card-body">
+            <FormKit
+              type="form"
+              @submit="changeBannerImage"
+              submit-label="Create"
+              :actions="false"
+            >
+              <FormKit
+                type="file"
+                label="Files"
+                accept=".png,.jpg,.jpeg,.jfif,.webp"
+                multiple="true"
+                v-on:change="onFileChangeBannerImage"
+              />
+              <div class="d-flex align-items-center">
+                <FormKit
+                  type="submit"
+                  :label="
+                    loading
+                      ? 'Loading'
+                      : statusCode !== 200
+                      ? 'Change Banner Image'
+                      : 'Success'
+                  "
+                  wrapper-class="text-center"
+                  :classes="{ input: '' }"
+                  :disabled="loading || statusCode === 200"
+                />
+                <FormKit
+                  type="button"
+                  :label="
+                    loading
+                      ? 'Loading'
+                      : statusCode !== 200
+                      ? 'Remove Banner Image'
+                      : 'Success'
+                  "
+                  @click="removeBannerImage"
+                  wrapper-class="text-center"
+                  :classes="{ input: 'bg-danger' }"
+                  :disabled="loading || statusCode === 200"
+                />
+              </div>
+            </FormKit>
+          </div>
+        </div>
+
         <div v-if="adminId === user.id" class="tile">
           <div disabled v-if="loading">
             <span
@@ -145,7 +153,7 @@
 import { useAuthStore } from "@/stores/auth";
 import { useCommunityStore } from "@/stores/community";
 import { storeToRefs } from "pinia";
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const props = defineProps({
@@ -159,25 +167,17 @@ const props = defineProps({
   },
 });
 
-const communityObject = reactive({
-  Location: "",
-  IsVisible: "true",
-  IsPublic: "true",
-  CoverImage: null,
-  ParticipiantLimit: "1",
-  Description: "",
-  Title: "",
-  BannerImage: null,
-});
+const coverImage = ref<File | any>(null);
+const bannerImage = ref<File | any>(null);
 
 const onFileChangeCoverImage = (e: any) => {
   let files = e.target.files || e.dataTransfer.files;
-  communityObject.CoverImage = files[0];
+  coverImage.value = files[0];
 };
 
 const onFileChangeBannerImage = (e: any) => {
   let files = e.target.files || e.dataTransfer.files;
-  communityObject.BannerImage = files[0];
+  bannerImage.value = files[0];
 };
 
 const router = useRouter();
@@ -191,6 +191,34 @@ const { _user: user } = storeToRefs(authStore);
 
 const communityStore = useCommunityStore();
 const { _statusCode: statusCode } = storeToRefs(communityStore);
+
+const changeCoverImage = async () => {
+  const body = new FormData();
+  body.append("File", coverImage.value);
+  await communityStore.updateCoverImage(props.id, body).then(async () => {
+    await communityStore.getCommunity(props.id);
+  });
+};
+
+const removeCoverImage = async () => {
+  await communityStore
+    .removeCoverImage(props.id)
+    .then(async () => await communityStore.getCommunity(props.id));
+};
+
+const changeBannerImage = async () => {
+  const body = new FormData();
+  body.append("File", bannerImage.value);
+  await communityStore.updateBannerImage(props.id, body).then(async () => {
+    await communityStore.getCommunity(props.id);
+  });
+};
+
+const removeBannerImage = async () => {
+  await communityStore
+    .removeBannerImage(props.id)
+    .then(async () => await communityStore.getCommunity(props.id));
+};
 
 const deleteCommunity = async () => {
   changeLoadingState();

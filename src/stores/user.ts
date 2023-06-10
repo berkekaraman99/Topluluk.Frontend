@@ -93,12 +93,32 @@ export const useUserStore = defineStore("userStore", {
       await useAuthStore().getUserAfterLogin();
     },
 
+    //REMOVE PROFILE IMAGE
+    async removeProfileImage() {
+      try {
+        const res = await instance.post("/user/remove-profile-image", {});
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error);
+      }
+    },
+
     //CHANGE USER BANNER IMAGE
     async changeBannerImage(image: FormData) {
       const res = await instance.post("/User/ChangeBannerImage", image);
       console.log(res.data);
       this.statusCode = res.data.statusCode;
       await useAuthStore().getUserAfterLogin();
+    },
+
+    //REMOVE BANNER IMAGE
+    async removeBannerImage() {
+      try {
+        const res = await instance.post("/user/remove-banner-image", {});
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error);
+      }
     },
 
     //GET FOLLOWINGS

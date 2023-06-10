@@ -11,12 +11,11 @@
       >
 
       <div class="d-flex align-items-center justify-content-center">
-        <div class="navbar-nav me-auto mb-2 mb-lg-0"></div>
         <template v-if="userIsAuthorized">
           <div class="d-flex align-items-center" v-if="user">
             <div class="dropdown create-nav">
               <button
-                class="dropdown-toggle py-2"
+                class="dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -215,6 +214,7 @@ const logout = async () => {
   padding: 12px;
   transition: all 0.3s ease;
   margin: 0px 4px;
+  height: 48px;
 
   &:hover {
     background-color: var(--color-primary-hover);

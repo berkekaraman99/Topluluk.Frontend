@@ -109,17 +109,17 @@
           </div>
 
           <!-- Followers Modal -->
-          <FollowersModal :id="userId" />
+          <FollowersModal :id="userId.toString()" />
 
           <!-- Followings Modal -->
-          <FollowingsModal :id="userId" />
+          <FollowingsModal :id="userId.toString()" />
 
           <!-- Follower Requests Modal -->
-          <FollowerRequestsModal :id="userId" />
+          <FollowerRequestsModal :id="userId.toString()" />
         </div>
         <div class="col-lg-4 col-xl-3 d-none d-sm-none d-lg-block">
           <UserSuggestions v-if="sidebar === 'suggestions'" />
-          <UserFollowRequests :user-id="userId" v-else />
+          <UserFollowRequests :user-id="userId.toString()" v-else />
         </div>
       </div>
 
@@ -253,7 +253,7 @@
         </div>
       </div>
       <div>
-        <UserPosts v-if="category === 'posts'" :userId="userId" />
+        <UserPosts v-if="category === 'posts'" :userId="userId.toString()" />
         <UserCommunities v-else-if="category === 'communities'" />
         <UserEvents v-else-if="category === 'events'" />
         <UserSavedPosts v-else-if="category === 'saved'" />
@@ -289,7 +289,7 @@ const changeLoadingState = () => {
   loading.value = !loading.value;
 };
 
-userStore.getUserById(user.value.id).then(changeLoadingState);
+userStore.getUserById(user.value.id.toString()).then(changeLoadingState);
 
 const changeCategory = (tab: string) => {
   category.value = tab;

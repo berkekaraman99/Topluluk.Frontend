@@ -139,5 +139,57 @@ export const useCommunityStore = defineStore("communityStore", {
     setParticipiants(state: any, payload: any) {
       state.participiants = payload;
     },
+
+    //UPDATE COMMUNITY COVER IMAGE
+    async updateCoverImage(communityId: string, data: FormData) {
+      try {
+        const res = await instance.post(
+          `/community/${communityId}/update-cover-image`,
+          data
+        );
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error);
+      }
+    },
+
+    // REMOVE COMMUNITY COVER IMAGE
+    async removeCoverImage(communityId: string) {
+      try {
+        const res = await instance.post(
+          `/community/${communityId}/remove-cover-image`,
+          {}
+        );
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error);
+      }
+    },
+
+    // UPDATE COMMUNITY BANNER IMAGE
+    async updateBannerImage(communityId: string, data: FormData) {
+      try {
+        const res = await instance.post(
+          `/community/${communityId}/update-banner-image`,
+          data
+        );
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error);
+      }
+    },
+
+    //REMOVE COMMUNITY BANNER IMAGE
+    async removeBannerImage(communityId: string) {
+      try {
+        const res = await instance.post(
+          `/community/${communityId}/remove-banner-image`,
+          {}
+        );
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error);
+      }
+    },
   },
 });

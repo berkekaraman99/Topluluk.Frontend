@@ -20,19 +20,28 @@
           multiple="true"
           v-on:change="onFileChangeBanner"
         />
-        <FormKit
-          type="submit"
-          :label="
-            loading
-              ? 'Loading'
-              : statusCode !== 200
-              ? 'Change Banner Image'
-              : 'Success'
-          "
-          wrapper-class="text-center"
-          :classes="{ input: 'w-100' }"
-          :disabled="loading || statusCode === 200"
-        />
+        <div class="d-flex align-items-center justify-content-center">
+          <FormKit
+            type="submit"
+            label="Change Banner Image"
+            wrapper-class="text-center"
+            :classes="{ input: '' }"
+          />
+          <FormKit
+            type="button"
+            :label="
+              loading
+                ? 'Loading'
+                : statusCode !== 200
+                ? 'Remove Banner Image'
+                : 'Success'
+            "
+            @click="removeBannerImage"
+            wrapper-class="text-center"
+            :classes="{ input: 'bg-danger' }"
+            :disabled="loading || statusCode === 200"
+          />
+        </div>
       </FormKit>
     </div>
   </div>
@@ -42,6 +51,13 @@
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
+
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+});
 
 const userStore = useUserStore();
 const { _statusCode: statusCode } = storeToRefs(userStore);
@@ -54,27 +70,30 @@ const changeLoadingState = () => {
 const bannerImage: any = ref(null);
 const onFileChangeBanner = (e: any) => {
   let files = e.target.files || e.dataTransfer.files;
-  console.log(files[0]);
   bannerImage.value = files[0];
-  console.log(bannerImage.value);
 };
 
 const changeBannerImage = async () => {
   const body: FormData = new FormData();
   body.append("File", bannerImage.value);
   try {
-    changeLoadingState();
-    await userStore.changeBannerImage(body).then(() => {
-      changeLoadingState();
-      setTimeout(() => {
-        userStore.$patch({
-          statusCode: 0,
-        });
-      }, 2000);
-    });
+    await userStore.changeBannerImage(body).then(() => {});
   } catch (error: any) {
     console.log(error.response.data);
   }
+};
+
+const removeBannerImage = async () => {
+  changeLoadingState();
+  await userStore.removeBannerImage().then(async () => {
+    await userStore.getUserById(props.id);
+    changeLoadingState();
+    setTimeout(() => {
+      userStore.$patch({
+        statusCode: 0,
+      });
+    }, 2000);
+  });
 };
 </script>
 

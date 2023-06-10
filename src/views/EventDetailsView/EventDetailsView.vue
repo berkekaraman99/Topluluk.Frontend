@@ -281,6 +281,10 @@ onUnmounted(() => {
   margin: 3px 0px;
   border: 1px solid white;
 
+  @media screen and (max-width: 992px) {
+    margin: 3px 4px;
+  }
+
   &:hover {
     background-color: rgb(245, 245, 245);
     color: var(--color-text-dark);

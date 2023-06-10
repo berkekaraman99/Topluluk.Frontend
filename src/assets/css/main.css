@@ -44,6 +44,15 @@
   background-size: cover;
 }
 
+.search-user-background {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: -1;
+  border-radius: 6px;
+  filter: blur(4px);
+}
+
 .post-profile-image {
   background-repeat: no-repeat;
   background-position: center;

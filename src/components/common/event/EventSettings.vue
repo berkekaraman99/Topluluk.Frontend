@@ -1,6 +1,10 @@
 <template>
   <div>
-    <button class="btn btn-danger" @click="deleteEvent" :disabled="loading">
+    <button
+      class="btn btn-danger w-100"
+      @click="deleteEvent"
+      :disabled="loading"
+    >
       {{ loading ? "Processing" : "Delete Event" }}
     </button>
   </div>
