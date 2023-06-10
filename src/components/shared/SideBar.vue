@@ -1,6 +1,6 @@
 <template>
   <div
-    id="sidebar"
+    id="sidebar-left"
     class="mb-4 mb-md-4 mb-lg-0 d-flex align-items-start justify-content-start flex-column flex-sm-row flex-lg-column"
   >
     <RouterLink
@@ -31,21 +31,10 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// window.onscroll = () => {
-//   if (
-//     window.matchMedia("(max-width: 576px)").matches &&
-//     window.pageYOffset > 0
-//   ) {
-//     document.getElementById("sidebar").style.top = "-176px";
-//   } else {
-//     document.getElementById("sidebar").style.top = "60px";
-//   }
-// };
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
-#sidebar {
+#sidebar-left {
   border-radius: 12px;
   padding: 11px 8px;
   height: fit-content;

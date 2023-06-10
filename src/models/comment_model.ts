@@ -5,6 +5,7 @@ export interface IComment {
   id: String;
   interactionCount: Number;
   isLiked: Boolean;
+  isEdited: Boolean;
   lastName: String;
   message: String;
   profileImage: String | null;

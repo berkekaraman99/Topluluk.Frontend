@@ -87,23 +87,6 @@ postStore.getPostFeed(skip.value.toString()).then(changeLoadingState);
 
 const { _feed: postFeed } = storeToRefs(postStore);
 
-// window.onscroll = function () {
-//   var d = document.documentElement;
-//   var offset = d.scrollTop + window.innerHeight;
-//   var height = d.offsetHeight;
-//   // var threshold = 10;
-
-//   if (offset === height) {
-//     skip.value++;
-//     setTimeout(() => {
-//       postStore.getPostFeed(skip.value.toString());
-//     }, 1000);
-//     // Burada yapmak istediğiniz isteği yapabilirsiniz.
-//     // Örneğin, bir API'ye istek gönderebilirsiniz.
-//     console.log("Sayfa sonuna ulaşıldı, istek gönderildi.");
-//   }
-// };
-
 onBeforeUnmount(() => {
   postStore.$patch({
     feed: [],

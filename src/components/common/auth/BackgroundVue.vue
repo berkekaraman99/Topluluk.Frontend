@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid d-none d-md-block">
     <div class="bg-image"></div>
   </div>
 </template>

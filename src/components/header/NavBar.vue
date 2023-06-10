@@ -1,7 +1,7 @@
 <template>
   <!-- Navbar -->
   <nav
-    class="navbar navbar-expand-lg bg-body-tertiary shadow-sm sticky-top mb-4"
+    class="navbar navbar-expand-lg bg-body-tertiary shadow-sm position-fixed start-0 end-0 top-0 z-3"
   >
     <div class="container-xxl d-flex">
       <span

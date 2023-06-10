@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-3">
+  <div class="container h-100 px-3">
     <div class="row h-100 pb-3">
       <div class="card">
         <div class="col-12 h-100">
@@ -51,6 +51,7 @@
                 class="chat-users d-flex align-items-center my-3 py-2 mx-1 px-2 rounded-2"
                 v-for="usr in users"
                 :key="usr.id"
+                @click="getUserId(usr.id)"
               >
                 <div>
                   <div
@@ -136,7 +137,8 @@
                   type="text"
                   placeholder="Write Something"
                   v-model="text"
-                  @keydown.enter="sendMsg"
+                  @keydown.enter="SendMessageAsync()"
+                  :disabled="userId === ''"
                 />
               </div>
             </div>
@@ -150,15 +152,17 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
-import { inject, ref, watch } from "vue";
+import { inject, onMounted, ref, watch } from "vue";
 import { HubConnection } from "@microsoft/signalr";
 import { useUserStore } from "@/stores/user";
+import { watchEffect } from "vue";
 
 const connection: HubConnection | any = inject("connection");
 const hubConnection = ref<HubConnection>(connection);
-const text = ref("");
+const text = ref<string>("");
 const msgList = ref<any>([]);
-const idRef = ref("");
+const idRef = ref<string>("");
+const userId = ref<string>("");
 
 const authStore = useAuthStore();
 const { _user: mainUser } = storeToRefs(authStore);
@@ -166,6 +170,11 @@ const { _user: mainUser } = storeToRefs(authStore);
 const userStore = useUserStore();
 userStore.getUserFollowings(mainUser.value.id.toString());
 const { _userFollowings: users } = storeToRefs(userStore);
+
+const getUserId = (id: string) => {
+  userId.value = id;
+  console.log(userId.value);
+};
 
 const getConnectionId = async () => {
   await hubConnection.value.invoke("getconnectionid").then((data: any) => {
@@ -175,21 +184,19 @@ const getConnectionId = async () => {
   await hubConnection.value.invoke("assignconnectionid", mainUser.value.id);
 };
 
-watch(
-  hubConnection,
-  () => {
-    if (hubConnection.value) {
-      console.log("Bağlantı Başarılı");
+onMounted(() => {
+  if (hubConnection.value) {
+    console.log("Bağlantı Başarılı");
 
-      getConnectionId().then((res: any) => {
-        console.log("GetConnectionId then:", res);
-      });
-    }
-  },
-  { immediate: true }
-);
+    getConnectionId().then((res: any) => {
+      console.log("GetConnectionId then:", res);
+    });
+  }
 
-watch(hubConnection, () => {
+  console.log(hubConnection.value);
+});
+
+watchEffect(async () => {
   if (hubConnection.value) {
     const receiveMessageHandler = (msg: any) => {
       console.log("Mesaj Alındı: ", msg);
@@ -204,30 +211,32 @@ watch(hubConnection, () => {
   }
 });
 
-const sendMsg = () => {
+const SendMessageAsync = () => {
   const user = {
-    id: mainUser.value.id,
-    firstName: mainUser.value.firstName,
-    lastName: mainUser.value.lastName,
-    profileImage: mainUser.value.profileImage,
-    gender: mainUser.value.gender,
+    id: mainUser.value.id.toString(),
+    firstName: mainUser.value.firstName.toString(),
+    lastName: mainUser.value.lastName.toString(),
+    profileImage: mainUser.value.profileImage!.toString(),
+    gender: mainUser.value.gender.toString(),
   };
 
   const message = {
     from: user,
-    message: text,
+    message: text.value as string,
     createdAt: new Date(),
   };
+
+  console.log(userId.value);
+  console.log(message.message);
+  console.log(hubConnection.value);
+
   if (hubConnection.value) {
     hubConnection.value
-      .invoke(
-        "SendMessageAsync",
-        mainUser.value.id === user.id ? "64748660ff20ce1a9a2091bf" : user.id,
-        message
-      )
+      .invoke("SendMessageAsync", userId.value, message)
       .then((res: any) => {
         console.log("Response", res);
-      });
+      })
+      .catch((error: any) => console.log(error.message));
   }
 };
 </script>

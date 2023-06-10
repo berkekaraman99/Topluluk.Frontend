@@ -1,7 +1,9 @@
 <template>
-  <div></div>
+  <CommunitySuggestions />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import CommunitySuggestions from "@/components/common/home/CommunitySuggestions.vue";
+</script>
 
 <style scoped></style>

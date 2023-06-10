@@ -1,73 +1,145 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
-import MainVue from "@/components/MainView.vue";
-import NavBar from "@/components/header/NavBar.vue";
-import PageFooter from "@/components/footer/PageFooter.vue";
-import { ref, watch, inject } from "vue";
-import { useAuthStore } from "./stores/auth";
-import { storeToRefs } from "pinia";
-import { watchEffect } from "vue";
+import SidebarLeft from "./components/Sidebar/Left/SidebarLeft.vue";
+import SidebarRight from "./components/Sidebar/Right/SidebarRight.vue";
+import NavBar from "./components/header/NavBar.vue";
+import { ref, provide } from "vue";
+import { onMounted } from "vue";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
-const authStore = useAuthStore();
-const { _user: user } = storeToRefs(authStore);
+const connection = new HubConnectionBuilder()
+  .withUrl("https://localhost:7287/chat-hub", {
+    skipNegotiation: true,
+    transport: 1,
+  })
+  .withAutomaticReconnect()
+  .configureLogging(1)
+  .build();
 
-const connection: any = inject("connection");
+provide("connection", connection);
 
-const hubConnection = ref(connection);
+const hubConnection: any = ref(connection);
 
-const createHubConnection = async () => {
-  connection.onclose(() => {
-    console.log("Connection closed");
+onMounted(async () => {
+  // connection.value = new HubConnectionBuilder()
+  //   .withUrl("https://localhost:7287/chat-hub", {
+  //     skipNegotiation: true,
+  //     transport: 1,
+  //   })
+  //   .withAutomaticReconnect()
+  //   .configureLogging(1)
+  //   .build();
+
+  await hubConnection.value
+    .start()
+    .then(() => {
+      console.log("SignalR bağlantısı başlatıldı");
+    })
+    .catch((error: any) => {
+      console.error("SignalR bağlantısı başlatılamadı: ", error);
+    });
+
+  await hubConnection.value.on("ReceiveMessage", (user: any, message: any) => {
+    console.log("Yeni mesaj alındı:", user, message);
   });
+});
 
-  try {
-    await connection.start();
-
-    console.log("SignalR connected");
-    hubConnection.value = connection;
-  } catch (error) {
-    console.log("SignalR connection error:", error);
-  }
-};
-
-watchEffect(createHubConnection);
-
-watch(
-  user,
-  async () => {
-    try {
-      await connection.start();
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  },
-  { immediate: true }
-);
-
-const route = useRoute();
+// const sendMessage = (user: any, message: any) => {
+//   hubConnection.value
+//     .invoke("SendMessage", user, message)
+//     .catch((error: any) => {
+//       console.error("Mesaj gönderilemedi: ", error);
+//     });
+// };
 </script>
 
 <template>
-  <!-- Header -->
-  <NavBar
-    v-if="
-      route.name !== 'login' &&
-      route.name !== 'signup' &&
-      route.name !== 'forgetpassword'
-    "
-  />
+  <div class="h-100">
+    <Transition name="fade">
+      <NavBar
+        v-if="
+          $route.name !== 'login' &&
+          $route.name !== 'signup' &&
+          $route.name !== 'forgetpassword' &&
+          $route.path !== '/'
+        "
+      />
+    </Transition>
+    <Transition name="fade">
+      <div
+        class="h-100"
+        :class="{
+          'container-fluid':
+            $route.name === 'login' ||
+            $route.name === 'signup' ||
+            $route.name === 'forgetpassword',
+          container:
+            $route.name !== 'login' &&
+            $route.name !== 'signup' &&
+            $route.name !== 'forgetpassword',
+        }"
+        :style="{
+          marginTop:
+            $route.name !== 'login' &&
+            $route.name !== 'signup' &&
+            $route.name !== 'forgetpassword'
+              ? '72px'
+              : '0px',
+        }"
+      >
+        <div class="row h-100">
+          <Transition name="fade" mode="out-in">
+            <div
+              class="col-md-1 col-lg-2 px-0 pe-0 pe-sm-0 pe-md-3 pe-lg-0"
+              v-if="
+                $route.name === 'home' ||
+                $route.name === 'communities' ||
+                $route.name === 'search' ||
+                $route.name === 'events'
+              "
+            >
+              <div>
+                <SidebarLeft />
+              </div>
+            </div>
+          </Transition>
 
-  <!-- Main -->
-  <MainVue class="d-flex flex-column flex-lg-row" />
+          <!-- Main -->
+          <main
+            class="col-12 col-md-11 col-lg-7 col-xl-7 px-0"
+            :class="{
+              'col-md-12 col-lg-12 col-xl-12':
+                $route.name !== 'home' &&
+                $route.name !== 'communities' &&
+                $route.name !== 'search' &&
+                $route.name !== 'events',
+            }"
+          >
+            <RouterView v-slot="{ Component, route }">
+              <Transition name="fade" mode="out-in">
+                <component :is="Component" :key="route.path" />
+              </Transition>
+            </RouterView>
+          </main>
 
-  <!-- Footer -->
-  <PageFooter
-    v-if="
-      route.name !== 'login' &&
-      route.name !== 'signup' &&
-      route.name !== 'forgetpassword'
-    "
-  />
+          <Transition name="fade" mode="out-in">
+            <div
+              class="d-none d-sm-none d-md-none d-lg-block col-md-3 col-lg-3"
+              v-if="
+                $route.name === 'home' ||
+                $route.name === 'communities' ||
+                $route.name === 'search' ||
+                $route.name === 'events'
+              "
+            >
+              <div>
+                <SidebarRight />
+              </div>
+            </div>
+          </Transition>
+        </div>
+      </div>
+    </Transition>
+  </div>
 </template>
 
 <style lang="scss">

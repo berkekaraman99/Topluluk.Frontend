@@ -134,7 +134,7 @@ const changeLoadingState = () => {
   loading.value = !loading.value;
 };
 
-eventStore.getUserEvents(_user.value.id).then(changeLoadingState);
+eventStore.getUserEvents(_user.value.id.toString()).then(changeLoadingState);
 const { _userEvents: userEvents } = storeToRefs(eventStore);
 </script>
 

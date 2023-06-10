@@ -191,7 +191,7 @@ const submitCommunity = async () => {
     CoverImage: communityObject.CoverImage!,
     IsVisible: communityObject.IsVisible,
     IsPublic: communityObject.IsPublic,
-    CreatedById: communityObject.CreatedById,
+    CreatedById: communityObject.CreatedById.toString(),
     BannerImage: communityObject.BannerImage!,
   };
   console.log(communityObject);
@@ -212,6 +212,9 @@ const submitCommunity = async () => {
     await communityStore.createCommunity(body).then(() => {
       changeLoadingState();
       setTimeout(() => {
+        communityStore.$patch({
+          statusCode: 0,
+        });
         router.push({ name: "communities" });
       }, 3000);
     });

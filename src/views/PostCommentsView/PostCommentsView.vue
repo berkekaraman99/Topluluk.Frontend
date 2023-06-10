@@ -427,7 +427,9 @@
     </div>
 
     <div class="container" v-if="comments.length">
-      <h4 class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 mb-0">
+      <h4
+        class="col-12 offset-0 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 my-1"
+      >
         Comments
       </h4>
     </div>
@@ -446,7 +448,7 @@
       >
         <CommentVue
           :comment="comment"
-          :user-id="user.id"
+          :user-id="user.id.toString()"
           :post-id="post.id"
           @delete-comment="deleteComment"
         />
@@ -622,11 +624,6 @@ onBeforeUnmount(() => {
   font: 13px Tahoma, cursive;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* background: linear-gradient(#f9efaf, #f7e98d);
-  background: -o-linear-gradient(#f9efaf, #f7e98d);
-  background: -ms-linear-gradient(#f9efaf, #f7e98d);
-  background: -moz-linear-gradient(#f9efaf, #f7e98d);
-  background: -webkit-linear-gradient(#f9efaf, #f7e98d); */
 
   &:focus {
     border-color: var(--color-primary);

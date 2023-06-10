@@ -118,6 +118,18 @@ export const usePostStore = defineStore("postStore", {
       }
     },
 
+    async editComment(commentId: string, message: any) {
+      try {
+        const res = await instance.put(`/post/comment/${commentId}/update`, {
+          message,
+        });
+        console.log(res.data);
+        this.statusCode = res.data.statusCode;
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    },
+
     async interactionPost({ interactionType, targetId }: any) {
       try {
         const res = await instance.post(`/post/interaction/${targetId}`, {
