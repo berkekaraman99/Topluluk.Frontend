@@ -67,6 +67,7 @@
                     class="me-3 pointer"
                     data-bs-toggle="modal"
                     data-bs-target="#followers"
+                    @click="getFollowers"
                   >
                     <h3 class="fw-bold d-inline-block">
                       {{ currentUser.followersCount }}
@@ -77,17 +78,12 @@
                     class="me-3 pointer"
                     data-bs-toggle="modal"
                     data-bs-target="#followings"
+                    @click="getFollowings"
                   >
                     <h3 class="fw-bold d-inline-block">
                       {{ currentUser.followingCount }}
                     </h3>
                     Followings
-                  </div>
-                  <div class="me-3">
-                    <h3 class="fw-bold d-inline-block">
-                      {{ currentUser.communityCount }}
-                    </h3>
-                    Communities
                   </div>
                   <div
                     class="me-3 pointer"
@@ -118,8 +114,7 @@
           <FollowerRequestsModal :id="userId.toString()" />
         </div>
         <div class="col-lg-4 col-xl-3 d-none d-sm-none d-lg-block">
-          <UserSuggestions v-if="sidebar === 'suggestions'" />
-          <UserFollowRequests :user-id="userId.toString()" v-else />
+          <UserSuggestions />
         </div>
       </div>
 
@@ -226,7 +221,7 @@
                 :class="{ selected: category === 'communities' }"
                 id="communities"
                 @click="changeCategory('communities')"
-                >Communities</span
+                >Communities ({{ currentUser.communityCount }})</span
               >
             </label>
           </div>
@@ -274,7 +269,6 @@ import UserSavedPosts from "@/components/common/profile/UserSavedPosts.vue";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/user";
-import UserFollowRequests from "@/components/shared/UserFollowRequests.vue";
 import FollowerRequestsModal from "@/components/shared/FollowerRequestsModal.vue";
 
 const authStore = useAuthStore();
@@ -295,10 +289,16 @@ const changeCategory = (tab: string) => {
   category.value = tab;
 };
 
-const sidebar = ref("suggestions");
-
 const { _currentUser: currentUser, _userFollowersRequests: followersRequests } =
   storeToRefs(userStore);
+
+const getFollowers = async () => {
+  await userStore.getUserFollowers(userId.toString());
+};
+
+const getFollowings = async () => {
+  await userStore.getUserFollowings(userId.toString());
+};
 
 onBeforeUnmount(() => {
   userStore.$patch({

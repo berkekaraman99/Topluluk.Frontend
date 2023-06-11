@@ -93,7 +93,7 @@
               <FormKit
                 type="file"
                 label="Files"
-                accept=".png,.jpg,.jpeg,.jfif,.webp"
+                accept=".png,.jpg,.jpeg,.jfif,.webp,.gif"
                 multiple="true"
                 v-on:change="onFileChangeBannerImage"
               />

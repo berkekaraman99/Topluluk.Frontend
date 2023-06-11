@@ -94,69 +94,11 @@
   </div>
 </template>
 
-<!-- <script lang="ts">
-import { useAuthStore } from "@/store/auth";
-import { useUserStore } from "@/store/user";
-import { storeToRefs } from "pinia";
-import { defineComponent, reactive, ref, toRefs } from "vue";
-
-export default defineComponent({
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
-    const authStore = useAuthStore();
-    const { _user: user } = storeToRefs(authStore);
-    const userStore = useUserStore();
-
-    const loading = ref(true);
-    const search = reactive({
-      text: "",
-    });
-    const changeLoadingState = () => {
-      loading.value = !loading.value;
-    };
-
-    const handleSearch = async () => {
-      if (search.text.length > 0) {
-        await userStore.searchFollowings({
-          id: user.value.id,
-          text: search.text,
-        });
-      } else {
-        userStore.$patch({
-          searchedUserFollowings: userStore.userFollowings,
-        });
-      }
-    };
-
-    userStore.getUserFollowings(props.id).then(changeLoadingState);
-
-    const {
-      _userFollowings: followings,
-      _searchedFollowings: searchedFollowings,
-    } = storeToRefs(userStore);
-
-    return {
-      user,
-      handleSearch,
-      ...toRefs(search),
-      loading,
-      followings,
-      searchedFollowings,
-    };
-  },
-});
-</script> -->
-
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
-import { reactive, ref, toRef } from "vue";
+import { reactive, toRef } from "vue";
 
 const props = defineProps({
   id: {
@@ -169,13 +111,9 @@ const authStore = useAuthStore();
 const { _user: user } = storeToRefs(authStore);
 const userStore = useUserStore();
 
-const loading = ref(true);
 const search = reactive({
   text: "",
 });
-const changeLoadingState = () => {
-  loading.value = !loading.value;
-};
 
 const text = toRef(search, "text");
 
@@ -192,7 +130,7 @@ const handleSearch = async () => {
   }
 };
 
-userStore.getUserFollowings(props.id).then(changeLoadingState);
+userStore.getUserFollowings(props.id);
 
 const { _userFollowings: followings, _searchedFollowings: searchedFollowings } =
   storeToRefs(userStore);

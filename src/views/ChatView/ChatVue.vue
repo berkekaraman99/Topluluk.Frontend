@@ -129,7 +129,11 @@
                 </div>
               </div>
 
-              <div class="chat-screen"></div>
+              <div class="chat-screen">
+                <div v-for="message in msgList" :key="message">
+                  {{ message }}
+                </div>
+              </div>
 
               <div class="chat-send">
                 <input
@@ -152,7 +156,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
-import { inject, onMounted, ref, watch } from "vue";
+import { inject, onMounted, ref } from "vue";
 import { HubConnection } from "@microsoft/signalr";
 import { useUserStore } from "@/stores/user";
 import { watchEffect } from "vue";

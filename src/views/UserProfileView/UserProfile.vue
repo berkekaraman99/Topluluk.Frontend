@@ -98,6 +98,7 @@
                         : null
                     "
                     data-bs-target="#followers"
+                    @click="getFollowers"
                   >
                     <h3 class="fw-bold d-inline-block">
                       {{ currentUser.followersCount }}
@@ -113,6 +114,7 @@
                         : null
                     "
                     data-bs-target="#followings"
+                    @click="getFollowings"
                   >
                     <h3 class="fw-bold d-inline-block">
                       {{ currentUser.followingCount }}
@@ -322,6 +324,14 @@ const { _currentUser: currentUser } = storeToRefs(userStore);
 
 const changeCategory = (tab: string) => {
   category.value = tab;
+};
+
+const getFollowers = async () => {
+  await userStore.getUserFollowers(currentUser.value.id.toString());
+};
+
+const getFollowings = async () => {
+  await userStore.getUserFollowings(currentUser.value.id.toString());
 };
 
 const followUser = async (currentUser: IUser) => {

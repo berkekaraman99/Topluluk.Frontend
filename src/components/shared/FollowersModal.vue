@@ -19,8 +19,8 @@
           ></button>
         </div>
         <div class="modal-body">
-          <LoadingSpinner v-if="loading" />
-          <ul class="container" v-else-if="followers.length > 0">
+          <!-- <LoadingSpinner v-if="loading" /> -->
+          <ul class="container" v-if="followers.length > 0">
             <li
               class="card shadow-sm px-4 py-3 my-4"
               v-for="user in followers"
@@ -89,8 +89,7 @@
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
-import LoadingSpinner from "@/components/shared/LoadingVue.vue";
+// import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import { useAuthStore } from "@/stores/auth";
 
 const props = defineProps({
@@ -101,16 +100,11 @@ const props = defineProps({
 });
 
 const userStore = useUserStore();
-const loading = ref(true);
 
 const authStore = useAuthStore();
 const { _user: authUser } = storeToRefs(authStore);
 
-const changeLoadingState = () => {
-  loading.value = !loading.value;
-};
-
-userStore.getUserFollowers(props.id).then(changeLoadingState);
+userStore.getUserFollowers(props.id);
 const { _userFollowers: followers } = storeToRefs(userStore);
 
 const removeFollower = async (id: string) => {
