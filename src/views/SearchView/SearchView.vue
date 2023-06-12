@@ -126,7 +126,8 @@ const handleSearch = async () => {
 
 #search {
   border-radius: 99px;
-  transition: 0.4s ease;
+  // transition: 0.4s ease;
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   width: 96px;
 
   &::before {

@@ -88,10 +88,6 @@
               </div>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><h6 class="dropdown-header">Follow Requests</h6></li>
-                <li
-                  v-for="userRequests in userFollowersRequests"
-                  v-bind:key="userRequests"
-                ></li>
               </ul>
             </div>
 
@@ -166,20 +162,11 @@
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
-import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
 const authStore = useAuthStore();
 const { _user: user, _userIsAuthorized: userIsAuthorized } =
   storeToRefs(authStore);
-
-const userStore = useUserStore();
-if (user.value != null) {
-  userStore.getFollowersRequests(user.value.id.toString());
-}
-
-const { _userFollowersRequests: userFollowersRequests } =
-  storeToRefs(userStore);
 
 const logout = async () => {
   await authStore.logout();

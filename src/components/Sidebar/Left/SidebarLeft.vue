@@ -11,7 +11,7 @@
         <template v-slot:icon>
           <i class="fa-solid fa-bolt"></i>
         </template>
-        <template v-slot:name> Feed </template>
+        <template v-slot:name> Akış </template>
       </TabVue>
     </RouterLink>
 
@@ -23,7 +23,7 @@
         <template v-slot:icon>
           <i class="fa-solid fa-calendar-days"></i>
         </template>
-        <template v-slot:name> My Events </template>
+        <template v-slot:name> Etkinliklerim </template>
       </TabVue>
     </RouterLink>
     <RouterLink
@@ -34,7 +34,7 @@
         <template v-slot:icon>
           <i class="fa-solid fa-people-group"></i>
         </template>
-        <template v-slot:name> Communities </template>
+        <template v-slot:name> Topluluklar </template>
       </TabVue>
     </RouterLink>
     <RouterLink
@@ -45,7 +45,7 @@
         <template v-slot:icon>
           <i class="fa-solid fa-magnifying-glass"></i>
         </template>
-        <template v-slot:name> Search </template>
+        <template v-slot:name> Arama </template>
       </TabVue>
     </RouterLink>
   </div>

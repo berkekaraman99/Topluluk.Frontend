@@ -136,7 +136,6 @@ export const usePostStore = defineStore("postStore", {
           interactionType,
         });
         console.log(res.data);
-        this.statusCode = res.data.statusCode;
       } catch (error: any) {
         console.log(error.data);
       }

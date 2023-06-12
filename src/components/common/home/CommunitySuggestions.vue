@@ -6,7 +6,7 @@
     <div class="card">
       <div class="card-header border rounded-top-3 px-md-4 px-xl-5">
         <div class="fw-bold text-start text-lg-center fs-6">
-          Community Suggestions
+          Topluluk Önerileri
         </div>
       </div>
       <div class="card-body p-0 border rounded-bottom-3 overflow-hidden">
@@ -14,7 +14,7 @@
           v-if="communityList.length === 0"
           class="d-flex align-items-center justify-content-center py-5"
         >
-          <p>No suggestions found</p>
+          <p>Öneri bulunamadı</p>
         </div>
         <div
           v-else
@@ -51,7 +51,7 @@
           class="text-center more pointer py-2"
           @click="$router.push({ name: 'communities' })"
         >
-          Show more
+          Daha fazla göster
         </div>
       </div>
     </div>

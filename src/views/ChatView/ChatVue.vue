@@ -51,7 +51,13 @@
                 class="chat-users d-flex align-items-center my-3 py-2 mx-1 px-2 rounded-2"
                 v-for="usr in users"
                 :key="usr.id"
-                @click="getUserId(usr.id)"
+                @click="
+                  () => {
+                    selectUser(usr);
+                    getUserId(usr.id);
+                    setUserHandle(mainUser.id.toString());
+                  }
+                "
               >
                 <div>
                   <div
@@ -95,22 +101,22 @@
                   <div class="d-flex align-items-center">
                     <div
                       :style="{
-                        backgroundImage: `url(${mainUser.profileImage})`,
+                        backgroundImage: `url(${targetUser.profileImage})`,
                       }"
                       class="chat-profile-image me-3 shadow-sm"
-                      v-if="mainUser.profileImage"
+                      v-if="targetUser.profileImage"
                     ></div>
                     <img
                       src="@/assets/images/profile-man.png"
                       alt="profile-man"
                       class="chat-profile-image me-3"
-                      v-else-if="mainUser.gender == 2"
+                      v-else-if="targetUser.gender == 2"
                     />
                     <img
                       src="@/assets/images/profile-woman.png"
                       alt="profile-woman"
                       class="chat-profile-image me-3"
-                      v-else-if="mainUser.gender == 1"
+                      v-else-if="targetUser.gender == 1"
                     />
                     <img
                       src="@/assets/images/user.png"
@@ -120,7 +126,7 @@
                     />
                     <div>
                       <div class="fw-bold text-black">
-                        {{ mainUser.firstName }} {{ mainUser.lastName }}
+                        {{ targetUser.firstName }} {{ targetUser.lastName }}
                       </div>
                     </div>
                   </div>
@@ -130,18 +136,37 @@
               </div>
 
               <div class="chat-screen">
-                <div v-for="message in msgList" :key="message">
-                  {{ message }}
+                <div v-for="message in receiveMessage" :key="message._id">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div
+                        class="chat-bubble"
+                        :class="{
+                          'bg-primary': message.senderId !== mainUser.id,
+                          'bg-success': message.senderId === mainUser.id,
+                        }"
+                      >
+                        <span class="chat-bubble-text">{{
+                          message.content
+                        }}</span>
+                      </div>
+                      <div class="pt-1 pb-3">
+                        <span>{{ formatTime(message.createdAt) }}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <div class="chat-send">
                 <input
-                  class="form-control form-control-lg rounded-5 px-3 chat-input"
+                  id="chat-input"
+                  class="form-control form-control-lg px-3"
                   type="text"
                   placeholder="Write Something"
-                  v-model="text"
-                  @keydown.enter="SendMessageAsync()"
+                  @keydown.enter="message.length > 0 ? sendMessage() : null"
+                  v-model="message"
+                  :style="{ width: message.length > 0 ? '100%' : '' }"
                   :disabled="userId === ''"
                 />
               </div>
@@ -157,91 +182,127 @@
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { inject, onMounted, ref } from "vue";
-import { HubConnection } from "@microsoft/signalr";
 import { useUserStore } from "@/stores/user";
-import { watchEffect } from "vue";
-
-const connection: HubConnection | any = inject("connection");
-const hubConnection = ref<HubConnection>(connection);
-const text = ref<string>("");
-const msgList = ref<any>([]);
-const idRef = ref<string>("");
-const userId = ref<string>("");
+import moment from "moment";
+import { useChatStore } from "@/stores/chat";
 
 const authStore = useAuthStore();
 const { _user: mainUser } = storeToRefs(authStore);
+
+const chatStore = useChatStore();
+const { _chat: chat } = storeToRefs(chatStore);
+
+const socket = inject("socket");
+const connection = ref<any>(socket);
+
+const formatTime = (time: any) => {
+  return moment(time).fromNow();
+};
+
+const receiveMessage = ref(chat);
+const userId = ref<string>("");
+const message = ref<string>("");
+const user = ref<any>({
+  id: mainUser.value.id.toString(),
+  firstName: mainUser.value.firstName,
+  lastName: mainUser.value.lastName,
+  profileImage: mainUser.value.profileImage,
+  gender: mainUser.value.gender,
+});
+const targetUser = ref<any>({
+  firstName: null,
+  gender: null,
+  id: null,
+  isFollowing: null,
+  lastName: null,
+  profileImage: null,
+  userName: null,
+});
+const selectUser = (user: any) => {
+  targetUser.value = user;
+  console.log(targetUser.value);
+};
 
 const userStore = useUserStore();
 userStore.getUserFollowings(mainUser.value.id.toString());
 const { _userFollowings: users } = storeToRefs(userStore);
 
-const getUserId = (id: string) => {
+const getUserId = async (id: string) => {
   userId.value = id;
   console.log(userId.value);
-};
-
-const getConnectionId = async () => {
-  await hubConnection.value.invoke("getconnectionid").then((data: any) => {
-    console.log("Connection Id: ", data);
-    idRef.value = data;
-  });
-  await hubConnection.value.invoke("assignconnectionid", mainUser.value.id);
+  await chatStore.getMessageHistory(userId.value);
 };
 
 onMounted(() => {
-  if (hubConnection.value) {
-    console.log("Bağlantı Başarılı");
+  console.log(connection.value);
 
-    getConnectionId().then((res: any) => {
-      console.log("GetConnectionId then:", res);
-    });
-  }
+  // Kullanıcıyı sunucuya kaydetme
+  connection.value.open(); // Soket bağlantısını açma
+  console.log("User Effect çalıştı");
 
-  console.log(hubConnection.value);
+  // Socket.IO'dan gelen mesajları dinleme
+  connection.value.on("receiveMessage", (message: any) => {
+    console.log("Yeni mesaj:", message);
+    // receiveMessage.value = (prev: any) => [...prev, message];
+    receiveMessage.value.push(message);
+  });
+
+  // ComponentWillUnmount işlevi
+  return () => {
+    // Soket bağlantısını kapatma
+    console.log("User Effect return çalıştı");
+    connection.value.close();
+  };
 });
 
-watchEffect(async () => {
-  if (hubConnection.value) {
-    const receiveMessageHandler = (msg: any) => {
-      console.log("Mesaj Alındı: ", msg);
-      msgList.value = (prevMsgList: any) => [...prevMsgList, msg];
-    };
-
-    hubConnection.value.on("receiveMessage", receiveMessageHandler);
-
-    return () => {
-      hubConnection.value.off("receiveMessage", receiveMessageHandler);
-    };
-  }
-});
-
-const SendMessageAsync = () => {
-  const user = {
+const setUserHandle = (userId: string) => {
+  console.log("setUserHandle  calıstı id : " + userId);
+  connection.value.emit("setUser", {
+    connectionId: connection.value.id,
     id: mainUser.value.id.toString(),
-    firstName: mainUser.value.firstName.toString(),
-    lastName: mainUser.value.lastName.toString(),
-    profileImage: mainUser.value.profileImage!.toString(),
-    gender: mainUser.value.gender.toString(),
+    firstName: mainUser.value.firstName,
+    lastName: mainUser.value.lastName,
+    profileImage: mainUser.value.profileImage,
+    gender: mainUser.value.gender,
+  });
+  user.value = {
+    connectionId: connection.value.id,
+    id: mainUser.value.id.toString(),
+    firstName: mainUser.value.firstName,
+    lastName: mainUser.value.lastName,
+    profileImage: mainUser.value.profileImage,
+    gender: mainUser.value.gender,
   };
+  connection.value.emit("joinGroup", {
+    groupId: "5",
+    userId: userId,
+  });
+};
 
-  const message = {
+// Mesaj gönderme işlevi
+const sendMessage = () => {
+  console.log(user.value);
+
+  const toUserId = userId.value; // Hedef kullanıcının ID'sini burada belirtin
+  const newMessage = {
+    from: user.value,
+    to: toUserId,
+    content: message.value,
+    createdAt: new Date().toISOString(),
+  };
+  connection.value.emit("sendMessage", newMessage);
+  message.value = "";
+};
+
+const sendMessageToGroup = () => {
+  const data = {
+    groupId: "5",
     from: user,
-    message: text.value as string,
-    createdAt: new Date(),
+    content: message,
+    createdAt: new Date().toISOString(),
   };
-
-  console.log(userId.value);
-  console.log(message.message);
-  console.log(hubConnection.value);
-
-  if (hubConnection.value) {
-    hubConnection.value
-      .invoke("SendMessageAsync", userId.value, message)
-      .then((res: any) => {
-        console.log("Response", res);
-      })
-      .catch((error: any) => console.log(error.message));
-  }
+  connection.value.emit("sendMessageToGroup", data);
+  message.value = "";
 };
 </script>
 
@@ -249,6 +310,7 @@ const SendMessageAsync = () => {
 .card {
   border: 2px solid var(--color-primary);
   border-radius: 8px;
+  height: calc(100vh - 88px);
 }
 
 .chat-profile-image {
@@ -259,6 +321,16 @@ const SendMessageAsync = () => {
   border-radius: 99px;
   height: 64px;
   width: 64px;
+}
+
+.chat-message-profile-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: grey;
+  border-radius: 99px;
+  height: 32px;
+  width: 32px;
 }
 
 .chat-user-image {
@@ -295,9 +367,21 @@ const SendMessageAsync = () => {
   justify-content: space-between;
 }
 .chat-screen {
-  height: 100%;
+  height: 100vh;
   width: 100%;
+  padding: 1rem 8px;
   background-color: var(--color-secondary);
+  overflow: auto;
+}
+
+.chat-bubble {
+  border-radius: 99px;
+  width: fit-content;
+  padding: 0.5rem 1.25rem;
+}
+
+.chat-bubble-text {
+  color: var(--color-text);
 }
 
 .chat-header {
@@ -312,12 +396,26 @@ const SendMessageAsync = () => {
   padding: 12px 16px;
 }
 
-.chat-input {
-  transition: all 0.4s ease;
+#chat-input {
   background-color: var(--color-secondary);
+  border-radius: 99px;
+  width: 200px;
+
+  transition: 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  &::before {
+    width: 0px;
+  }
+
+  &::after {
+    width: 100px;
+  }
 
   &:focus {
     background-color: white;
+    border-radius: 0.5rem;
+    border-color: var(--color-primary);
+    width: 100%;
   }
 }
 </style>

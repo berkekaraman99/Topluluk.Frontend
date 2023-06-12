@@ -13,7 +13,7 @@ export const useCommunityStore = defineStore("communityStore", {
   }),
 
   getters: {
-    _community: (state: any) => state.community,
+    _community: (state: any) => state.community as ICommunity,
     _communityList: (state: any) => state.communityList,
     _userCommunities: (state: any) => state.userCommunities,
     _participiants: (state: any) => state.participiants,
@@ -189,6 +189,19 @@ export const useCommunityStore = defineStore("communityStore", {
         console.log(res.data);
       } catch (error: any) {
         console.log(error);
+      }
+    },
+
+    //KICK USER
+    async kickUser(communityId: string, targetId: string) {
+      try {
+        const res = await instance.post(
+          `/community/kick-user/${communityId}/${targetId}`,
+          {}
+        );
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.message);
       }
     },
   },

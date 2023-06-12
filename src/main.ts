@@ -7,26 +7,33 @@ import {
   createFloatingLabelsPlugin,
   createMultiStepPlugin,
 } from "@formkit/addons";
-import { HubConnectionBuilder } from "@microsoft/signalr";
+// import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import "@formkit/themes/genesis";
 import "@formkit/addons/css/multistep";
 import "./assets/css/normalize.css";
 import "./assets/css/main.css";
 import { useAuthStore } from "./stores/auth";
+import io from "socket.io-client";
 
-const connection = new HubConnectionBuilder()
-  .withUrl("https://localhost:7287/chat-hub", {
-    skipNegotiation: true,
-    transport: 1,
-  })
-  .withAutomaticReconnect()
-  .configureLogging(1)
-  .build();
+const URL = "http://localhost:4000";
+const socket = io(URL, {
+  autoConnect: false,
+});
+
+// const connection = new HubConnectionBuilder()
+//   .withUrl("https://localhost:7287/chat-hub", {
+//     skipNegotiation: true,
+//     transport: 1,
+//   })
+//   .withAutomaticReconnect()
+//   .configureLogging(1)
+//   .build();
 
 const app = createApp(App);
 
-app.provide("connection", connection);
+// app.provide("connection", connection);
+app.provide("socket", socket);
 app.use(createPinia());
 app.use(router);
 app.use(

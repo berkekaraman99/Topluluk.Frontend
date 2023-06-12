@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div
-        class="col-12 offset-0 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 my-4"
-      >
+      <div class="col-12 my-4">
         <div class="card shadow-sm">
           <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">

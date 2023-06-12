@@ -25,6 +25,8 @@ export const useAuthStore = defineStore("authStore", {
           logInObject
         );
         this.statusCode = res.data.statusCode;
+        console.log(res.data);
+
         if (res.data.isSuccess) {
           const accessToken = res.data.data.accessToken;
           const refreshToken = res.data.data.refreshToken;

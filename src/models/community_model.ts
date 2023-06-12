@@ -1,5 +1,5 @@
 export interface ICommunity {
-  adminGender: Number;
+  adminGender: number;
   adminId: String;
   adminImage: String;
   adminLastName: String;
@@ -14,6 +14,6 @@ export interface ICommunity {
   isRestricted: Boolean;
   isVisible: Boolean;
   location: String;
-  participiantCount: Number;
+  participiantsCount: number;
   title: String;
 }

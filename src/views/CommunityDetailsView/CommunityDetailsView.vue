@@ -83,10 +83,10 @@
                   class="cover-image p-2 mx-3 d-flex align-items-center justify-content-center shadow-sm"
                 >
                   <img
-                    :src="community.coverImage"
+                    :src="community.coverImage.toString()"
                     alt="cover image"
                     class="img-fluid rounded-4"
-                    v-if="community.coverImage"
+                    v-if="community.coverImage != null"
                   />
                 </div>
                 <div class="my-3 my-sm-3 my-md-0 text-center text-md-start">
@@ -150,7 +150,7 @@
               <CommunitySettings
                 v-else-if="category === 'Settings'"
                 :id="id"
-                :adminId="community.adminId"
+                :adminId="community.adminId.toString()"
               />
             </Transition>
           </div>
@@ -169,6 +169,7 @@ import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/auth";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import CommunitySettings from "@/components/common/community/CommunitySettings.vue";
+import type { ICommunity } from "@/models/community_model";
 
 const props = defineProps({
   id: {
@@ -202,20 +203,24 @@ const changeCategory = (name: string) => {
   category.value = name;
 };
 
-const join = async (community: any) => {
+const join = async (community: ICommunity) => {
   loadingText.value = "Joining...";
   changeloadingState(loading);
-  await communityStore.joinCommunity(props.id).then(() => {
+  await communityStore.joinCommunity(props.id).then(async () => {
     community.isParticipiant = !community.isParticipiant;
+    community.participiantsCount++;
+    await communityStore.getCommunityParticipiants(props.id);
     changeloadingState(loading);
   });
 };
 
-const leave = async (community: any) => {
+const leave = async (community: ICommunity) => {
   loadingText.value = "Leaving...";
   changeloadingState(loading);
-  await communityStore.leaveCommunity(props.id).then(() => {
+  await communityStore.leaveCommunity(props.id).then(async () => {
     community.isParticipiant = !community.isParticipiant;
+    community.participiantsCount--;
+    await communityStore.getCommunityParticipiants(props.id);
     changeloadingState(loading);
   });
 };

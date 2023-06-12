@@ -2,9 +2,7 @@
   <LoadingSpinner v-if="loading" />
   <div class="container my-3" v-else-if="post">
     <div class="row">
-      <div
-        class="col-12 offset-0 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 my-4"
-      >
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 my-4">
         <div class="card shadow-sm">
           <div class="card-header py-3">
             <div class="d-flex justify-content-between">
@@ -360,12 +358,7 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div
-        class="col-12 offset-0 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 my-4"
-      >
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 my-4">
         <div class="card shadow-sm">
           <div class="card-header"><h1>Your comment</h1></div>
           <div class="card-body">
@@ -423,37 +416,35 @@
             </div>
           </div>
         </div>
+        <h4 class="col-12 mt-4">Comments</h4>
+
+        <div>
+          <TransitionGroup
+            appear
+            @before-enter="beforeEnterFeed"
+            @enter="enterFeed"
+            @before-leave="beforeLeaveFeed"
+            @leave="leaveFeed"
+          >
+            <div
+              class="my-2"
+              v-for="(comment, index) in comments"
+              v-bind:key="comment"
+              :data-index="index"
+            >
+              <CommentVue
+                :comment="comment"
+                :user-id="user.id.toString()"
+                :post-id="post.id"
+                @delete-comment="deleteComment"
+              />
+            </div>
+          </TransitionGroup>
+        </div>
       </div>
     </div>
 
-    <div class="container" v-if="comments.length">
-      <h4
-        class="col-12 offset-0 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 my-1"
-      >
-        Comments
-      </h4>
-    </div>
-    <TransitionGroup
-      appear
-      @before-enter="beforeEnterFeed"
-      @enter="enterFeed"
-      @before-leave="beforeLeaveFeed"
-      @leave="leaveFeed"
-    >
-      <div
-        class="my-2"
-        v-for="(comment, index) in comments"
-        v-bind:key="comment"
-        :data-index="index"
-      >
-        <CommentVue
-          :comment="comment"
-          :user-id="user.id.toString()"
-          :post-id="post.id"
-          @delete-comment="deleteComment"
-        />
-      </div>
-    </TransitionGroup>
+    <div class="row"></div>
   </div>
 </template>
 
