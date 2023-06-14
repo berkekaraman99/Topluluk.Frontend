@@ -32,7 +32,10 @@
             <div class="mx-3">
               <RouterLink
                 class="text-decoration-none"
-                :to="{ name: 'userprofile', params: { id: post.userId } }"
+                :to="{
+                  name: 'userprofile',
+                  params: { id: post.userId.toString() },
+                }"
               >
                 <div class="fw-bold">
                   {{ post.firstName }} {{ post.lastName }}
@@ -72,7 +75,7 @@
               :class="{ active: post.files[0] === file }"
               style="transition: 0.35s ease-in-out; max-height: 400px"
               v-for="file in post.files"
-              :key="file"
+              :key="file.file"
             >
               <img
                 v-if="file.type === 1 || file.type === 0"
@@ -122,7 +125,7 @@
         >
           <span
             v-for="interactionPreview in post.interactionPreviews"
-            :key="interactionPreview"
+            :key="interactionPreview.interaction"
           >
             <span v-if="interactionPreview.interaction === 0"
               ><img
@@ -168,12 +171,7 @@
           </span>
         </div>
         <div class="container">
-          <PostActions
-            :post="post"
-            @interact-post="interactPost"
-            @remove-interaction="removeInteraction"
-            @save-post="savePost"
-          />
+          <PostActions :post="props.post" />
         </div>
       </div>
     </div>
@@ -182,48 +180,16 @@
 
 <script setup lang="ts">
 import moment from "moment";
-import { usePostStore } from "@/stores/post";
 import PostActions from "./PostActions.vue";
+import type { IPostModel } from "@/models/post_model";
+import type { PropType } from "vue";
 
 const props = defineProps({
   post: {
-    type: Object,
+    type: Object as PropType<IPostModel>,
     required: true,
   },
 });
-
-const postStore = usePostStore();
-
-const savePost = async (post: any) => {
-  await postStore.savePost(post.id).then(() => {
-    post.isSaved = true;
-  });
-};
-
-const interactPost = async ({ type, post }: any) => {
-  if (post.isInteracted == null) {
-    await postStore
-      .interactionPost({
-        interactionType: type,
-        targetId: post.id,
-      })
-      .then(() => {
-        post.interactionCount++;
-        post.isInteracted = {
-          interaction: type,
-        };
-      });
-  } else {
-    await removeInteraction(post);
-  }
-};
-
-const removeInteraction = async (post: any) => {
-  await postStore.removeInteractionPost(post.id).then(() => {
-    post.interactionCount--;
-    post.isInteracted = null;
-  });
-};
 
 const formatTime = (time: any) => {
   return moment(time).fromNow();

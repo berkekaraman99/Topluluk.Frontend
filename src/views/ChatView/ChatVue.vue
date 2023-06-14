@@ -49,12 +49,12 @@
               />
               <div
                 class="chat-users d-flex align-items-center my-3 py-2 mx-1 px-2 rounded-2"
-                v-for="usr in users"
-                :key="usr.id"
+                v-for="recentChat in recentChats"
+                :key="recentChat.userId"
                 @click="
                   () => {
-                    selectUser(usr);
-                    getUserId(usr.id);
+                    selectUser(recentChat);
+                    getUserId(recentChat.userId);
                     setUserHandle(mainUser.id.toString());
                   }
                 "
@@ -62,22 +62,22 @@
                 <div>
                   <div
                     :style="{
-                      backgroundImage: `url(${usr.profileImage})`,
+                      backgroundImage: `url(${recentChat.profileImage})`,
                     }"
                     class="chat-user-image me-3 shadow-sm"
-                    v-if="usr.profileImage"
+                    v-if="recentChat.profileImage"
                   ></div>
                   <img
                     src="@/assets/images/profile-man.png"
                     alt="profile-man"
                     class="chat-user-image me-3"
-                    v-else-if="usr.gender == 2"
+                    v-else-if="recentChat.gender == 2"
                   />
                   <img
                     src="@/assets/images/profile-woman.png"
                     alt="profile-woman"
                     class="chat-user-image me-3"
-                    v-else-if="usr.gender == 1"
+                    v-else-if="recentChat.gender == 1"
                   />
                   <img
                     src="@/assets/images/user.png"
@@ -88,7 +88,13 @@
                 </div>
                 <div>
                   <div class="fw-bold text-black">
-                    {{ usr.firstName }} {{ usr.lastName }}
+                    {{ recentChat.firstName }} {{ recentChat.lastName }}
+                  </div>
+                  <div class="tw-text-gray-500">
+                    {{ recentChat.lastMessage }}
+                  </div>
+                  <div class="tw-text-gray-400">
+                    {{ formatTime(recentChat.lastMessageDate) }}
                   </div>
                 </div>
               </div>
@@ -136,26 +142,39 @@
               </div>
 
               <div class="chat-screen">
-                <div v-for="message in receiveMessage" :key="message._id">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <div
-                        class="chat-bubble"
-                        :class="{
-                          'bg-primary': message.senderId !== mainUser.id,
-                          'bg-success': message.senderId === mainUser.id,
-                        }"
-                      >
-                        <span class="chat-bubble-text">{{
-                          message.content
-                        }}</span>
-                      </div>
-                      <div class="pt-1 pb-3">
-                        <span>{{ formatTime(message.createdAt) }}</span>
+                <TransitionGroup name="fade" tag="div">
+                  <div v-for="message in receiveMessage" :key="message._id">
+                    <div
+                      class="d-flex align-items-center"
+                      :class="{
+                        'justify-content-end': message.senderId === mainUser.id,
+                      }"
+                    >
+                      <div class="d-flex flex-column">
+                        <div
+                          class="chat-bubble"
+                          :class="{
+                            'bg-primary': message.senderId !== mainUser.id,
+                            'bg-success': message.senderId === mainUser.id,
+                            'align-self-end': message.senderId === mainUser.id,
+                          }"
+                        >
+                          <span class="chat-bubble-text">{{
+                            message.content
+                          }}</span>
+                        </div>
+                        <div
+                          class="pt-1 pb-3"
+                          :class="{
+                            'align-self-end': message.senderId === mainUser.id,
+                          }"
+                        >
+                          <span>{{ formatTime(message.createdAt) }}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </TransitionGroup>
               </div>
 
               <div class="chat-send">
@@ -182,7 +201,6 @@
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { inject, onMounted, ref } from "vue";
-import { useUserStore } from "@/stores/user";
 import moment from "moment";
 import { useChatStore } from "@/stores/chat";
 
@@ -190,7 +208,7 @@ const authStore = useAuthStore();
 const { _user: mainUser } = storeToRefs(authStore);
 
 const chatStore = useChatStore();
-const { _chat: chat } = storeToRefs(chatStore);
+const { _chat: chat, _recentChats: recentChats } = storeToRefs(chatStore);
 
 const socket = inject("socket");
 const connection = ref<any>(socket);
@@ -199,7 +217,7 @@ const formatTime = (time: any) => {
   return moment(time).fromNow();
 };
 
-const receiveMessage = ref(chat);
+const receiveMessage = ref(chat.value);
 const userId = ref<string>("");
 const message = ref<string>("");
 const user = ref<any>({
@@ -223,17 +241,17 @@ const selectUser = (user: any) => {
   console.log(targetUser.value);
 };
 
-const userStore = useUserStore();
-userStore.getUserFollowings(mainUser.value.id.toString());
-const { _userFollowings: users } = storeToRefs(userStore);
-
 const getUserId = async (id: string) => {
   userId.value = id;
   console.log(userId.value);
-  await chatStore.getMessageHistory(userId.value);
+  await chatStore
+    .getMessageHistory(userId.value)
+    .then(() => (receiveMessage.value = chat.value));
 };
 
 onMounted(() => {
+  chatStore.getRecentChats();
+
   console.log(connection.value);
 
   // Kullanıcıyı sunucuya kaydetme
@@ -246,6 +264,22 @@ onMounted(() => {
     // receiveMessage.value = (prev: any) => [...prev, message];
     receiveMessage.value.push(message);
   });
+
+  // connection.value.on("messageUpdated", async (message: any) => {
+  //   const { id, userId, content }: any = message;
+  //   const result = await Message.findOneAndUpdate(
+  //     { _id: id, senderId: userId },
+  //     { $set: { content: content, isUpdated: true, updatedAt: Date.now() } }
+  //   );
+
+  //   var targetUser = await ConnectedUser.findOne({ userId: result.receiverId });
+
+  //   console.log("Update result: ", result);
+
+  //   io.to(connection.value.id)
+  //     .to(targetUser.connectionId)
+  //     .emit("messageUpdated", { id, content });
+  // });
 
   // ComponentWillUnmount işlevi
   return () => {
@@ -294,16 +328,16 @@ const sendMessage = () => {
   message.value = "";
 };
 
-const sendMessageToGroup = () => {
-  const data = {
-    groupId: "5",
-    from: user,
-    content: message,
-    createdAt: new Date().toISOString(),
-  };
-  connection.value.emit("sendMessageToGroup", data);
-  message.value = "";
-};
+// const sendMessageToGroup = () => {
+//   const data = {
+//     groupId: "5",
+//     from: user,
+//     content: message,
+//     createdAt: new Date().toISOString(),
+//   };
+//   connection.value.emit("sendMessageToGroup", data);
+//   message.value = "";
+// };
 </script>
 
 <style scoped lang="scss">
@@ -348,7 +382,7 @@ const sendMessageToGroup = () => {
   background-color: var(--color-bg-light);
 
   &:hover {
-    background-color: var(--color-accent);
+    background-color: rgb(209, 238, 255);
   }
 }
 
@@ -399,7 +433,7 @@ const sendMessageToGroup = () => {
 #chat-input {
   background-color: var(--color-secondary);
   border-radius: 99px;
-  width: 200px;
+  width: 100%;
 
   transition: 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
 

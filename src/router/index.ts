@@ -1,3 +1,5 @@
+import { useAuthStore } from "@/stores/auth";
+import { storeToRefs } from "pinia";
 import { createRouter, createWebHashHistory } from "vue-router";
 
 const router = createRouter({
@@ -109,6 +111,25 @@ const router = createRouter({
       component: () => import("@/views/TestView/TestView.vue"),
     },
   ],
+});
+
+router.beforeEach((to, _, next) => {
+  const { _user } = storeToRefs(useAuthStore());
+  if (
+    _user.value == null &&
+    to.name !== "login" &&
+    to.name !== "signup" &&
+    to.name !== "forgetpassword"
+  ) {
+    next({ name: "login" });
+  } else if (
+    _user.value != null &&
+    (to.name === "login" ||
+      to.name === "signup" ||
+      to.name === "forgetpassword")
+  ) {
+    next({ name: "home" });
+  } else next();
 });
 
 export default router;

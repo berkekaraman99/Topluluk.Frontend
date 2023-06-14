@@ -1,18 +1,19 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import { createPinia, storeToRefs } from "pinia";
+import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import { plugin as formKitPlugin, defaultConfig } from "@formkit/vue";
 import {
   createFloatingLabelsPlugin,
   createMultiStepPlugin,
 } from "@formkit/addons";
-// import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import "@formkit/themes/genesis";
 import "@formkit/addons/css/multistep";
 import "./assets/css/normalize.css";
 import "./assets/css/main.css";
+import "./style.css";
 import { useAuthStore } from "./stores/auth";
 import io from "socket.io-client";
 
@@ -21,20 +22,12 @@ const socket = io(URL, {
   autoConnect: false,
 });
 
-// const connection = new HubConnectionBuilder()
-//   .withUrl("https://localhost:7287/chat-hub", {
-//     skipNegotiation: true,
-//     transport: 1,
-//   })
-//   .withAutomaticReconnect()
-//   .configureLogging(1)
-//   .build();
-
 const app = createApp(App);
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
-// app.provide("connection", connection);
 app.provide("socket", socket);
-app.use(createPinia());
+app.use(pinia);
 app.use(router);
 app.use(
   formKitPlugin,
@@ -47,6 +40,7 @@ app.use(
     ],
   })
 );
+
 app.mount("#app");
 
 const loadUser = async () => {
@@ -54,22 +48,3 @@ const loadUser = async () => {
   await authStore.loadUser().then(() => (authStore.userIsAuthorized = true));
 };
 loadUser();
-
-router.beforeEach((to, from, next) => {
-  const { _user } = storeToRefs(useAuthStore());
-  if (
-    _user.value == null &&
-    to.name !== "login" &&
-    to.name !== "signup" &&
-    to.name !== "forgetpassword"
-  ) {
-    next({ name: "login" });
-  } else if (
-    _user.value != null &&
-    (to.name === "login" ||
-      to.name === "signup" ||
-      to.name === "forgetpassword")
-  ) {
-    next({ name: "home" });
-  } else next();
-});

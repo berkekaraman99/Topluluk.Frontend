@@ -1,18 +1,16 @@
 <template>
-  <Transition
-    appear
-    enter-active-class="animate__animated animate__fadeIn"
-    leave-active-class="animate__animated animate__fadeOut"
-  >
+  <Transition appear name="fade">
     <div>
       <div class="card-text d-flex align-items-center">
-        <div class="fw-bold fs-3">Attendees</div>
-        <div class="bg-black rounded-13 py-1 px-2 ms-1 text-white rounded">
-          {{ attendees.length }}
+        <div class="fw-bold fs-3">
+          Attendees (<span class="tw-text-2xl">{{ attendees.length }}</span
+          >)
         </div>
       </div>
+
+      <!-- ATTEND CARD -->
       <div v-for="attend in attendees" :key="attend">
-        <div class="card my-3">
+        <div class="card my-3 border">
           <div class="card-body d-flex align-items-center">
             <div
               alt="profile image"

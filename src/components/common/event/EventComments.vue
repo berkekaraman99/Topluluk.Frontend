@@ -64,59 +64,54 @@
       </div>
     </div>
 
-    <div class="container" v-if="comments != null">
-      <h4 class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 mb-0">
-        Comments<span class="bg-secondary rounded p-1 ms-1 text-white">{{
-          comments.length
-        }}</span>
+    <div class="container" v-if="eventComments != null">
+      <h4 class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 mb-2">
+        Comments (<span>{{ eventComments.length }}</span
+        >)
       </h4>
     </div>
-    <TransitionGroup
-      appear
-      enter-active-class="animate__animated animate__fadeIn"
-      leave-active-class="animate__animated animate__fadeOut"
-    >
-      <div class="my-2" v-for="comment in comments" v-bind:key="comment">
-        <div v-if="comments.length !== 0" class="row">
-          <div class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 my-2">
-            <div class="card shadow-sm">
-              <div class="card-header">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                    <div
-                      class="post-profile-image"
-                      :style="{
-                        'background-image': 'url(' + comment.profileImage + ')',
-                        'background-color': 'grey',
-                      }"
-                    ></div>
-                    <div class="mx-3">
-                      <div>
-                        <div class="fw-bold">
-                          {{ comment.firstName }} {{ comment.lastName }}
-                        </div>
-                        <!-- <small>
+
+    <!-- COMMENTS CARD -->
+    <div class="my-2" v-for="comment in eventComments" v-bind:key="comment">
+      <div v-if="eventComments.length !== 0" class="row">
+        <div class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 my-2">
+          <div class="card shadow-sm">
+            <div class="card-header">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="post-profile-image"
+                    :style="{
+                      'background-image': 'url(' + comment.profileImage + ')',
+                      'background-color': 'grey',
+                    }"
+                  ></div>
+                  <div class="mx-3">
+                    <div>
+                      <div class="fw-bold">
+                        {{ comment.firstName }} {{ comment.lastName }}
+                      </div>
+                      <!-- <small>
                         {{ formatTime(comment.createdAt) }}
                       </small> -->
-                      </div>
                     </div>
                   </div>
-                  <div v-if="comment.userId === user.id" class="delete">
-                    <img
-                      src="@/assets/images/ic_delete.png"
-                      alt="delete"
-                      height="24"
-                      @click="deleteComment(comment.id, id)"
-                    />
-                  </div>
+                </div>
+                <div v-if="comment.userId === user.id" class="delete">
+                  <img
+                    src="@/assets/images/ic_delete.png"
+                    alt="delete"
+                    height="24"
+                    @click="deleteComment(comment.id, id)"
+                  />
                 </div>
               </div>
-              <div class="card-body">{{ comment.message }}</div>
             </div>
+            <div class="card-body">{{ comment.message }}</div>
           </div>
         </div>
       </div>
-    </TransitionGroup>
+    </div>
   </div>
 </template>
 
@@ -131,11 +126,9 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  comments: {
-    type: Array<any>,
-    required: true,
-  },
 });
+
+console.log(props.id);
 
 const emit = defineEmits(["updateComments"]);
 
@@ -149,15 +142,17 @@ const changePostingState = () => {
 };
 
 const eventStore = useEventStore();
+eventStore.getEventComments(props.id);
 
-const { _statusCode: statusCode } = storeToRefs(eventStore);
+const { _statusCode: statusCode, _eventComments: eventComments } =
+  storeToRefs(eventStore);
 
 const createComment = async () => {
   changePostingState();
   await eventStore
     .createComment({
       message: message.value,
-      eventId: props.id,
+      eventId: props.id.toString(),
     })
     .then(() => {
       emit("updateComments");

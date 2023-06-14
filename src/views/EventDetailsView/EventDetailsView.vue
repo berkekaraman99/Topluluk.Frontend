@@ -185,11 +185,14 @@
                   />
                   <EventComments
                     @update-comments="updateComments"
-                    :comments="eventComments"
                     :id="id"
                     v-else-if="category === 'Comments'"
                   />
-                  <EventSettings :id="id" v-else-if="category === 'Settings'" />
+                  <EventSettings
+                    :id="id"
+                    :currentEvent="currentEvent"
+                    v-else-if="category === 'Settings'"
+                  />
                 </Transition>
               </div>
             </div>
@@ -234,12 +237,8 @@ const { _user: user } = storeToRefs(authStore);
 
 eventStore.getEventById(props.id).then(changeLoadingState);
 eventStore.getEventAttendees(props.id);
-eventStore.getEventComments(props.id);
-const {
-  _currentEvent: currentEvent,
-  _eventAttendees: eventAttendees,
-  _eventComments: eventComments,
-} = storeToRefs(eventStore);
+const { _currentEvent: currentEvent, _eventAttendees: eventAttendees } =
+  storeToRefs(eventStore);
 
 const updateComments = async () => {
   await eventStore.getEventComments(props.id);

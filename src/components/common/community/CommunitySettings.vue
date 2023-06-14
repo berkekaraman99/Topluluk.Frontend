@@ -2,9 +2,9 @@
   <div>
     <div class="card">
       <div class="card-header">
-        <div class="d-flex align-items-center justify-content-around">
-          <div class="card-text fw-bold">General</div>
-          <div class="card-text fw-bold">Tab</div>
+        <div class="d-flex align-items-center justify-content-start">
+          <div class="card-text fw-bold tw-text-2xl">General</div>
+          <!-- <div class="card-text fw-bold">Tab</div> -->
         </div>
       </div>
       <div class="card-body">

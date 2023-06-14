@@ -6,7 +6,7 @@
         :data-bs-toggle="post.isInteracted != null ? '' : 'dropdown'"
         aria-expanded="false"
         class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
-        @click="post.isInteracted == null ? null : removeInteraction()"
+        @click="post.isInteracted == null ? null : removeInteraction(post)"
       >
         <div v-if="post.isInteracted == null">
           <i class="fa-regular fa-face-smile fa-lg my-3"></i>
@@ -63,7 +63,7 @@
                   ? false
                   : post.isInteracted.interaction === 0,
             }"
-            @click="interactPost(0)"
+            @click="interactPost(0, post)"
             ><img
               src="@/assets/images/interactions/ic_like.png"
               alt="Like"
@@ -79,7 +79,7 @@
                   ? false
                   : post.isInteracted.interaction === 1,
             }"
-            @click="interactPost(1)"
+            @click="interactPost(1, post)"
             ><img
               src="@/assets/images/interactions/ic_celebrate.png"
               alt="Celebrate"
@@ -95,7 +95,7 @@
                   ? false
                   : post.isInteracted.interaction === 2,
             }"
-            @click="interactPost(2)"
+            @click="interactPost(2, post)"
             ><img
               src="@/assets/images/interactions/ic_support.png"
               alt="Support"
@@ -111,7 +111,7 @@
                   ? false
                   : post.isInteracted.interaction === 3,
             }"
-            @click="interactPost(3)"
+            @click="interactPost(3, post)"
             ><img
               src="@/assets/images/interactions/ic_insight.png"
               alt="Insightfull"
@@ -128,7 +128,7 @@
                   ? false
                   : post.isInteracted.interaction === 4,
             }"
-            @click="interactPost(4)"
+            @click="interactPost(4, post)"
             ><img
               src="@/assets/images/interactions/ic_dislike.png"
               alt="Dislike"
@@ -139,7 +139,7 @@
     </div>
     <div class="col-sm-6 col-md-3 text-center my-1">
       <RouterLink
-        :to="{ name: 'postcomments', params: { id: post.id } }"
+        :to="{ name: 'postcomments', params: { id: post.id.toString() } }"
         class="text-decoration-none text-black"
       >
         <div
@@ -170,7 +170,7 @@
       </div>
       <div
         v-else
-        @click="savePost()"
+        @click="savePost(post)"
         id="save"
         class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
       >
@@ -182,28 +182,89 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits<{
-  (e: "interactPost", { type, post }: any): void;
-  (e: "removeInteraction", post: object): void;
-  (e: "savePost", post: object): void;
-}>();
+import type { IInteractionPreview } from "@/models/interaction_preview_model";
+import type { IPostModel } from "@/models/post_model";
+import { usePostStore } from "@/stores/post";
+import type { PropType } from "vue";
+import { ref } from "vue";
+
 const props = defineProps({
   post: {
-    type: Object,
+    type: Object as PropType<IPostModel>,
     required: true,
   },
 });
 
-const interactPost = (type: number) => {
-  emit("interactPost", { type: type, post: props.post });
+const interactionId = ref<number | null>(
+  props.post.isInteracted != null ? props.post.isInteracted.interaction : null
+);
+
+const postStore = usePostStore();
+
+const interactPost = async (type: number, post: IPostModel) => {
+  if (post.isInteracted == null) {
+    await postStore
+      .interactionPost({
+        interactionType: type,
+        targetId: post.id,
+      })
+      .then(() => {
+        for (const item of post.interactionPreviews) {
+          if (post.interactionPreviews == null) {
+            post.interactionPreviews = [
+              {
+                interaction: type,
+                interactionCount: 1,
+              },
+            ];
+            break;
+          } else if (
+            post.interactionPreviews.length < 3 &&
+            item.interaction !== type
+          ) {
+            post.interactionPreviews.push({
+              interaction: type,
+              interactionCount: 1,
+            });
+            break;
+          }
+        }
+
+        post.interactionCount++;
+        post.isInteracted = {
+          interaction: type,
+        };
+        interactionId.value = type;
+      });
+  }
 };
 
-const removeInteraction = () => {
-  emit("removeInteraction", props.post);
+const removeInteraction = async (post: IPostModel) => {
+  if (interactionId.value != null) {
+    await postStore.removeInteractionPost(post.id.toString()).then(() => {
+      for (const item of post.interactionPreviews) {
+        if (
+          post.interactionPreviews.length <= 3 &&
+          item.interaction === interactionId.value &&
+          item.interactionCount <= 1
+        ) {
+          post.interactionPreviews = post.interactionPreviews.filter(
+            (e: IInteractionPreview) => e.interaction != interactionId.value
+          );
+          break;
+        }
+      }
+
+      post.interactionCount--;
+      post.isInteracted = null;
+    });
+  }
 };
 
-const savePost = () => {
-  emit("savePost", props.post);
+const savePost = async (post: IPostModel) => {
+  await postStore.savePost(post.id.toString()).then(() => {
+    post.isSaved = true;
+  });
 };
 </script>
 
