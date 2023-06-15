@@ -18,13 +18,16 @@
           <div
             class="col-12 col-sm-12 col-md-12 col-lg-6"
             v-for="(community, index) in communityList"
-            v-bind:key="community.id"
+            v-bind:key="community.id.toString()"
             :data-index="index"
           >
             <RouterLink
               :to="{
                 name: 'communitydetails',
-                params: { id: community.id, name: community.title },
+                params: {
+                  id: community.id.toString(),
+                  name: community.title.toString(),
+                },
               }"
               class="text-decoration-none text-dark"
             >

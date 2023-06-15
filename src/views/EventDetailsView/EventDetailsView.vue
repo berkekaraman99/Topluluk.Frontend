@@ -129,10 +129,10 @@
                           max-width: 600px;
                         "
                         v-for="image in currentEvent.images"
-                        :key="image"
+                        :key="image.toString()"
                       >
                         <img
-                          :src="image"
+                          :src="image.toString()"
                           class="d-block img-fluid w-100 object-fit-contain"
                           style="height: 300px"
                           alt="image"
@@ -213,7 +213,6 @@ import EventAbout from "@/components/common/event/EventAbout.vue";
 import EventAttendees from "@/components/common/event/EventAttendees.vue";
 import EventComments from "@/components/common/event/EventComments.vue";
 import EventSettings from "@/components/common/event/EventSettings.vue";
-import moment from "moment";
 
 const props = defineProps({
   id: {
@@ -221,10 +220,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-const formatTime = (time: any) => {
-  return moment(time).format("DD/MM/YYYY, hh:mm");
-};
 
 const eventStore = useEventStore();
 const loading = ref(true);

@@ -17,18 +17,21 @@
           <div
             class="col-12"
             v-for="(userEvent, index) in userEvents"
-            v-bind:key="userEvent.id"
+            v-bind:key="userEvent.id.toString()"
             :data-index="index"
           >
             <RouterLink
-              :to="{ name: 'eventdetails', params: { id: userEvent.id } }"
+              :to="{
+                name: 'eventdetails',
+                params: { id: userEvent.id.toString() },
+              }"
               class="text-decoration-none text-dark"
             >
               <div class="container shadow mb-5 rounded-3">
                 <div class="row">
                   <div class="col-sm-12 col-md-4 d-grid align-content-center">
                     <img
-                      :src="userEvent.images[0]"
+                      :src="userEvent.images[0].toString()"
                       alt="community cover"
                       class="my-2 img-fluid rounded-3"
                       v-if="userEvent.images.length !== 0"

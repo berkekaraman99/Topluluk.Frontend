@@ -45,7 +45,7 @@
                   class="carousel-item"
                   :class="{ active: post.files[0] === file }"
                   v-for="file in post.files"
-                  :key="file"
+                  :key="file.file"
                 >
                   <img
                     v-if="file.type === 1 || file.type === 0"
@@ -93,7 +93,7 @@
             >
               <span
                 v-for="interactionPreview in post.interactionPreviews"
-                :key="interactionPreview"
+                :key="interactionPreview.interaction"
               >
                 <span v-if="interactionPreview.interaction === 0"
                   ><img
@@ -429,13 +429,13 @@
             <div
               class="my-2"
               v-for="(comment, index) in comments"
-              v-bind:key="comment"
+              v-bind:key="comment.id.toString()"
               :data-index="index"
             >
               <CommentVue
                 :comment="comment"
                 :user-id="user.id.toString()"
-                :post-id="post.id"
+                :post-id="post.id.toString()"
                 @delete-comment="deleteComment"
               />
             </div>

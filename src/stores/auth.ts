@@ -1,53 +1,50 @@
 import type { IAuthUser } from "@/models/auth_user_model";
 import type { ILogInModel } from "../models/login_model";
 import type { ISignUpModel } from "../models/signup_model";
-import { instance, auth_instance } from "./network_manager";
+import { instance } from "./network_manager";
 import { defineStore } from "pinia";
+import SecureLS from "secure-ls";
+import router from "@/router";
+
+const ls = new SecureLS({ isCompression: false });
 
 export const useAuthStore = defineStore("authStore", {
   state: () => ({
     user: null as IAuthUser | null,
+    accessToken: null as string | null,
+    refreshToken: null as string | null,
     userIsAuthorized: false as boolean,
     statusCode: 0 as number,
   }),
   getters: {
     _user: (state: any) => state.user as IAuthUser,
-    _userIsAuthorized: (state: any) => state.userIsAuthorized,
-    _statusCode: (state: any) => state.statusCode,
+    _accessToken: (state: any) => state.accessToken as string | null,
+    _refreshToken: (state: any) => state.refreshToken as string | null,
+    _userIsAuthorized: (state: any) => state.userIsAuthorized as boolean,
+    _statusCode: (state: any) => state.statusCode as number,
   },
 
   actions: {
     // LOGIN
     async login(logInObject: ILogInModel) {
       try {
-        const res = await auth_instance.post(
-          "/Authentication/SignIn",
-          logInObject
-        );
+        const res = await instance.post("/Authentication/SignIn", logInObject);
         this.statusCode = res.data.statusCode;
         console.log(res.data);
 
         if (res.data.isSuccess) {
-          const accessToken = res.data.data.accessToken;
-          const refreshToken = res.data.data.refreshToken;
+          this.accessToken = res.data.data.accessToken;
+          this.refreshToken = res.data.data.refreshToken;
 
-          localStorage.setItem("userToken", accessToken);
-          localStorage.setItem("refreshToken", refreshToken);
-
-          instance.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
+          instance.defaults.headers[
+            "Authorization"
+          ] = `Bearer ${this.accessToken}`;
+          this.userIsAuthorized = true;
 
           const getUserAfterLogin = await instance.get(
-            "/User/GetUserAfterLogin",
-            {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            }
+            "/User/GetUserAfterLogin"
           );
-
-          const activeUser = getUserAfterLogin.data.data;
-          this.user = activeUser;
-          localStorage.setItem("user", JSON.stringify(activeUser));
+          this.user = getUserAfterLogin.data.data;
           console.log(this.user);
         }
       } catch (error: any) {
@@ -59,32 +56,25 @@ export const useAuthStore = defineStore("authStore", {
     async signup(signUpObject: ISignUpModel) {
       try {
         this.statusCode = 0;
-        const res = await auth_instance.post(
-          "/Authentication/SignUp",
-          signUpObject
-        );
+        const res = await instance.post("/Authentication/SignUp", signUpObject);
         if (res) {
-          const accessToken = res.data.data.accessToken;
-          const refreshToken = res.data.data.refreshToken;
+          this.accessToken = res.data.data.accessToken;
+          this.refreshToken = res.data.data.refreshToken;
 
-          localStorage.setItem("userToken", accessToken);
-          localStorage.setItem("refreshToken", refreshToken);
-
-          instance.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
+          instance.defaults.headers[
+            "Authorization"
+          ] = `Bearer ${this.accessToken}`;
+          this.userIsAuthorized = true;
 
           const getUserAfterLogin = await instance.get(
-            "/User/GetUserAfterLogin",
-            {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            }
+            "/User/GetUserAfterLogin"
           );
 
-          const activeUser = getUserAfterLogin.data.data;
           this.statusCode = res.data.statusCode;
-          this.user = activeUser;
-          localStorage.setItem("user", JSON.stringify(activeUser));
+          this.user = getUserAfterLogin.data.data;
+          setTimeout(() => {
+            this.statusCode = 0;
+          }, 3000);
         }
       } catch (error: any) {
         console.log(error.message);
@@ -93,15 +83,16 @@ export const useAuthStore = defineStore("authStore", {
 
     //LOGOUT
     async logout() {
-      const refreshToken = localStorage.getItem("refreshToken");
       try {
         await instance
-          .post("/authentication/signout", { refreshToken: refreshToken })
-          .then(async () => {
-            localStorage.removeItem("refreshToken");
-            localStorage.removeItem("userToken");
-            localStorage.removeItem("user");
-            location.reload();
+          .post("/authentication/signout", { refreshToken: this.refreshToken })
+          .then(() => {
+            instance.defaults.headers["Authorization"] = null;
+            this.user = null;
+            ls.remove("authStore");
+            useAuthStore().$reset();
+            router.push({ name: "login" });
+            // location.reload();
           });
       } catch (error: any) {
         console.log(error.data);
@@ -110,9 +101,8 @@ export const useAuthStore = defineStore("authStore", {
 
     //REFRESH TOKEN
     async refreshUserToken() {
-      const refreshToken = localStorage.getItem("refreshToken");
-      const res = await auth_instance.post("/Authentication/RefreshToken", {
-        refreshToken,
+      const res = await instance.post("/Authentication/RefreshToken", {
+        refreshToken: this.refreshToken,
       });
 
       console.log(res);
@@ -130,15 +120,13 @@ export const useAuthStore = defineStore("authStore", {
 
     //LOAD USER
     async loadUser() {
-      const token = localStorage.getItem("userToken");
-      const user = localStorage.getItem("user");
-
-      if (user != null) {
-        this.user = JSON.parse(user);
-      } else if (token != null) {
+      if (this.user != null) {
+        // this.user = JSON.parse(user);
+      } else if (this.accessToken != null) {
         const getUserAfterLogin = await instance.get("/User/GetUserAfterLogin");
         this.user = getUserAfterLogin.data.data;
       }
+      this.userIsAuthorized = true;
       // console.log(this.user);
     },
 
@@ -146,14 +134,14 @@ export const useAuthStore = defineStore("authStore", {
       const res = await instance.get("/User/GetUserAfterLogin");
       console.log(res.data);
       this.user = res.data.data;
-      localStorage.removeItem("user");
-      localStorage.setItem("user", JSON.stringify(this.user));
+      // localStorage.removeItem("user");
+      // localStorage.setItem("user", JSON.stringify(this.user));
       this.loadUser();
     },
 
     async resetPasswordRequest(mail: string) {
       try {
-        const res = await auth_instance.post(
+        const res = await instance.post(
           "/authentication/reset-password-request",
           { mail }
         );
@@ -166,7 +154,7 @@ export const useAuthStore = defineStore("authStore", {
 
     async resetPassword(credentials: Object) {
       try {
-        const res = await auth_instance.post(
+        const res = await instance.post(
           "/authentication/reset-password",
           credentials
         );
@@ -179,7 +167,7 @@ export const useAuthStore = defineStore("authStore", {
 
     async checkOTPCode(mail: string, code: string) {
       try {
-        const res = await auth_instance.post("/authentication/check-otp", {
+        const res = await instance.post("/authentication/check-otp", {
           mail,
           code,
         });
@@ -188,6 +176,12 @@ export const useAuthStore = defineStore("authStore", {
       } catch (error: any) {
         console.log(error.message);
       }
+    },
+  },
+  persist: {
+    storage: {
+      getItem: (key) => ls.get(key),
+      setItem: (key, value) => ls.set(key, value),
     },
   },
 });

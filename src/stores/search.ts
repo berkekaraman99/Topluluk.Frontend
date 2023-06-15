@@ -1,12 +1,13 @@
 import { defineStore } from "pinia";
 import { instance } from "./network_manager";
+import type { ISearchItem } from "@/models/search_item_model";
 
 export const useSearchStore = defineStore("searchStore", {
   state: () => ({
-    searchItemList: [] as Array<any>,
+    searchItemList: [] as Array<ISearchItem>,
   }),
   getters: {
-    _searchItemList: (state: any) => state.searchItemList,
+    _searchItemList: (state: any) => state.searchItemList as Array<ISearchItem>,
   },
   actions: {
     //SEARCH

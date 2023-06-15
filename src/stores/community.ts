@@ -2,22 +2,25 @@ import type { ICommunity } from "@/models/community_model";
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
 import type { ICommunityPreview } from "@/models/community_preview_model";
+import type { ICommunityParticipiant } from "@/models/community_participiant_model";
 
 export const useCommunityStore = defineStore("communityStore", {
   state: () => ({
     community: {} as ICommunity,
     communityList: [] as Array<ICommunityPreview>,
     userCommunities: [] as Array<ICommunityPreview>,
-    participiants: [],
+    participiants: [] as Array<ICommunityParticipiant>,
     statusCode: 0 as number,
   }),
 
   getters: {
     _community: (state: any) => state.community as ICommunity,
-    _communityList: (state: any) => state.communityList,
-    _userCommunities: (state: any) => state.userCommunities,
+    _communityList: (state: any) =>
+      state.communityList as Array<ICommunityPreview>,
+    _userCommunities: (state: any) =>
+      state.userCommunities as Array<ICommunityPreview>,
     _participiants: (state: any) => state.participiants,
-    _statusCode: (state: any) => state.statusCode,
+    _statusCode: (state: any) => state.statusCode as number,
   },
 
   actions: {
