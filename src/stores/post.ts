@@ -36,7 +36,9 @@ export const usePostStore = defineStore("postStore", {
       try {
         const res = await instance.get(`/Post/User/${userId}?skip=0&take=10`);
         console.log(res.data.data);
-        this.userPosts = res.data.data;
+        res.data.data.forEach((element: IFeedPost) =>
+          this.userPosts.push(element)
+        );
       } catch (error: any) {
         console.log(error.message);
       }

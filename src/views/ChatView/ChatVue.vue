@@ -222,6 +222,7 @@ import { storeToRefs } from "pinia";
 import { inject, onMounted, ref } from "vue";
 import moment from "moment";
 import { useChatStore } from "@/stores/chat";
+import { onBeforeUnmount } from "vue";
 
 const authStore = useAuthStore();
 const { _user: mainUser } = storeToRefs(authStore);
@@ -274,7 +275,9 @@ onMounted(() => {
   console.log(connection.value);
 
   // Kullanıcıyı sunucuya kaydetme
-  connection.value.open(); // Soket bağlantısını açma
+  if (connection.value !== null) {
+    connection.value.open(); // Soket bağlantısını açma
+  }
   console.log("User Effect çalıştı");
 
   // Socket.IO'dan gelen mesajları dinleme
@@ -301,6 +304,12 @@ onMounted(() => {
   // });
 
   // ComponentWillUnmount işlevi
+  onBeforeUnmount(() => {
+    console.log("Chat UnMounted");
+
+    connection.value = null;
+  });
+
   return () => {
     // Soket bağlantısını kapatma
     console.log("User Effect return çalıştı");

@@ -1,19 +1,22 @@
+import type { IFileModel } from "./file_model";
+import type { IInteractionPreview } from "./interaction_preview_model";
+
 export interface IFeedPost {
-  commentCount: Number;
+  commentCount: number;
   community: Object | null;
-  createdAt: String;
-  description: String;
+  createdAt: string;
+  description: string;
   event: Object | null;
-  files: Array<File>;
-  firstName: String;
-  gender: Number;
-  id: String;
-  interactionCount: Number;
-  interactionPreviews: Array<any>;
-  isFollowing: Boolean;
+  files: Array<IFileModel>;
+  firstName: string;
+  gender: number;
+  id: string;
+  interactionCount: number;
+  interactionPreviews: Array<IInteractionPreview>;
+  isFollowing: boolean;
   isInteracted: Object;
-  isSaved: Boolean;
-  lastName: String;
-  profileImage: String | null;
-  userId: String;
+  isSaved: boolean;
+  lastName: string;
+  profileImage: string | null;
+  userId: string;
 }

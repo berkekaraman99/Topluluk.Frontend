@@ -4,7 +4,7 @@ import type { ISignUpModel } from "../models/signup_model";
 import { instance } from "./network_manager";
 import { defineStore } from "pinia";
 import SecureLS from "secure-ls";
-import router from "@/router";
+// import router from "@/router";
 
 const ls = new SecureLS({ isCompression: false });
 
@@ -87,12 +87,11 @@ export const useAuthStore = defineStore("authStore", {
         await instance
           .post("/authentication/signout", { refreshToken: this.refreshToken })
           .then(() => {
-            instance.defaults.headers["Authorization"] = null;
-            this.user = null;
+            // this.user = null;
             ls.remove("authStore");
             useAuthStore().$reset();
-            router.push({ name: "login" });
-            // location.reload();
+            instance.defaults.headers["Authorization"] = null;
+            location.reload();
           });
       } catch (error: any) {
         console.log(error.data);

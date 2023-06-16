@@ -128,7 +128,7 @@ router.beforeEach((to, from, next) => {
     user.value !== null &&
     authNotRequiredRoutes.includes(to.name!.toString())
   ) {
-    next(false);
+    next({ name: "home" });
   } else next();
 });
 

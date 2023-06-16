@@ -20,12 +20,15 @@
           v-else
           class="d-flex card-body align-items-start p-3 hover-effect"
           v-for="community in communityList"
-          :key="community.id"
+          :key="community.id.toString()"
         >
           <RouterLink
             :to="{
               name: 'communitydetails',
-              params: { id: community.id, name: community.title },
+              params: {
+                id: community.id.toString(),
+                name: community.title.toString(),
+              },
             }"
             class="text-decoration-none"
           >
@@ -48,6 +51,7 @@
           </RouterLink>
         </div>
         <div
+          v-if="communityList.length"
           class="text-center more pointer py-2"
           @click="$router.push({ name: 'communities' })"
         >

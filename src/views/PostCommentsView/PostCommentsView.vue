@@ -404,7 +404,7 @@
                   isPosting
                     ? 'Loading'
                     : statusCode !== 200
-                    ? 'Create Post'
+                    ? 'Create Comment'
                     : 'Success'
                 "
                 wrapper-class="mx-auto text-center"
