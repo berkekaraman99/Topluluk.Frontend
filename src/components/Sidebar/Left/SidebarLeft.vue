@@ -64,6 +64,10 @@ import TabVue from "./TabVue.vue";
   @media screen and (max-width: 992px) {
     width: 100%;
   }
+  @media screen and (min-width: 768px) {
+    position: fixed;
+    width: fit-content;
+  }
   @media screen and (max-width: 576px) {
     top: 60px;
   }
@@ -92,6 +96,10 @@ import TabVue from "./TabVue.vue";
 
   @media screen and (max-width: 992px) {
     margin: 3px 6px;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 992px) {
+    padding: 0px 4px;
   }
 }
 

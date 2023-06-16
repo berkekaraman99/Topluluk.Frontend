@@ -181,12 +181,12 @@
 <script setup lang="ts">
 import moment from "moment";
 import PostActions from "./PostActions.vue";
-import type { IPostModel } from "@/models/post_model";
 import type { PropType } from "vue";
+import type { IFeedPost } from "@/models/feed_post_model";
 
 const props = defineProps({
   post: {
-    type: Object as PropType<IPostModel>,
+    type: Object as PropType<IFeedPost>,
     required: true,
   },
 });

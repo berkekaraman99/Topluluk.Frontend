@@ -9,10 +9,10 @@ export interface IUser {
   followingCount: Number;
   gender: Number;
   id: String;
-  isFollowRequestReceived: Boolean;
-  isFollowRequestSent: Boolean;
-  isFollowing: Boolean;
-  isPrivate: Boolean;
+  isFollowRequestReceived: boolean;
+  isFollowRequestSent: boolean;
+  isFollowing: boolean;
+  isPrivate: boolean;
   lastName: String;
   posts: Array<any>;
   profileImage: String | null;

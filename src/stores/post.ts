@@ -14,12 +14,12 @@ export const usePostStore = defineStore("postStore", {
     statusCode: 0 as number,
   }),
   getters: {
-    _feed: (state: any) => state.feed,
-    _userPosts: (state: any) => state.userPosts,
-    _savedPosts: (state: any) => state.savedPosts,
-    _post: (state: any) => state.post,
-    _postComments: (state: any) => state.postComments,
-    _statusCode: (state: any) => state.statusCode,
+    _feed: (state: any) => state.feed as Array<IFeedPost>,
+    _userPosts: (state: any) => state.userPosts as Array<IFeedPost>,
+    _savedPosts: (state: any) => state.savedPosts as Array<IFeedPost>,
+    _post: (state: any) => state.post as IPostModel,
+    _postComments: (state: any) => state.postComments as Array<IComment>,
+    _statusCode: (state: any) => state.statusCode as number,
   },
   actions: {
     async getPostFeed(skip: string) {
@@ -36,7 +36,9 @@ export const usePostStore = defineStore("postStore", {
       try {
         const res = await instance.get(`/Post/User/${userId}?skip=0&take=10`);
         console.log(res.data.data);
-        this.userPosts = res.data.data;
+        res.data.data.forEach((element: IFeedPost) =>
+          this.userPosts.push(element)
+        );
       } catch (error: any) {
         console.log(error.message);
       }

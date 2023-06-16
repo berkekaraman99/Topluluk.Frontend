@@ -182,6 +182,7 @@
 </template>
 
 <script setup lang="ts">
+import type { IFeedPost } from "@/models/feed_post_model";
 import type { IInteractionPreview } from "@/models/interaction_preview_model";
 import type { IPostModel } from "@/models/post_model";
 import { usePostStore } from "@/stores/post";
@@ -190,7 +191,7 @@ import { ref } from "vue";
 
 const props = defineProps({
   post: {
-    type: Object as PropType<IPostModel>,
+    type: Object as PropType<IPostModel> | PropType<IFeedPost>,
     required: true,
   },
 });

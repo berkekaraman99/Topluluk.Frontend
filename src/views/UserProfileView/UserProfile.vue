@@ -156,7 +156,10 @@
                       aria-expanded="false"
                     ></i>
                     <ul class="dropdown-menu">
-                      <li class="dropdown-item text-danger">
+                      <li
+                        class="dropdown-item text-danger"
+                        @click="blockUser(user.id.toString())"
+                      >
                         <img
                           src="@/assets/images/ic_block.png"
                           alt="block"
@@ -348,14 +351,20 @@ const followUser = async (currentUser: IUser) => {
   }
 };
 
-const unfollowUser = async (user: any) => {
+const unfollowUser = async (user: IUser) => {
   try {
     await userStore
-      .unfollowUser(user.id)
+      .unfollowUser(user.id.toString())
       .then(() => (user.isFollowing = false));
   } catch (error: any) {
     console.log(error.response.data);
   }
+};
+
+const blockUser = async (userId: string) => {
+  const body = new FormData();
+  body.append("targetId", userId);
+  await userStore.blockUser(body);
 };
 
 const removeFollowRequest = async (currentUser: IUser) => {

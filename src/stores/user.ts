@@ -2,25 +2,32 @@ import { instance } from "./network_manager";
 import { defineStore } from "pinia";
 import { useAuthStore } from "./auth";
 import type { IUser } from "@/models/user_model";
+import type { IUserSuggestions } from "@/models/user_suggestions_model";
+import type { IUserFollowers } from "@/models/user_followers_model";
+import type { IUserFollowings } from "@/models/user_followings_model";
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({
     currentUser: {} as IUser,
-    userFollowings: [] as Array<any>,
-    searchedUserFollowings: [] as Array<any>,
-    userFollowers: [] as Array<any>,
+    userFollowings: [] as Array<IUserFollowings>,
+    searchedUserFollowings: [] as Array<IUserFollowings>,
+    userFollowers: [] as Array<IUserFollowers>,
     userFollowersRequests: [] as Array<any>,
-    userSuggestions: [] as Array<any>,
-    statusCode: 0 as Number,
+    userSuggestions: [] as Array<IUserSuggestions>,
+    statusCode: 0 as number,
   }),
   getters: {
-    _currentUser: (state: any) => state.currentUser,
-    _userFollowings: (state: any) => state.userFollowings,
-    _searchedFollowings: (state: any) => state.searchedUserFollowings,
-    _userFollowers: (state: any) => state.userFollowers,
-    _userSuggestions: (state: any) => state.userSuggestions,
+    _currentUser: (state: any) => state.currentUser as IUser,
+    _userFollowings: (state: any) =>
+      state.userFollowings as Array<IUserFollowings>,
+    _searchedFollowings: (state: any) =>
+      state.searchedUserFollowings as Array<IUserFollowings>,
+    _userFollowers: (state: any) =>
+      state.userFollowers as Array<IUserFollowers>,
+    _userSuggestions: (state: any) =>
+      state.userSuggestions as Array<IUserSuggestions>,
     _userFollowersRequests: (state: any) => state.userFollowersRequests,
-    _statusCode: (state: any) => state.statusCode,
+    _statusCode: (state: any) => state.statusCode as number,
   },
   actions: {
     //FOLLOW
@@ -126,6 +133,7 @@ export const useUserStore = defineStore("userStore", {
       const res = await instance.get(
         `/user/followings?id=${userId}&skip=0&take=10`
       );
+      console.log(res.data);
       this.userFollowings = res.data.data;
       this.searchedUserFollowings = res.data.data;
     },
@@ -135,6 +143,8 @@ export const useUserStore = defineStore("userStore", {
       const res = await instance.get(
         `/user/followers?id=${userId}&skip=0&take=10`
       );
+      console.log(res.data);
+
       this.userFollowers = res.data.data;
     },
 

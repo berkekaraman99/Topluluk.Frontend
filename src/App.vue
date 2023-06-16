@@ -35,7 +35,7 @@
         <div class="row h-100">
           <Transition name="fade" mode="out-in">
             <div
-              class="col-md-1 col-lg-2 px-0 pe-0 pe-sm-0 pe-md-3 pe-lg-0"
+              class="col-md-1 col-lg-2 px-0 px-0 pe-sm-0 pe-md-2 pe-lg-0"
               v-if="
                 $route.name === 'home' ||
                 $route.name === 'communities' ||

@@ -48,7 +48,7 @@
                 placeholder="Search"
               />
               <div
-                class="chat-users d-flex align-items-center my-3 py-2 mx-1 px-2 rounded-2"
+                class="chat-users d-flex align-items-center justify-content-between my-3 py-2 mx-1 px-2 rounded-2"
                 v-for="recentChat in recentChats"
                 :key="recentChat.userId"
                 @click="
@@ -59,14 +59,15 @@
                   }
                 "
               >
-                <div>
-                  <div
-                    :style="{
-                      backgroundImage: `url(${recentChat.profileImage})`,
-                    }"
-                    class="chat-user-image me-3 shadow-sm"
-                    v-if="recentChat.profileImage"
-                  ></div>
+                <div class="d-flex">
+                  <div v-if="recentChat.profileImage">
+                    <div
+                      :style="{
+                        backgroundImage: `url(${recentChat.profileImage})`,
+                      }"
+                      class="chat-user-image me-3 shadow-sm"
+                    ></div>
+                  </div>
                   <img
                     src="@/assets/images/profile-man.png"
                     alt="profile-man"
@@ -85,16 +86,26 @@
                     class="chat-user-image me-3"
                     v-else
                   />
+                  <div>
+                    <div>
+                      <div class="fw-bold text-black">
+                        {{ recentChat.firstName }} {{ recentChat.lastName }}
+                      </div>
+                      <div class="tw-text-gray-500">
+                        {{ recentChat.lastMessage }}
+                      </div>
+                      <div class="tw-text-gray-400">
+                        {{ formatTime(recentChat.lastMessageDate) }}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <div class="fw-bold text-black">
-                    {{ recentChat.firstName }} {{ recentChat.lastName }}
-                  </div>
-                  <div class="tw-text-gray-500">
-                    {{ recentChat.lastMessage }}
-                  </div>
-                  <div class="tw-text-gray-400">
-                    {{ formatTime(recentChat.lastMessageDate) }}
+                <div class="d-flex align-items-center justify-content-between">
+                  <div
+                    class="tw-text-white tw-bg-red-600 tw-text-xs chat-unread-message"
+                    v-if="recentChat.unreadMessageCount > 0"
+                  >
+                    {{ recentChat.unreadMessageCount }}
                   </div>
                 </div>
               </div>
@@ -150,7 +161,7 @@
                         'justify-content-end': message.senderId === mainUser.id,
                       }"
                     >
-                      <div class="d-flex flex-column">
+                      <div class="d-flex flex-column my-1">
                         <div
                           class="chat-bubble"
                           :class="{
@@ -159,18 +170,26 @@
                             'align-self-end': message.senderId === mainUser.id,
                           }"
                         >
-                          <span class="chat-bubble-text">{{
-                            message.content
-                          }}</span>
+                          <div class="chat-bubble-text">
+                            {{ message.content }}
+                          </div>
+                          <div
+                            class="tw-text-gray-200 tw-text-xs d-flex justify-content-end"
+                          >
+                            <span>{{ formatTime(message.createdAt) }}</span>
+                            <span class="ps-2" v-if="message.isUpdated"
+                              >(edited)</span
+                            >
+                          </div>
                         </div>
-                        <div
+                        <!-- <div
                           class="pt-1 pb-3"
                           :class="{
                             'align-self-end': message.senderId === mainUser.id,
                           }"
                         >
                           <span>{{ formatTime(message.createdAt) }}</span>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -203,6 +222,7 @@ import { storeToRefs } from "pinia";
 import { inject, onMounted, ref } from "vue";
 import moment from "moment";
 import { useChatStore } from "@/stores/chat";
+import { onBeforeUnmount } from "vue";
 
 const authStore = useAuthStore();
 const { _user: mainUser } = storeToRefs(authStore);
@@ -255,7 +275,9 @@ onMounted(() => {
   console.log(connection.value);
 
   // Kullanıcıyı sunucuya kaydetme
-  connection.value.open(); // Soket bağlantısını açma
+  if (connection.value !== null) {
+    connection.value.open(); // Soket bağlantısını açma
+  }
   console.log("User Effect çalıştı");
 
   // Socket.IO'dan gelen mesajları dinleme
@@ -282,6 +304,12 @@ onMounted(() => {
   // });
 
   // ComponentWillUnmount işlevi
+  onBeforeUnmount(() => {
+    console.log("Chat UnMounted");
+
+    connection.value = null;
+  });
+
   return () => {
     // Soket bağlantısını kapatma
     console.log("User Effect return çalıştı");
@@ -409,9 +437,9 @@ const sendMessage = () => {
 }
 
 .chat-bubble {
-  border-radius: 99px;
+  border-radius: 0.4rem;
   width: fit-content;
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem 1.05rem;
 }
 
 .chat-bubble-text {
@@ -451,5 +479,14 @@ const sendMessage = () => {
     border-color: var(--color-primary);
     width: 100%;
   }
+}
+
+.chat-unread-message {
+  height: 24px;
+  width: 24px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

@@ -14,7 +14,6 @@ import "@formkit/addons/css/multistep";
 import "./assets/css/normalize.css";
 import "./assets/css/main.css";
 import "./style.css";
-import { useAuthStore } from "./stores/auth";
 import io from "socket.io-client";
 
 const URL = "http://localhost:4000";
@@ -22,9 +21,9 @@ const socket = io(URL, {
   autoConnect: false,
 });
 
-const app = createApp(App);
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
+const app = createApp(App);
 
 app.provide("socket", socket);
 app.use(pinia);
@@ -43,8 +42,8 @@ app.use(
 
 app.mount("#app");
 
-const loadUser = async () => {
-  const authStore = useAuthStore();
-  await authStore.loadUser().then(() => (authStore.userIsAuthorized = true));
-};
-loadUser();
+// const loadUser = async () => {
+//   const authStore = useAuthStore();
+//   await authStore.loadUser().then(() => (authStore.userIsAuthorized = true));
+// };
+// loadUser();

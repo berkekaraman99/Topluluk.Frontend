@@ -21,6 +21,7 @@
     "moment": "^2.29.4",
     "pinia": "^2.0.34",
     "pinia-plugin-persistedstate": "^3.1.0",
+    "secure-ls": "^1.2.6",
     "socket.io": "^4.6.2",
     "socket.io-client": "^4.6.2",
     "vue": "^3.2.45",

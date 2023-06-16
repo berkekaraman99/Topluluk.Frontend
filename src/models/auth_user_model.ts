@@ -8,7 +8,7 @@ export interface IAuthUser {
   followingsCount: Number;
   gender: Number;
   id: String;
-  isPrivate: Boolean;
+  isPrivate: boolean;
   lastName: String;
   profileImage: String | null;
   userName: String;

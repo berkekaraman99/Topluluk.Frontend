@@ -12,10 +12,10 @@ export const useEventStore = defineStore("eventStore", {
     statusCode: 0 as number,
   }),
   getters: {
-    _currentEvent: (state: any) => state.currentEvent,
+    _currentEvent: (state: any) => state.currentEvent as IEventModel,
     _eventComments: (state: any) => state.eventComments,
-    _userEvents: (state: any) => state.userEvents,
-    _statusCode: (state: any) => state.statusCode,
+    _userEvents: (state: any) => state.userEvents as Array<IEventPreview>,
+    _statusCode: (state: any) => state.statusCode as number,
     _eventAttendees: (state: any) => state.eventAttendees,
   },
   actions: {
@@ -120,6 +120,9 @@ export const useEventStore = defineStore("eventStore", {
         );
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
         await useEventStore().getEventComments(eventId);
       } catch (error: any) {
         console.log(error.message);
@@ -130,6 +133,9 @@ export const useEventStore = defineStore("eventStore", {
         const res = await instance.post(`/event/create-comment`, comment);
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }
