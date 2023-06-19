@@ -21,7 +21,7 @@
             :checked="category === 'About'"
           />
           <label for="radio-1">
-            <span class="fw-bold" id="about">About</span>
+            <span class="fw-bold" id="about">Hakkında</span>
           </label>
         </div>
 
@@ -39,7 +39,7 @@
             :checked="category === 'Participiants'"
           />
           <label for="radio-2">
-            <span class="fw-bold" id="participiants">Participiants </span>
+            <span class="fw-bold" id="participiants">Üyeler </span>
           </label>
         </div>
 
@@ -58,7 +58,7 @@
             :checked="category === 'Settings'"
           />
           <label for="radio-3">
-            <span class="fw-bold" id="settings">Settings</span>
+            <span class="fw-bold" id="settings">Ayarlar</span>
           </label>
         </div>
       </div>
@@ -97,7 +97,7 @@
                   </p>
                   <p class="fs-6 mb-0">
                     <i class="fa-solid fa-users"></i>
-                    {{ community.participiantsCount }} members
+                    {{ community.participiantsCount }} üye
                   </p>
                 </div>
               </div>
@@ -123,14 +123,14 @@
                     v-else-if="!community.isParticipiant"
                     @click="join(community)"
                   >
-                    Join Community
+                    Topluluğa Katıl
                   </button>
                   <button
                     class="btn btn-danger"
                     v-else
                     @click="leave(community)"
                   >
-                    Leave Community
+                    Topluluktan Ayrıl
                   </button>
                 </div>
               </div>
@@ -142,7 +142,6 @@
                 v-if="category === 'About'"
               />
               <CommunityParticipiants
-                :participiants="participiants"
                 :community="community"
                 v-else-if="category === 'Participiants'"
                 :id="id"
@@ -224,9 +223,6 @@ const leave = async (community: ICommunity) => {
     changeloadingState(loading);
   });
 };
-
-communityStore.getCommunityParticipiants(props.id);
-const { _participiants: participiants } = storeToRefs(communityStore);
 
 onBeforeUnmount(() => {
   communityStore.$patch({

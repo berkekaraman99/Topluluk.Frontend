@@ -10,6 +10,7 @@ export const useCommunityStore = defineStore("communityStore", {
     communityList: [] as Array<ICommunityPreview>,
     userCommunities: [] as Array<ICommunityPreview>,
     participiants: [] as Array<ICommunityParticipiant>,
+    searchedParticipiants: [] as Array<ICommunityParticipiant>,
     statusCode: 0 as number,
   }),
 
@@ -20,13 +21,15 @@ export const useCommunityStore = defineStore("communityStore", {
     _userCommunities: (state: any) =>
       state.userCommunities as Array<ICommunityPreview>,
     _participiants: (state: any) => state.participiants,
+    _searchedParticipiants: (state: any) =>
+      state.searchedParticipiants as Array<ICommunityParticipiant>,
     _statusCode: (state: any) => state.statusCode as number,
   },
 
   actions: {
     // GET ALL COMMUNITIES
     async getCommunities() {
-      const res = await instance.get("/Community/communities?skip=0&take=3");
+      const res = await instance.get("/Community/communities?skip=0&take=8");
       console.log(res.data.data);
       this.communityList = res.data.data;
     },
@@ -43,14 +46,16 @@ export const useCommunityStore = defineStore("communityStore", {
       const res = await instance.post("/community/create", communityObject);
       console.log(res);
       this.statusCode = res.data.statusCode;
+      setTimeout(() => {
+        this.statusCode = 0;
+      }, 3000);
     },
 
     //GET USER COMMUNITIES
     async getUserCommunities(id: string) {
       try {
-        const res = await instance.get(`/Community/user/${id}`);
+        const res = await instance.get(`/community/user-communities?id=${id}`);
         console.log(res.data.data);
-
         this.userCommunities = res.data.data;
       } catch (error: any) {
         console.log(error.response.data);
@@ -85,6 +90,9 @@ export const useCommunityStore = defineStore("communityStore", {
           {}
         );
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
         console.log(res.data);
       } catch (error: any) {
         console.log(error.message);
@@ -131,16 +139,27 @@ export const useCommunityStore = defineStore("communityStore", {
     async getCommunityParticipiants(communityId: string) {
       try {
         const res = await instance.get(
-          `/community/Participiants/${communityId}`
+          `/community/${communityId}/Participiants`
         );
         console.log(res.data);
         this.participiants = res.data.data;
+        this.searchedParticipiants = res.data.data;
       } catch (error: any) {
         console.log(error.data);
       }
     },
-    setParticipiants(state: any, payload: any) {
-      state.participiants = payload;
+
+    //SEARCH PARTICIPIANTS
+    async searchParticipiants(communityId: string, text: string) {
+      try {
+        const res = await instance.get(
+          `/community/${communityId}/Participiants/Search?q=${text}`
+        );
+        console.log(res.data);
+        this.searchedParticipiants = res.data.data;
+      } catch (error: any) {
+        console.log(error.data);
+      }
     },
 
     //UPDATE COMMUNITY COVER IMAGE
@@ -151,6 +170,7 @@ export const useCommunityStore = defineStore("communityStore", {
           data
         );
         console.log(res.data);
+        this.searchedParticipiants = res.data.data;
       } catch (error: any) {
         console.log(error);
       }

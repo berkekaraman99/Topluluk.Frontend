@@ -60,6 +60,9 @@ export const useEventStore = defineStore("eventStore", {
         const res = await instance.post(`/Event/join/${eventId}`, {});
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -69,6 +72,9 @@ export const useEventStore = defineStore("eventStore", {
         const res = await instance.post(`/Event/leave/${eventId}`, {});
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -78,6 +84,9 @@ export const useEventStore = defineStore("eventStore", {
         const res = await instance.post("/event/create", data);
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -87,6 +96,9 @@ export const useEventStore = defineStore("eventStore", {
         const res = await instance.post(`/event/delete?id=${eventId}`, {});
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -99,6 +111,9 @@ export const useEventStore = defineStore("eventStore", {
         );
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }

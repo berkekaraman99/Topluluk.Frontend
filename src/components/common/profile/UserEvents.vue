@@ -2,7 +2,7 @@
   <div>
     <LoadingSpinner v-if="loading" />
     <div v-else-if="userEvents.length === 0">
-      <h1 class="text-center fw-light">There is no events here...</h1>
+      <h1 class="text-center fw-light">Etkinlik Bulunamadı</h1>
     </div>
     <div
       class="row d-flex justify-content-center align-items-center"
@@ -69,8 +69,8 @@
                         </p>
                         <p class="card-text pt-2">
                           <i class="fa-solid fa-users fa-lg"></i>
-                          {{ userEvent.attendeesCount }} people are considering
-                          attend the event
+                          {{ userEvent.attendeesCount }} kişi etkinliğe gitmeyi
+                          düşünüyor
                         </p>
                       </div>
                     </div>

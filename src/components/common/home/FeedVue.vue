@@ -1,6 +1,6 @@
 <template>
   <Transition appear @before-enter="beforeEnterTitle" @enter="enterTitle">
-    <h1 class="fw-bold display-6 px-2">Feed</h1>
+    <h1 class="fw-bold display-6 px-2">Akış</h1>
   </Transition>
 
   <LoadingSpinner v-if="loading" />
@@ -23,7 +23,7 @@
     </TransitionGroup>
   </div>
   <div class="container my-3" v-else>
-    <h1>There is no posts here...</h1>
+    <h1>Post bulunamadı</h1>
   </div>
 </template>
 

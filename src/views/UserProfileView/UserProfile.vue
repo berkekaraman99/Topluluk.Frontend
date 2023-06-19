@@ -103,7 +103,7 @@
                     <h3 class="fw-bold d-inline-block">
                       {{ currentUser.followersCount }}
                     </h3>
-                    Followers
+                    Takipçiler
                   </div>
 
                   <div
@@ -119,17 +119,16 @@
                     <h3 class="fw-bold d-inline-block">
                       {{ currentUser.followingCount }}
                     </h3>
-                    Followings
-                  </div>
-                  <div class="me-3">
-                    <h3 class="fw-bold d-inline-block">
-                      {{ currentUser.communityCount }}
-                    </h3>
-                    Communities
+                    Takipler
                   </div>
                 </div>
                 <!-- Bio -->
-                <p v-if="currentUser.bio" class="my-3">{{ currentUser.bio }}</p>
+                <p
+                  v-if="!currentUser.isPrivate || currentUser.isFollowing"
+                  class="my-3"
+                >
+                  {{ currentUser.bio }}
+                </p>
               </div>
               <div class="d-flex justify-content-center align-self-baseline">
                 <button
@@ -137,7 +136,7 @@
                   @click="removeFollowRequest(currentUser)"
                   v-if="currentUser.isFollowRequestSent"
                 >
-                  Cancel Follow Request
+                  Takip İsteğinden Vazgeç
                 </button>
                 <button
                   class="btn follow px-4"
@@ -146,7 +145,7 @@
                     currentUser.id !== user.id && !currentUser.isFollowing
                   "
                 >
-                  Follow
+                  Takip Et
                 </button>
                 <div class="d-flex align-items-center pointer ms-3">
                   <div class="dropdown">
@@ -158,21 +157,21 @@
                     <ul class="dropdown-menu">
                       <li
                         class="dropdown-item text-danger"
-                        @click="blockUser(user.id.toString())"
+                        @click="blockUser(currentUser)"
                       >
                         <img
                           src="@/assets/images/ic_block.png"
                           alt="block"
                           height="21"
                         />
-                        Block User
+                        Kullanıcıyı Engelle
                       </li>
                       <li
-                        class="dropdown-item text-warning"
+                        class="dropdown-item text-warning-emphasis"
                         v-if="currentUser.isFollowing"
                         @click="unfollowUser(currentUser)"
                       >
-                        Unfollow
+                        Takipten Çık
                       </li>
                     </ul>
                   </div>
@@ -187,13 +186,16 @@
           <!-- Followings Modal -->
           <FollowingsModal :id="id!" />
 
+          <div class="mt-3 mx-3 fs-5" v-if="currentUser.isBlocked">
+            <p class="fw-light text-center">Bu kullanıcıyı engellediniz</p>
+          </div>
           <div
             id="options"
             class="container my-4"
-            v-if="!currentUser.isPrivate || currentUser.isFollowing"
+            v-else-if="!currentUser.isPrivate || currentUser.isFollowing"
           >
             <div
-              class="d-flex align-items-center justify-content-around flex-column flex-sm-column flex-md-row"
+              class="d-flex align-items-center justify-content-around flex-column flex-sm-column flex-md-row border-top border-bottom"
             >
               <div class="text-center my-2">
                 <input
@@ -210,7 +212,7 @@
                     :class="{ selected: category === 'activities' }"
                     id="activities"
                     @click="changeCategory('activities')"
-                    >Activities</span
+                    >Aktiviteler</span
                   >
                 </label>
               </div>
@@ -230,7 +232,7 @@
                     :class="{ selected: category === 'posts' }"
                     id="posts"
                     @click="changeCategory('posts')"
-                    >Posts</span
+                    >Postlar</span
                   >
                 </label>
               </div>
@@ -250,7 +252,7 @@
                     :class="{ selected: category === 'events' }"
                     id="events"
                     @click="changeCategory('events')"
-                    >Events</span
+                    >Etkinlikler</span
                   >
                 </label>
               </div>
@@ -270,7 +272,7 @@
                     :class="{ selected: category === 'communities' }"
                     id="communities"
                     @click="changeCategory('communities')"
-                    >Communities</span
+                    >Topluluklar ({{ currentUser.communityCount }})</span
                   >
                 </label>
               </div>
@@ -278,9 +280,10 @@
           </div>
 
           <div class="mt-3 mx-3 fs-5" v-else>
-            <p class="fw-light">This account is private</p>
+            <p class="fw-light">Bu hesap gizli</p>
             <p class="fw-light">
-              Follow this account to see their posts and other activities.
+              Bu hesabın postlarını, etkinliklerini ve diğer aktivitelerini
+              görmek için lütfen takip ediniz
             </p>
           </div>
 
@@ -361,10 +364,11 @@ const unfollowUser = async (user: IUser) => {
   }
 };
 
-const blockUser = async (userId: string) => {
+const blockUser = async (user: IUser) => {
   const body = new FormData();
+  const userId = user.id;
   body.append("targetId", userId);
-  await userStore.blockUser(body);
+  await userStore.blockUser(body).then(() => (user.isBlocked = true));
 };
 
 const removeFollowRequest = async (currentUser: IUser) => {

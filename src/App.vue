@@ -32,7 +32,7 @@
               : '0px',
         }"
       >
-        <div class="row h-100">
+        <div class="row">
           <Transition name="fade" mode="out-in">
             <div
               class="col-md-1 col-lg-2 px-0 px-0 pe-sm-0 pe-md-2 pe-lg-0"
@@ -43,9 +43,7 @@
                 $route.name === 'events'
               "
             >
-              <div>
-                <SidebarLeft />
-              </div>
+              <SidebarLeft />
             </div>
           </Transition>
 
@@ -55,8 +53,8 @@
             :class="{
               'col-md-12 col-lg-12 col-xl-12':
                 $route.name !== 'home' &&
-                $route.name !== 'communities' &&
                 $route.name !== 'search' &&
+                $route.name !== 'communities' &&
                 $route.name !== 'events',
             }"
           >
@@ -69,17 +67,14 @@
 
           <Transition name="fade" mode="out-in">
             <div
-              class="d-none d-sm-none d-md-none d-lg-block col-md-3 col-lg-3"
+              class="d-none d-sm-none d-md-none d-lg-flex col-md-3 col-lg-3 justify-content-lg-center px-0"
               v-if="
                 $route.name === 'home' ||
-                $route.name === 'communities' ||
                 $route.name === 'search' ||
                 $route.name === 'events'
               "
             >
-              <div>
-                <SidebarRight />
-              </div>
+              <SidebarRight />
             </div>
           </Transition>
         </div>
@@ -102,15 +97,5 @@ import NavBar from "./components/header/NavBar.vue";
   &:hover {
     opacity: 1;
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

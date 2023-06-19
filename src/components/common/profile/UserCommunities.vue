@@ -1,7 +1,7 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <div v-else-if="userCommunities.length === 0">
-    <h1 class="text-center fw-light">There is no communities here...</h1>
+    <h1 class="text-center fw-light">Burada hiç topluluk yok...</h1>
   </div>
   <div class="row" v-else-if="userCommunities.length">
     <TransitionGroup
@@ -57,7 +57,7 @@
                   </div>
                   <div>
                     <div>
-                      Participiants:
+                      Üye Sayısı:
                       <span class="fw-bold">{{
                         community.participiantsCount
                       }}</span>
@@ -72,7 +72,7 @@
     </TransitionGroup>
   </div>
   <div class="my-3" v-else>
-    <p class="text-center fs-5">There is no communities here...</p>
+    <p class="text-center fs-5">Burada hiç topluluk yok...</p>
   </div>
 </template>
 

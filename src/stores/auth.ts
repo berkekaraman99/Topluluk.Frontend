@@ -46,6 +46,10 @@ export const useAuthStore = defineStore("authStore", {
           );
           this.user = getUserAfterLogin.data.data;
           console.log(this.user);
+          this.statusCode = res.data.statusCode;
+          setTimeout(() => {
+            this.statusCode = 0;
+          }, 3000);
         }
       } catch (error: any) {
         console.log(error.message);
@@ -114,6 +118,9 @@ export const useAuthStore = defineStore("authStore", {
         passwords
       );
       this.statusCode = res.data.statusCode;
+      setTimeout(() => {
+        this.statusCode = 0;
+      }, 3000);
       console.log(res.data);
     },
 
@@ -146,6 +153,9 @@ export const useAuthStore = defineStore("authStore", {
         );
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -159,6 +169,9 @@ export const useAuthStore = defineStore("authStore", {
         );
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -172,6 +185,9 @@ export const useAuthStore = defineStore("authStore", {
         });
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }

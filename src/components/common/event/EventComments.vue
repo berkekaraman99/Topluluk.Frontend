@@ -5,7 +5,7 @@
         class="col-12 offset-0 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 my-4"
       >
         <div class="card shadow-sm">
-          <div class="card-header"><h1>Your comment</h1></div>
+          <div class="card-header"><h1>Yorumunuz</h1></div>
           <div class="card-body">
             <div class="d-flex align-items-center mb-3">
               <div v-if="user.profileImage != null">
@@ -47,10 +47,10 @@
                 type="button"
                 :label="
                   isPosting
-                    ? 'Loading'
+                    ? 'Gönderiliyor'
                     : statusCode !== 200
-                    ? 'Create Comment'
-                    : 'Success'
+                    ? 'Yorum Oluştur'
+                    : 'Başarılı'
                 "
                 wrapper-class="mx-auto text-center"
                 @click="createComment"
@@ -66,7 +66,7 @@
 
     <div class="container" v-if="eventComments != null">
       <h4 class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 mb-2">
-        Comments (<span>{{ eventComments.length }}</span
+        Yorumlar (<span>{{ eventComments.length }}</span
         >)
       </h4>
     </div>

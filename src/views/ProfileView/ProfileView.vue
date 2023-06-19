@@ -72,7 +72,7 @@
                     <h3 class="fw-bold d-inline-block">
                       {{ currentUser.followersCount }}
                     </h3>
-                    Followers
+                    Takipçiler
                   </div>
                   <div
                     class="me-3 pointer"
@@ -83,7 +83,7 @@
                     <h3 class="fw-bold d-inline-block">
                       {{ currentUser.followingCount }}
                     </h3>
-                    Followings
+                    Takipler
                   </div>
                   <div
                     class="me-3 pointer"
@@ -93,7 +93,7 @@
                     <h3 class="fw-bold d-inline-block">
                       {{ followersRequests.length }}
                     </h3>
-                    FollowerRequests
+                    Takip İstekleri
                   </div>
                 </div>
                 <!-- Bio -->
@@ -144,7 +144,7 @@
 
       <div id="options" class="container my-4" v-else>
         <div
-          class="d-flex align-items-center justify-content-around flex-column flex-sm-column flex-md-row"
+          class="d-flex align-items-center justify-content-around flex-column flex-sm-column flex-md-row border-top border-bottom"
         >
           <div class="text-center my-2">
             <input
@@ -161,7 +161,7 @@
                 :class="{ selected: category === 'activities' }"
                 id="activities"
                 @click="changeCategory('activities')"
-                >Activities</span
+                >Aktiviteler</span
               >
             </label>
           </div>
@@ -181,7 +181,7 @@
                 :class="{ selected: category === 'posts' }"
                 id="posts"
                 @click="changeCategory('posts')"
-                >Posts</span
+                >Postlar</span
               >
             </label>
           </div>
@@ -201,7 +201,7 @@
                 :class="{ selected: category === 'events' }"
                 id="events"
                 @click="changeCategory('events')"
-                >Events</span
+                >Etkinlikler</span
               >
             </label>
           </div>
@@ -221,7 +221,7 @@
                 :class="{ selected: category === 'communities' }"
                 id="communities"
                 @click="changeCategory('communities')"
-                >Communities ({{ currentUser.communityCount }})</span
+                >Topluluklar ({{ currentUser.communityCount }})</span
               >
             </label>
           </div>
@@ -241,7 +241,7 @@
                 :class="{ selected: category === 'saved' }"
                 id="saved"
                 @click="changeCategory('saved')"
-                >Saved</span
+                >Kaydedilenler</span
               >
             </label>
           </div>

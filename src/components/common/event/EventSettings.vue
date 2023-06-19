@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex align-items-center justify-content-start">
-        <div class="card-text fw-bold tw-text-2xl">General</div>
+        <div class="card-text fw-bold tw-text-2xl">Genel</div>
         <!-- <div class="card-text fw-bold">Tab</div> -->
       </div>
     </div>
@@ -23,7 +23,7 @@
         >
           <i class="fa-solid fa-trash-can"></i>
           <span class="ms-2">{{
-            loading ? "Processing" : "Delete Event"
+            loading ? "İşleniyor" : "Etkinliği Sil"
           }}</span>
         </div>
       </div>

@@ -10,7 +10,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="followingsLabel">Followings</h1>
+          <h1 class="modal-title fs-5" id="followingsLabel">Takipler</h1>
           <button
             type="button"
             class="btn-close"
@@ -25,7 +25,7 @@
                 type="text"
                 class="form-control form-control-lg mb-3"
                 :placeholder="
-                  user ? 'Search Followings' : 'Please login to search'
+                  user ? 'Takip ettiklerini ara' : 'Please login to search'
                 "
                 v-model="text"
                 @keydown.enter="handleSearch"
@@ -86,7 +86,7 @@
             </li>
           </ul>
           <div v-else class="text-center">
-            <h4 class="fw-light">No followers found</h4>
+            <h4 class="fw-light">Takip ettiğin kimse yok</h4>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="followersLabel">Followers</h1>
+          <h1 class="modal-title fs-5" id="followersLabel">Takipçiler</h1>
           <button
             type="button"
             class="btn-close"
@@ -58,9 +58,8 @@
                     <RouterLink
                       :to="{ name: 'userprofile', params: { id: user.id } }"
                       class="text-decoration-none"
-                      data-bs-dismiss="modal"
                     >
-                      <div class="fw-bold text-black">
+                      <div class="fw-bold text-black" data-bs-dismiss="modal">
                         {{ user.firstName }} {{ user.lastName }}
                       </div>
                     </RouterLink>
@@ -72,13 +71,13 @@
                   @click="removeFollower(user.id)"
                   v-if="authUser.id === id"
                 >
-                  Remove
+                  Kaldır
                 </button>
               </div>
             </li>
           </ul>
           <div v-else class="text-center">
-            <h4 class="fw-light">No followers found</h4>
+            <h4 class="fw-light">Hiç takipçin yok</h4>
           </div>
         </div>
       </div>

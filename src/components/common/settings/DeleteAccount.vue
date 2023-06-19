@@ -10,7 +10,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">
-            Are you sure you want to delete your account?
+            <!-- Are you sure you want to delete your account? -->
+            Hesabı silmek istediğinize emin misiniz?
           </h1>
           <button
             type="button"
@@ -21,10 +22,15 @@
         </div>
         <div class="modal-body">
           <p>
-            All your data will be deleted as soon as the deletion process starts
-            on your account.
+            <!-- All your data will be deleted as soon as the deletion process starts
+            on your account. -->
+            Hesabınızda silme işlemi başlar başlamaz tüm verileriniz
+            silinecektir.
           </p>
-          <span class="fst-italic">"This action cannot be undone"</span>
+          <span class="fst-italic text-danger">
+            <!-- "This action cannot be undone" -->
+            "Bu işlem geri alınamaz"
+          </span>
         </div>
         <div class="modal-footer">
           <button
@@ -58,7 +64,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5 fw-bold" id="confirmModalToggleLabel">
-            Please enter your password to continue the transaction.
+            <!-- Please enter your password to continue the transaction. -->
+            İşleme devam edebilmek için lütfen şifrenizi giriniz
           </h1>
           <button
             type="button"
@@ -70,7 +77,7 @@
         <div class="modal-body">
           <FormKit
             type="password"
-            label="Password"
+            label="Şifre"
             v-model="confirmPassword"
             suffix-icon="eyeClosed"
             @suffix-icon-click="handleIconClick"

@@ -47,10 +47,10 @@
                 v-if="post.userId === user.id"
               >
                 <i class="fa-regular fa-trash-can"></i>
-                Delete
+                Sil
               </li>
               <li class="dropdown-item text-danger">
-                <i class="fa-regular fa-flag"></i> Report
+                <i class="fa-regular fa-flag"></i> Raporla
               </li>
             </ul>
           </div>
@@ -71,7 +71,7 @@
               :class="{ active: post.files[0] === file }"
               style="transition: 0.35s ease-in-out; max-height: 400px"
               v-for="file in post.files"
-              :key="file"
+              :key="file.file"
             >
               <img
                 v-if="file.type === 1 || file.type === 0"
@@ -120,7 +120,7 @@
         >
           <span
             v-for="interactionPreview in post.interactionPreviews"
-            :key="interactionPreview"
+            :key="interactionPreview.interaction"
           >
             <span v-if="interactionPreview.interaction === 0"
               ><img
@@ -159,10 +159,10 @@
             </span>
           </span>
           <span v-if="post.interactionCount === 1" class="ms-2">
-            {{ post.interactionCount }} Interaction
+            {{ post.interactionCount }} İfade
           </span>
           <span v-else-if="post.interactionCount > 1" class="ms-2">
-            {{ post.interactionCount }} Interactions
+            {{ post.interactionCount }} İfade
           </span>
         </div>
         <div class="container">
@@ -179,16 +179,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, type PropType } from "vue";
 import moment from "moment";
 import { usePostStore } from "@/stores/post";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import PostActions from "./PostActions.vue";
+import type { IPostModel } from "@/models/post_model";
 
 const props = defineProps({
   post: {
-    type: Object,
+    type: Object as PropType<IPostModel>,
     required: true,
   },
 });

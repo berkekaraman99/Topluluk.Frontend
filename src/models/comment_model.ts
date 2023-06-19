@@ -1,13 +1,13 @@
 export interface IComment {
-  createdAt: String;
-  firstName: String;
-  gender: Number;
-  id: String;
-  interactionCount: Number;
-  isLiked: Boolean;
-  isEdited: Boolean;
-  lastName: String;
-  message: String;
-  profileImage: String | null;
-  userId: String;
+  createdAt: string;
+  firstName: string;
+  gender: number;
+  id: string;
+  interactionCount: number;
+  isLiked: boolean;
+  isEdited: boolean;
+  lastName: string;
+  message: string;
+  profileImage: string | null;
+  userId: string;
 }

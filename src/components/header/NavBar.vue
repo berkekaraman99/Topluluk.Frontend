@@ -20,16 +20,16 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Create
+                Oluştur
               </button>
-              <ul class="dropdown-menu dropdown-menu-end">
+              <ul class="dropdown-menu dropdown-menu-end animate scaleOut">
                 <li>
                   <RouterLink
                     :to="{ name: 'createCommunity' }"
                     class="dropdown-item"
                   >
                     <i class="fa-solid fa-users"></i>
-                    Create Community
+                    Topluluk Oluştur
                   </RouterLink>
                 </li>
                 <li>
@@ -38,7 +38,7 @@
                     class="dropdown-item"
                   >
                     <i class="fa-solid fa-note-sticky"></i>
-                    Create Post
+                    Post Oluştur
                   </RouterLink>
                 </li>
                 <li>
@@ -47,7 +47,7 @@
                     class="dropdown-item"
                   >
                     <i class="fa-solid fa-calendar"></i>
-                    Create Event
+                    Etkinlik Oluştur
                   </RouterLink>
                 </li>
               </ul>

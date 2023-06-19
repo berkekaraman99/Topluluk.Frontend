@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-header">
         <div class="d-flex align-items-center justify-content-start">
-          <div class="card-text fw-bold tw-text-2xl">General</div>
+          <div class="card-text fw-bold tw-text-2xl">Genel</div>
           <!-- <div class="card-text fw-bold">Tab</div> -->
         </div>
       </div>
@@ -18,7 +18,9 @@
             aria-controls="collapseExample"
           >
             <i class="fa-solid fa-pen-to-square"></i>
-            <span class="ms-2 text-primary">Change Community Cover</span>
+            <span class="ms-2 text-primary"
+              >Topluluk Kapak Resmini Değiştir</span
+            >
           </div>
         </div>
         <div class="collapse" id="collapseChangeCoverImage">
@@ -43,8 +45,8 @@
                     loading
                       ? 'Loading'
                       : statusCode !== 200
-                      ? 'Change Cover Image'
-                      : 'Success'
+                      ? 'Kapak Resmini Değiştir'
+                      : 'Başarılı'
                   "
                   wrapper-class="text-center"
                   :classes="{ input: '' }"
@@ -56,8 +58,8 @@
                     loading
                       ? 'Loading'
                       : statusCode !== 200
-                      ? 'Remove Cover Image'
-                      : 'Success'
+                      ? 'Kapak Resmini Kaldır'
+                      : 'Başarılı'
                   "
                   @click="removeCoverImage"
                   wrapper-class="text-center"
@@ -79,7 +81,7 @@
             aria-controls="collapseExample"
           >
             <i class="fa-solid fa-pen-to-square"></i>
-            <span class="ms-2 text-primary">Change Community Banner</span>
+            <span class="ms-2 text-primary">Topluluk Afişini Değiştir</span>
           </div>
         </div>
         <div class="collapse" id="collapseChangeBannerImage">
@@ -104,8 +106,8 @@
                     loading
                       ? 'Loading'
                       : statusCode !== 200
-                      ? 'Change Banner Image'
-                      : 'Success'
+                      ? 'Afişi Değiştir'
+                      : 'Başarılı'
                   "
                   wrapper-class="text-center"
                   :classes="{ input: '' }"
@@ -117,8 +119,8 @@
                     loading
                       ? 'Loading'
                       : statusCode !== 200
-                      ? 'Remove Banner Image'
-                      : 'Success'
+                      ? 'Afişi Kaldır'
+                      : 'Başarılı'
                   "
                   @click="removeBannerImage"
                   wrapper-class="text-center"
@@ -141,7 +143,7 @@
           </div>
           <div class="text-danger" @click="deleteCommunity" v-else>
             <i class="fa-solid fa-trash-can"></i>
-            <span class="ms-2">Delete Community</span>
+            <span class="ms-2">Topluluğu Sil</span>
           </div>
         </div>
       </div>

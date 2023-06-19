@@ -1,8 +1,8 @@
 export interface ICommunityPreview {
-  coverImage: String | null;
-  description: String;
-  id: String;
-  isPrivate: Boolean;
-  participiantsCount: Boolean;
-  title: String;
+  coverImage: string | null;
+  description: string;
+  id: string;
+  isPrivate: boolean;
+  participiantsCount: boolean;
+  title: string;
 }

@@ -24,7 +24,7 @@
                   :checked="category === 'About'"
                 />
                 <label for="radio-1">
-                  <span class="fw-bold" id="about">About</span>
+                  <span class="fw-bold" id="about">Hakkında</span>
                 </label>
               </div>
 
@@ -42,7 +42,7 @@
                   :checked="category === 'Attendees'"
                 />
                 <label for="radio-2">
-                  <span class="fw-bold" id="attendees">Attendees </span>
+                  <span class="fw-bold" id="attendees">Katılımcılar</span>
                 </label>
               </div>
 
@@ -60,7 +60,7 @@
                   :checked="category === 'Comments'"
                 />
                 <label for="radio-3">
-                  <span class="fw-bold" id="event-comments">Comments </span>
+                  <span class="fw-bold" id="event-comments">Yorumlar</span>
                 </label>
               </div>
 
@@ -79,7 +79,7 @@
                   :checked="category === 'Settings'"
                 />
                 <label for="radio-4">
-                  <span class="fw-bold" id="posts">Settings</span>
+                  <span class="fw-bold" id="posts">Ayarlar</span>
                 </label>
               </div>
             </div>

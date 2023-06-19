@@ -54,7 +54,7 @@
             ></i>
             <ul class="dropdown-menu dropdown-menu-end">
               <li class="dropdown-item text-danger">
-                <i class="fa-regular fa-flag"></i> Report
+                <i class="fa-regular fa-flag"></i> Raporla
               </li>
             </ul>
           </div>
@@ -164,10 +164,10 @@
             </span>
           </span>
           <span v-if="post.interactionCount === 1" class="ms-2">
-            {{ post.interactionCount }} Interaction
+            {{ post.interactionCount }} İfade
           </span>
           <span v-else-if="post.interactionCount > 1" class="ms-2">
-            {{ post.interactionCount }} Interactions
+            {{ post.interactionCount }} İfade
           </span>
         </div>
         <div class="container">

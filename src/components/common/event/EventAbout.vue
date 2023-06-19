@@ -11,13 +11,13 @@
             <div class="me-4">
               <i class="fa-solid fa-calendar-days"></i>
               <div>
-                <p class="fw-bold mb-0 mt-3">Start Date</p>
+                <p class="fw-bold mb-0 mt-3">Başlangıç Tarihi</p>
                 <span>
                   {{ formatTime(currentEvent.startDate) }}
                 </span>
               </div>
               <div>
-                <p class="fw-bold mb-0 mt-3">End Date</p>
+                <p class="fw-bold mb-0 mt-3">Bitiş Tarihi</p>
                 <span>
                   {{ formatTime(currentEvent.endDate) }}
                 </span>
@@ -25,7 +25,7 @@
             </div>
             <div></div>
           </div>
-          <p class="card-text my-2 fw-bold">Description</p>
+          <p class="card-text my-2 fw-bold">Etkinlik Açıklama</p>
           <p class="card-text my-2">
             {{
               currentEvent.description != null
@@ -35,8 +35,8 @@
           </p>
           <p class="card-text">
             <i class="fa-solid fa-users fa-lg"></i>
-            {{ currentEvent.attendeesCount }} people are considering attend the
-            event
+            {{ currentEvent.attendeesCount }} kişi bu etkinliğe gitmeyi
+            düşünüyor
           </p>
           <p class="card-text my-2">
             <i class="fa-solid fa-location-dot fa-lg"></i>
@@ -50,7 +50,7 @@
         <div
           class="col-12 col-md-12 col-lg-6 d-flex align-items-end justify-content-end flex-column"
         >
-          <div class="fw-bold text-end">Event Owner</div>
+          <div class="fw-bold text-end">Etkinlik Yöneticisi</div>
           <div class="d-flex align-items-center justify-content-end my-3">
             <div class="mx-3">
               {{ currentEvent.firstName }} {{ currentEvent.lastName }}
@@ -82,14 +82,14 @@
             v-else-if="!currentEvent.isAttendeed"
             @click="joinEvent(currentEvent)"
           >
-            Join Event
+            Etkinliğe Katıl
           </button>
           <button
             class="btn btn-danger w-100 h-100"
             v-else-if="currentEvent.userId !== user.id"
             @click="leaveEvent(currentEvent)"
           >
-            Leave Event
+            Etkinlikten Ayrıl
           </button>
         </div>
       </div>

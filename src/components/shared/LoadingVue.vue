@@ -36,7 +36,8 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: black;
+  background-color: var(--color-primary);
+
   margin: -4px 0 0 -4px;
 }
 .lds-roller div:nth-child(1) {
@@ -98,8 +99,10 @@
 @keyframes lds-roller {
   0% {
     transform: rotate(0deg);
+    background-color: var(--color-primary);
   }
   100% {
+    background-color: var(--color-primary);
     transform: rotate(360deg);
   }
 }

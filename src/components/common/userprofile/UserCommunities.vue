@@ -1,7 +1,7 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <div v-else-if="userCommunities.length === 0">
-    <h1 class="text-center fw-light">There is no communities here...</h1>
+    <h1 class="text-center fw-light">Burada hiç topluluk yok...</h1>
   </div>
   <div class="row" v-else-if="userCommunities.length">
     <TransitionGroup
@@ -10,7 +10,7 @@
       @enter="enterCommunity"
     >
       <div
-        class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2"
+        class="col-sm-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2"
         v-for="(community, index) in userCommunities"
         v-bind:key="community.id"
         :data-index="index"
@@ -24,7 +24,9 @@
         >
           <div class="container shadow mb-5 rounded-3">
             <div class="row">
-              <div class="col-sm-12 col-md-4 d-grid align-content-center">
+              <div
+                class="col-sm-12 col-md-4 d-sm-flex align-items-sm-center justify-content-sm-center"
+              >
                 <img
                   :src="community.coverImage"
                   alt="community cover"
@@ -57,7 +59,7 @@
                   </div>
                   <div>
                     <div>
-                      Participiants:
+                      Üye Sayısı:
                       <span class="fw-bold">{{
                         community.participiantsCount
                       }}</span>
@@ -72,7 +74,7 @@
     </TransitionGroup>
   </div>
   <div class="my-3" v-else>
-    <p class="text-center fs-5">There is no communities here...</p>
+    <p class="text-center fs-5">Burada hiç topluluk yok...</p>
   </div>
 </template>
 

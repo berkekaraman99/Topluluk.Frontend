@@ -10,7 +10,7 @@
       >
         <div v-if="post.isInteracted == null">
           <i class="fa-regular fa-face-smile fa-lg my-3"></i>
-          Interact
+          İfade Bırak
         </div>
         <div v-else-if="post.isInteracted.interaction === 0">
           <img
@@ -18,7 +18,7 @@
             alt="Like"
             height="32"
           />
-          <div>Like</div>
+          <div>Beğendim</div>
         </div>
         <div v-else-if="post.isInteracted.interaction === 1">
           <img
@@ -26,7 +26,7 @@
             alt="Like"
             height="32"
           />
-          <div>Celebrate</div>
+          <div>Tebrikler</div>
         </div>
         <div v-else-if="post.isInteracted.interaction === 2">
           <img
@@ -34,7 +34,7 @@
             alt="Like"
             height="32"
           />
-          <div>Support</div>
+          <div>Destekleyici</div>
         </div>
         <div v-else-if="post.isInteracted.interaction === 3">
           <img
@@ -42,7 +42,7 @@
             alt="Like"
             height="32"
           />
-          <div>Insightfull</div>
+          <div>İlhamlı</div>
         </div>
         <div v-else-if="post.isInteracted.interaction === 4">
           <img
@@ -50,7 +50,7 @@
             alt="Like"
             height="32"
           />
-          <div>Dislike</div>
+          <div>Beğenmedim</div>
         </div>
       </div>
       <ul class="dropdown-menu shadow horizontal p-0">
@@ -147,7 +147,7 @@
           class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
         >
           <i class="fa-regular fa-message fa-lg my-3"></i>
-          {{ post.commentCount }} Comments
+          {{ post.commentCount }} Yorumlar
         </div>
       </RouterLink>
     </div>
@@ -157,7 +157,7 @@
         class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
       >
         <i class="fa-regular fa-paper-plane fa-lg my-3"></i>
-        Share
+        Paylaş
       </div>
     </div>
     <div class="col-sm-6 col-md-3 text-center my-1">
@@ -166,7 +166,7 @@
         id="save"
         class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
       >
-        <i class="fa-solid fa-bookmark fa-lg my-3"></i> Saved
+        <i class="fa-solid fa-bookmark fa-lg my-3"></i> Kaydedildi
       </div>
       <div
         v-else
@@ -175,7 +175,7 @@
         class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
       >
         <i class="fa-regular fa-bookmark fa-lg my-3"></i>
-        Save
+        Kaydet
       </div>
     </div>
   </div>

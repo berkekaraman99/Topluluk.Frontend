@@ -17,7 +17,7 @@
         <FormKit
           type="password"
           name="old_password"
-          label="Old Password"
+          label="Eski Şifre"
           help="Enter your old password"
           validation="required"
           v-model="userInfo.oldPassword"
@@ -25,7 +25,7 @@
         <FormKit
           type="password"
           name="password"
-          label="New Password"
+          label="Yeni Şifre"
           help="Enter a new password"
           validation="required"
           v-model="userInfo.newPassword"
@@ -34,10 +34,10 @@
           type="submit"
           :label="
             loading
-              ? 'Loading'
+              ? 'Değiştiriliyor'
               : statusCode !== 200
-              ? 'Change Password Now'
-              : 'Success'
+              ? 'Şifreyi Şimdi Değiştir'
+              : 'Başarılı'
           "
           wrapper-class="text-center"
           :classes="{ input: 'w-100' }"

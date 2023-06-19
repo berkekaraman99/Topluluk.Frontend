@@ -1,13 +1,13 @@
 <template>
   <div>
     <div>
-      <strong>Description</strong>
+      <strong>Topluluk Açıklaması</strong>
       <p class="description">{{ community.description }}</p>
     </div>
 
     <div class="d-flex align-items-center justify-content-between">
       <div>
-        <div class="fw-bold">Community Admin</div>
+        <div class="fw-bold">Topluluğun Sahibi</div>
         <div class="d-flex align-items-center my-3">
           <div
             class="post-profile-image"

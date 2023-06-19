@@ -132,10 +132,10 @@
                 </span>
               </span>
               <span v-if="post.interactionCount === 1" class="ms-2">
-                {{ post.interactionCount }} Interaction
+                {{ post.interactionCount }} İfade
               </span>
               <span v-else-if="post.interactionCount !== 0" class="ms-2">
-                {{ post.interactionCount }} Interactions
+                {{ post.interactionCount }} İfade
               </span>
             </div>
             <div class="container">
@@ -149,7 +149,7 @@
                   >
                     <div v-if="post.isInteracted == null">
                       <i class="fa-regular fa-face-smile fa-lg my-3"></i>
-                      Interact
+                      İfade Bırak
                     </div>
                     <div v-else-if="post.isInteracted.interaction === 0">
                       <img
@@ -157,7 +157,7 @@
                         alt="Like"
                         height="32"
                       />
-                      <div>Like</div>
+                      <div>Beğendim</div>
                     </div>
                     <div v-else-if="post.isInteracted.interaction === 1">
                       <img
@@ -165,7 +165,7 @@
                         alt="Like"
                         height="32"
                       />
-                      <div>Celebrate</div>
+                      <div>Tebrikler!</div>
                     </div>
                     <div v-else-if="post.isInteracted.interaction === 2">
                       <img
@@ -173,7 +173,7 @@
                         alt="Like"
                         height="32"
                       />
-                      <div>Support</div>
+                      <div>Destekleyici</div>
                     </div>
                     <div v-else-if="post.isInteracted.interaction === 3">
                       <img
@@ -181,7 +181,7 @@
                         alt="Like"
                         height="32"
                       />
-                      <div>Insightfull</div>
+                      <div>İlhamlı</div>
                     </div>
                     <div v-else-if="post.isInteracted.interaction === 4">
                       <img
@@ -189,7 +189,7 @@
                         alt="Like"
                         height="32"
                       />
-                      <div>Dislike</div>
+                      <div>Beğenmedim</div>
                     </div>
                   </div>
                   <ul
@@ -332,7 +332,7 @@
                     class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
                   >
                     <i class="fa-regular fa-paper-plane fa-lg my-3"></i>
-                    Share
+                    Paylaş
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-3 text-center my-1">
@@ -341,7 +341,7 @@
                     id="save"
                     class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
                   >
-                    <i class="fa-solid fa-bookmark fa-lg my-3"></i> Saved
+                    <i class="fa-solid fa-bookmark fa-lg my-3"></i> Kaydedildi
                   </div>
                   <div
                     v-else
@@ -350,7 +350,7 @@
                     class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
                   >
                     <i class="fa-regular fa-bookmark fa-lg my-3"></i>
-                    Save
+                    Kaydet
                   </div>
                 </div>
               </div>
@@ -360,7 +360,7 @@
       </div>
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 my-4">
         <div class="card shadow-sm">
-          <div class="card-header"><h1>Your comment</h1></div>
+          <div class="card-header"><h1>Yorumunuz</h1></div>
           <div class="card-body">
             <div class="d-flex align-items-center mb-3">
               <div v-if="user.profileImage != null">
@@ -402,10 +402,10 @@
                 type="button"
                 :label="
                   isPosting
-                    ? 'Loading'
+                    ? 'Gönderiliyor'
                     : statusCode !== 200
-                    ? 'Create Comment'
-                    : 'Success'
+                    ? 'Yorum Yap'
+                    : 'Başarılı'
                 "
                 wrapper-class="mx-auto text-center"
                 @click="createComment"
@@ -416,7 +416,7 @@
             </div>
           </div>
         </div>
-        <h4 class="col-12 mt-4">Comments</h4>
+        <h4 class="col-12 mt-4">Yorumlar</h4>
 
         <div>
           <TransitionGroup

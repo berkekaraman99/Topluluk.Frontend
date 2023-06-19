@@ -1,10 +1,10 @@
 export interface UpdateProfileModel {
-  firstName: String;
-  lastName: String;
-  userName: String;
-  bio: String;
-  email: String;
-  birthdayDate: any;
-  gender: Number;
-  title: String;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  bio: string;
+  email: string;
+  birthdayDate: Date;
+  gender: number;
+  title: string;
 }

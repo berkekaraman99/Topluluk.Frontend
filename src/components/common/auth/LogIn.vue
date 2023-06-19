@@ -16,7 +16,7 @@
   >
     <div class="row w-100 align-items-center mx-3">
       <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-        <p class="fw-bold text-center fs-2 py-4">Login to The Topluluk</p>
+        <p class="fw-bold text-center fs-2 py-4">Topluluk'a Giriş Yap</p>
 
         <FormKit
           type="form"
@@ -34,7 +34,7 @@
           <FormKit
             type="text"
             name="username"
-            placeholder="Your username"
+            placeholder="Kullanıcı Adı"
             prefix-icon="avatarMan"
             validation="required"
             v-model="userObject.userName"
@@ -45,7 +45,7 @@
           <FormKit
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Şifre"
             validation="required"
             minlength="6"
             prefix-icon="password"
@@ -59,7 +59,7 @@
           <div class="d-flex justify-content-between align-items-center my-3">
             <FormKit
               type="checkbox"
-              label="Remember Me?"
+              label="Beni Hatırla"
               name="terms"
               :value="false"
               :outer-class="{
@@ -74,12 +74,12 @@
               :to="{ name: 'forgetpassword' }"
               class="text-decoration-none"
             >
-              <span>Forgot Password?</span>
+              <span>Şifremi Unuttum?</span>
             </RouterLink>
           </div>
           <FormKit
             type="submit"
-            :label="loading ? 'Loading' : 'Login'"
+            :label="loading ? 'Yükleniyor' : 'Giriş Yap'"
             :classes="{ input: 'w-100' }"
             :disabled="loading || statusCode === 200"
             :wrapper-class="{
@@ -92,15 +92,15 @@
         <!-- PUSH SIGN UP -->
         <div class="text-end mt-4">
           <p>
-            Don't have an account?
+            Hesabınız yok mo?
             <RouterLink :to="{ name: 'signup' }" class="text-decoration-none"
-              >Sign Up</RouterLink
+              >Hemen kaydolun</RouterLink
             >
           </p>
         </div>
 
         <div class="d-flex justify-content-center align-items-center my-4">
-          <span class="text-secondary">or</span>
+          <span class="text-secondary">veya</span>
         </div>
 
         <!-- ALTERNATIVE LOGINS -->
@@ -113,11 +113,11 @@
               alt="Google"
               class="me-2"
             />
-            <span class="fw-bold">Login with Google</span>
+            <span class="fw-bold">Google ile giriş yap</span>
           </div>
           <div class="btn btn-dark d-block shadow-sm mt-3">
             <i class="fa-brands fa-apple fa-lg me-2"></i>
-            <span class="fw-bold">Login with Apple</span>
+            <span class="fw-bold">Apple ile giriş yap</span>
           </div>
         </div>
       </div>

@@ -37,7 +37,7 @@
                       v-if="props.comment.userId === props.userId"
                       @click="editComment()"
                     >
-                      <i class="fa-solid fa-pen-to-square"></i> Edit Comment
+                      <i class="fa-solid fa-pen-to-square"></i> Yorumu Düzenle
                     </li>
                     <li
                       class="dropdown-item text-danger"
@@ -45,10 +45,10 @@
                       v-if="props.comment.userId === props.userId"
                     >
                       <i class="fa-regular fa-trash-can"></i>
-                      Delete
+                      Yorumu Sil
                     </li>
                     <li class="dropdown-item text-danger">
-                      <i class="fa-regular fa-flag"></i> Report
+                      <i class="fa-regular fa-flag"></i> Raporla
                     </li>
                   </ul>
                 </div>
@@ -60,7 +60,7 @@
               {{ props.comment.message }}
               <span
                 v-if="props.comment.isEdited"
-                class="text-secondary-emphasis fst-italic fs-xs"
+                class="text-secondary-emphasis fst-italic tw-text-xs"
               >
                 ( Düzenlendi )
               </span>

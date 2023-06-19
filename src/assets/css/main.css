@@ -1,3 +1,5 @@
+@import url(./transition.css);
+
 :root {
   --color-primary: #5c60db;
   --color-primary-hover: #4b4eb5;
@@ -170,8 +172,4 @@ a.router-link-exact-active {
   color: var(--color-primary);
   background-color: rgb(255, 255, 255);
   /* border: 1px solid var(--color-primary); */
-}
-
-.fs-xs {
-  font-size: x-small;
 }

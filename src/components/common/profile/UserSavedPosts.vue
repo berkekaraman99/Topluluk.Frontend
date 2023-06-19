@@ -1,7 +1,7 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <div v-else-if="savedPosts.length === 0">
-    <h1 class="text-center fw-light">There is no saved posts here...</h1>
+    <h1 class="text-center fw-light">Kaydedilen post yok...</h1>
   </div>
   <div v-else-if="savedPosts.length">
     <div class="row" v-for="post in savedPosts" v-bind:key="post.id">
@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="my-3" v-else>
-    <p class="text-center fs-5">No saved posts here</p>
+    <p class="text-center fs-5">Kaydedilen post yok...</p>
   </div>
 </template>
 

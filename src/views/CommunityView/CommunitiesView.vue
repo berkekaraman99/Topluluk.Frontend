@@ -1,7 +1,7 @@
 <template>
   <div>
     <Transition appear @before-enter="beforeEnterTitle" @enter="enterTitle">
-      <h1 class="fw-bold display-6 px-2">Communities</h1>
+      <h1 class="fw-bold display-6 px-2">Topluluklar</h1>
     </Transition>
 
     <LoadingSpinner v-if="loading" />
@@ -16,44 +16,63 @@
           @enter="enterCommunity"
         >
           <div
-            class="col-12 col-sm-12 col-md-12 col-lg-6"
+            class="col-sm-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1"
             v-for="(community, index) in communityList"
-            v-bind:key="community.id.toString()"
+            v-bind:key="community.id"
             :data-index="index"
           >
             <RouterLink
               :to="{
                 name: 'communitydetails',
-                params: {
-                  id: community.id.toString(),
-                  name: community.title.toString(),
-                },
+                params: { id: community.id, name: community.title },
               }"
               class="text-decoration-none text-dark"
             >
-              <div class="card shadow-sm mb-5">
-                <div
-                  class="card-img-top"
-                  :style="{
-                    'background-image': 'url(' + community.coverImage + ')',
-                  }"
-                  v-if="community.coverImage"
-                ></div>
-                <div
-                  class="card-img-top"
-                  style="background-image: url('https://picsum.photos/800')"
-                  v-else
-                ></div>
-                <div class="card-body">
-                  <h5 class="card-title">{{ community.title }}</h5>
-                  <div class="overlay">
-                    <p class="text">
-                      {{ community.description }}
-                    </p>
+              <div class="container shadow mb-5 rounded-3">
+                <div class="row">
+                  <div
+                    class="col-sm-12 col-md-4 d-sm-flex align-items-sm-center justify-content-sm-center"
+                  >
+                    <img
+                      :src="community.coverImage"
+                      alt="community cover"
+                      class="p-2 img-fluid rounded-4"
+                      v-if="community.coverImage"
+                    />
+                    <img
+                      class="my-2 rounded-3 img-fluid"
+                      src="https://picsum.photos/400"
+                      alt="event-image"
+                      v-else
+                    />
                   </div>
-                  <p class="card-text">
-                    Participiants: {{ community.participiantsCount }}
-                  </p>
+
+                  <div class="col-sm-12 col-md-8 col lg-6">
+                    <div
+                      class="d-flex flex-column justify-content-between rounded-4 m-2 p-2"
+                    >
+                      <div>
+                        <h3 class="fw-bold">{{ community.title }}</h3>
+                        <p class="description">
+                          {{
+                            WordCount(community.description) < 30
+                              ? community.description
+                              : getDescriptionCharacters(
+                                  community.description
+                                ).concat("...")
+                          }}
+                        </p>
+                      </div>
+                      <div>
+                        <div>
+                          Üye Sayısı:
+                          <span class="fw-bold">{{
+                            community.participiantsCount
+                          }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </RouterLink>
@@ -105,6 +124,17 @@ const changeLoadingState = () => {
   loading.value = !loading.value;
 };
 const communityStore = useCommunityStore();
+
+const WordCount = (str: string) => {
+  return str.split(" ").length;
+};
+const getDescriptionCharacters = (str: string) => {
+  let mainStr = "";
+  for (let i = 0; i < 200; i++) {
+    mainStr += str[i];
+  }
+  return mainStr;
+};
 
 communityStore.getCommunities().then(changeLoadingState);
 const { _communityList: communityList } = storeToRefs(communityStore);

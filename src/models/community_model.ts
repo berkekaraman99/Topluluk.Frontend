@@ -1,19 +1,19 @@
 export interface ICommunity {
   adminGender: number;
-  adminId: String;
-  adminImage: String;
-  adminLastName: String;
-  adminName: String;
-  bannerImage: String | null;
-  coverImage: String | null;
-  description: String;
-  id: String;
-  isOwner: Boolean;
-  isParticipiant: Boolean;
-  isPublic: Boolean;
-  isRestricted: Boolean;
-  isVisible: Boolean;
-  location: String;
+  adminId: string;
+  adminImage: string;
+  adminLastName: string;
+  adminName: string;
+  bannerImage: string | null;
+  coverImage: string | null;
+  description: string;
+  id: string;
+  isOwner: boolean;
+  isParticipiant: boolean;
+  isPublic: boolean;
+  isRestricted: boolean;
+  isVisible: boolean;
+  location: string;
   participiantsCount: number;
-  title: String;
+  title: string;
 }

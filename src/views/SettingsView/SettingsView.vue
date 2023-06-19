@@ -6,9 +6,9 @@
         <div
           class="col-12 col-sm-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 col-xxl-6 offset-xxl-3"
         >
-          <h1 class="display-5 fw-bold">Settings</h1>
+          <h1 class="display-5 fw-bold">Ayarlar</h1>
           <h4 class="mb-3 text-primary-emphasis">
-            <i class="fa-solid fa-shield-halved"></i> Privacy & Security
+            <i class="fa-solid fa-shield-halved"></i> Gizlilik & Güvenlik
           </h4>
           <hr />
           <!-- CHANGE PASSWORD -->
@@ -22,7 +22,7 @@
                 aria-controls="collapsePassword"
               >
                 <i class="fa-solid fa-key"></i>
-                Change Password
+                Şifreyi Değiştir
               </div>
             </div>
             <ChangePassword />
@@ -35,7 +35,7 @@
             data-bs-target="#offcanvasDeleteMyAccount"
           >
             <i class="fa-solid fa-user-large-slash"></i>
-            Delete my account
+            Hesabımı Sil
           </div>
 
           <DeleteAccount />
@@ -54,13 +54,13 @@
               />
               <label class="form-check-label" for="privateSwitch">
                 <i class="fa-solid fa-user-ninja"></i>
-                Private Profile
+                Profilimi Gizle
               </label>
             </div>
           </div>
 
           <h4 class="mt-4 mb-3 text-primary-emphasis">
-            <i class="fa-solid fa-user-gear"></i> General
+            <i class="fa-solid fa-user-gear"></i> Genel
           </h4>
           <hr />
 
@@ -75,7 +75,7 @@
                 aria-controls="collapseEditProfile"
               >
                 <i class="fa-solid fa-user-pen"></i>
-                Edit Profile
+                Profil Bilgilerini Düzenle
               </div>
             </div>
             <EditProfile />
@@ -92,7 +92,7 @@
                 aria-controls="collapseProfileImage"
               >
                 <i class="fa-solid fa-image-portrait"></i>
-                Change Profile Image
+                Profil Resmini Değiştir
               </div>
             </div>
             <ChangeProfileImage :id="userId.toString()" />
@@ -109,7 +109,7 @@
                 aria-controls="collapseBannerImage"
               >
                 <i class="fa-solid fa-panorama"></i>
-                Change Banner Image
+                Afişi Değiştir
               </div>
             </div>
             <ChangeBannerImage :id="userId.toString()" />
@@ -127,7 +127,7 @@
               />
               <label class="form-check-label" for="darkModeSwitch">
                 <i class="fa-solid fa-circle-half-stroke"></i>
-                Dark Mode
+                Koyu Tema
               </label>
             </div>
           </div>

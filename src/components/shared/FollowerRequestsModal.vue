@@ -11,7 +11,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="followerRequestsLabel">
-            Follower Requests
+            Takipçi İstekleri
           </h1>
           <button
             type="button"
@@ -75,20 +75,20 @@
                     class="btn btn-primary mx-1"
                     @click="acceptFollowRequest(user.id, user)"
                   >
-                    Accept
+                    Kabul Et
                   </span>
                   <span
                     class="btn btn-danger"
                     @click="declineFollowRequest(user.id, user)"
                   >
-                    Decline
+                    Reddet
                   </span>
                 </div>
               </div>
             </li>
           </ul>
           <div v-else class="text-center">
-            <h4 class="fw-light">No follower requests found</h4>
+            <h4 class="fw-light">Takipçi isteği yok</h4>
           </div>
         </div>
       </div>

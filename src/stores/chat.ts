@@ -38,5 +38,18 @@ export const useChatStore = defineStore("chatStore", {
         console.log(error.message);
       }
     },
+
+    //CREATE GROUP
+    async createGroup(chatName: string) {
+      try {
+        const res = await instance.post(
+          "http://localhost:7070/chat/create-group",
+          { name: chatName }
+        );
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    },
   },
 });

@@ -1,12 +1,12 @@
 <template>
   <div>
     <Transition appear @before-enter="beforeEnterTitle" @enter="enterTitle">
-      <h1 class="fw-bold display-6 px-2">My Events</h1>
+      <h1 class="fw-bold display-6 px-2">Etkinliklerim</h1>
     </Transition>
     <LoadingSpinner v-if="loading" />
     <div class="container" v-else>
       <div v-if="userEvents.length === 0">
-        <h1>There is no events here...</h1>
+        <h1>Etkinlik bulunamadı</h1>
       </div>
       <div class="row d-flex justify-content-center align-items-center" v-else>
         <TransitionGroup
@@ -73,8 +73,8 @@
                           </p>
                           <p class="card-text pt-2">
                             <i class="fa-solid fa-users fa-lg"></i>
-                            {{ userEvent.attendeesCount }} people are
-                            considering attend the event
+                            {{ userEvent.attendeesCount }} kişi gitmeyi
+                            düşünüyor
                           </p>
                         </div>
                       </div>

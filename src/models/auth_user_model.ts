@@ -1,15 +1,15 @@
 export interface IAuthUser {
-  bannerImage: String | null;
-  bio: String | null;
-  birthdayDate: String | null;
-  email: String;
-  firstName: String;
-  followersCount: Number;
-  followingsCount: Number;
-  gender: Number;
-  id: String;
+  bannerImage: string | null;
+  bio: string | null;
+  birthdayDate: string | null;
+  email: string;
+  firstName: string;
+  followersCount: number;
+  followingsCount: number;
+  gender: number;
+  id: string;
   isPrivate: boolean;
-  lastName: String;
-  profileImage: String | null;
-  userName: String;
+  lastName: string;
+  profileImage: string | null;
+  userName: string;
 }

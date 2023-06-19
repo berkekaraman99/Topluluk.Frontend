@@ -15,7 +15,7 @@
       >
         <FormKit
           type="file"
-          label="Files"
+          label="Dosya"
           accept=".png,.jpg,.jpeg"
           multiple="true"
           v-on:change="onFileChangeBanner"
@@ -23,7 +23,7 @@
         <div class="d-flex align-items-center justify-content-center">
           <FormKit
             type="submit"
-            label="Change Banner Image"
+            label="Afişi Değiştir"
             wrapper-class="text-center"
             :classes="{ input: '' }"
           />
@@ -31,10 +31,10 @@
             type="button"
             :label="
               loading
-                ? 'Loading'
+                ? 'Kaldırılıyor'
                 : statusCode !== 200
-                ? 'Remove Banner Image'
-                : 'Success'
+                ? 'Afişi Kaldır'
+                : 'Başarılı'
             "
             @click="removeBannerImage"
             wrapper-class="text-center"

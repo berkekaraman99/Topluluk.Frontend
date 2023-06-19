@@ -2,7 +2,7 @@
   <div class="">
     <div class="card rounded-3" id="suggestions" v-if="!loading">
       <div class="card-header p-0">
-        <h4 class="fw-bold my-3 text-center">Suggestions</h4>
+        <h4 class="fw-bold my-3 text-center">Öneriler</h4>
       </div>
       <div class="card-body py-0 px-1 overflow-auto">
         <ul class="list-unstyled">
@@ -10,7 +10,7 @@
             v-if="suggestions.length === 0"
             class="d-flex align-items-center justify-content-center py-5"
           >
-            <p>No suggestions found</p>
+            <p>Öneri bulunamadı</p>
           </div>
           <li
             v-else

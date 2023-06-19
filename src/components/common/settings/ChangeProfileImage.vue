@@ -15,7 +15,7 @@
       >
         <FormKit
           type="file"
-          label="Files"
+          label="Dosya"
           accept=".png,.jpg,.jpeg,.jfif"
           multiple="true"
           v-on:change="onFileChangeProfile"
@@ -23,13 +23,13 @@
         <div class="d-flex align-items-center justify-content center">
           <FormKit
             type="submit"
-            label="Change Profile Image"
+            label="Profil Resmini Değiştir"
             wrapper-class="text-center"
             :classes="{ input: '' }"
           />
           <FormKit
             type="button"
-            :label="loading ? 'Loading' : 'Remove Profile Image'"
+            :label="loading ? 'Kaldırılıyor' : 'Profil Resmini Kaldır'"
             @click="removeProfileImage"
             wrapper-class="text-center"
             :classes="{ input: 'bg-danger' }"

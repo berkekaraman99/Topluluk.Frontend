@@ -16,10 +16,10 @@
   >
     <div class="row w-100 align-items-center mt-4">
       <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-        <p class="fw-bold text-center fs-2 py-4">Sign Up to Community</p>
+        <p class="fw-bold text-center fs-2 py-4">Topluluk'a Katılın</p>
         <FormKit
           type="form"
-          submit-label="Create"
+          submit-label="Hesap Oluştur"
           @submit="handleSignUp"
           :actions="false"
         >
@@ -34,51 +34,51 @@
             }"
           >
             <!-- STEP ONE -->
-            <FormKit type="step" name="Step One">
+            <FormKit type="step" name="Adım">
               <FormKit
                 type="text"
-                label="First Name"
+                label="Adınız"
                 validation="required"
                 v-model="userObject.firstName"
               />
               <FormKit
                 type="text"
-                label="Last Name"
+                label="Soyadınız"
                 validation="required"
                 v-model="userObject.lastName"
               />
               <FormKit
                 type="email"
-                label="Your Email"
+                label="E-mail Adresiniz"
                 validation="required|email"
                 prefix-icon="email"
                 v-model="userObject.email"
               />
             </FormKit>
             <!-- STEP TWO -->
-            <FormKit type="step" name="Step Two">
+            <FormKit type="step" name="Adım">
               <FormKit
                 type="text"
-                label="User Name"
+                label="Kullanıcı Adı"
                 validation="required"
                 v-model="userObject.userName"
                 prefix-icon="avatarMan"
               />
               <FormKit
                 type="password"
-                label="Password"
+                label="Şifre"
                 validation="required"
                 v-model="userObject.password"
                 prefix-icon="password"
               />
               <FormKit
                 type="select"
-                label="Gender"
+                label="Cinsiyet"
                 placeholder="Select a gender"
                 :options="[
-                  { label: 'Woman', value: '1' },
-                  { label: 'Man', value: '2' },
-                  { label: 'Other', value: '3' },
+                  { label: 'Kadın', value: '1' },
+                  { label: 'Erkek', value: '2' },
+                  { label: 'Diğer', value: '3' },
                 ]"
                 validation="required"
                 v-model="userObject.gender"
@@ -99,7 +99,7 @@
           />
           <FormKit
             type="submit"
-            label="Sign Up"
+            label="Kayıt Ol"
             :disabled="!isAccepted"
             :wrapper-class="{
               'formkit-wrapper': false,
@@ -112,7 +112,7 @@
         </FormKit>
 
         <div class="d-flex justify-content-center align-items-center my-4">
-          <span class="text-secondary">or</span>
+          <span class="text-secondary">veya</span>
         </div>
 
         <!-- ALTERNATIVE SIGNUPS -->
@@ -125,11 +125,11 @@
               alt="Google"
               class="me-2"
             />
-            <span class="fw-bold">Signup with Google</span>
+            <span class="fw-bold">Google ile Kayıt Ol</span>
           </div>
           <div class="btn btn-dark w-75 shadow-sm mt-3 rounded-1">
             <i class="fa-brands fa-apple fa-lg me-2"></i>
-            <span class="fw-bold">Signup with Apple</span>
+            <span class="fw-bold">Apple ile Kayıt Ol</span>
           </div>
         </div>
 
@@ -139,7 +139,7 @@
           @click="router.back()"
         >
           <i class="fa-solid fa-angle-left"></i>
-          <span class="ps-2">Go Back</span>
+          <span class="ps-2">Geri Dön</span>
         </div>
       </div>
     </div>

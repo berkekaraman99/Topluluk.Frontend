@@ -13,13 +13,13 @@
           },
         }"
       >
+        <FormKit type="text" label="Adınız" v-model="userObject.firstName" />
+        <FormKit type="text" label="Soyadınız" v-model="userObject.lastName" />
         <FormKit
           type="text"
-          label="First Name"
-          v-model="userObject.firstName"
+          label="Kullanıcı Adı"
+          v-model="userObject.userName"
         />
-        <FormKit type="text" label="Last Name" v-model="userObject.lastName" />
-        <FormKit type="text" label="Username" v-model="userObject.userName" />
         <FormKit
           type="textarea"
           label="Bio"
@@ -28,26 +28,26 @@
         />
         <FormKit
           type="email"
-          label="Email address"
+          label="E-mail adresi"
           validation="required|email|ends_with:.com"
           placeholder="example@mail.com"
           v-model="userObject.email"
         />
         <FormKit
           type="date"
-          label="Birthday"
+          label="Doğum Tarihi"
           :validation="`required|date_before:${new Date()}`"
           v-model="userObject.birthdayDate"
         />
 
         <FormKit
           type="select"
-          label="Gender"
+          label="Cinsiyet"
           placeholder="Select a gender"
           :options="[
-            { label: 'Woman', value: '1' },
-            { label: 'Man', value: '2' },
-            { label: 'Other', value: '3' },
+            { label: 'Kadın', value: '1' },
+            { label: 'Erkek', value: '2' },
+            { label: 'Diğer', value: '3' },
           ]"
           validation="required"
           v-model="userObject.gender"
@@ -55,7 +55,7 @@
 
         <FormKit
           type="text"
-          label="Title"
+          label="Başlık"
           v-model="userObject.title"
           placeholder="Title"
         />
@@ -64,10 +64,10 @@
           type="submit"
           :label="
             loading
-              ? 'Loading'
+              ? 'Kaydediliyor'
               : statusCode !== 200
-              ? 'Apply Changes'
-              : 'Success'
+              ? 'Değişiklikleri Kaydet'
+              : 'Başarılı'
           "
           wrapper-class="text-center"
           :classes="{ input: 'w-100' }"
@@ -112,7 +112,7 @@ const userObject = reactive({
   userName: user.value.userName,
   bio: user.value.bio,
   email: user.value.email,
-  birthdayDate: formatDate(user.value.birthdayDate),
+  birthdayDate: formatDate(user.value.birthdayDate!),
   gender: user.value.gender,
   title: user.value.title,
 });
@@ -122,9 +122,9 @@ const updateProfile = async () => {
     firstName: userObject.firstName,
     lastName: userObject.lastName,
     userName: userObject.userName,
-    bio: userObject.bio,
+    bio: userObject.bio!,
     email: userObject.email,
-    birthdayDate: userObject.birthdayDate,
+    birthdayDate: Date.parse(userObject.birthdayDate!),
     gender: Number(userObject.gender),
     title: userObject.title,
   };

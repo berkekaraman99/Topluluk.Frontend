@@ -3,7 +3,7 @@
     <div>
       <div class="card-text d-flex align-items-center">
         <div class="fw-bold fs-3">
-          Attendees (<span class="tw-text-2xl">{{ attendees.length }}</span
+          Katılımcılar (<span class="tw-text-2xl">{{ attendees.length }}</span
           >)
         </div>
       </div>

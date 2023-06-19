@@ -74,6 +74,9 @@ export const useUserStore = defineStore("userStore", {
       try {
         const res = await instance.post("/User/Delete", { password });
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
         if (this.statusCode === 200) {
           localStorage.removeItem("refreshToken");
           localStorage.removeItem("userToken");
@@ -97,6 +100,9 @@ export const useUserStore = defineStore("userStore", {
       const res = await instance.post("/User/ChangeProfileImage", image);
       console.log(res.data);
       this.statusCode = res.data.statusCode;
+      setTimeout(() => {
+        this.statusCode = 0;
+      }, 3000);
       await useAuthStore().getUserAfterLogin();
     },
 
@@ -115,6 +121,9 @@ export const useUserStore = defineStore("userStore", {
       const res = await instance.post("/User/ChangeBannerImage", image);
       console.log(res.data);
       this.statusCode = res.data.statusCode;
+      setTimeout(() => {
+        this.statusCode = 0;
+      }, 3000);
       await useAuthStore().getUserAfterLogin();
     },
 
@@ -161,6 +170,9 @@ export const useUserStore = defineStore("userStore", {
         `/User/accept-follow-request/${targetId}`
       );
       this.statusCode = res.data.statusCode;
+      setTimeout(() => {
+        this.statusCode = 0;
+      }, 3000);
       console.log(res.data);
     },
 
@@ -170,6 +182,9 @@ export const useUserStore = defineStore("userStore", {
         `/user/decline-follow-request/${targetId}`
       );
       this.statusCode = res.data.statusCode;
+      setTimeout(() => {
+        this.statusCode = 0;
+      }, 3000);
       console.log(res.data);
     },
 
@@ -210,6 +225,9 @@ export const useUserStore = defineStore("userStore", {
         updatedInformations
       );
       this.statusCode = res.data.statusCode;
+      setTimeout(() => {
+        this.statusCode = 0;
+      }, 3000);
       console.log(res.data);
     },
   },

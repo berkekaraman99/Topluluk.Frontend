@@ -7,7 +7,7 @@ import type { IComment } from "@/models/comment_model";
 export const usePostStore = defineStore("postStore", {
   state: () => ({
     feed: [] as Array<IFeedPost>,
-    userPosts: [] as Array<IFeedPost>,
+    userPosts: [] as Array<IPostModel>,
     savedPosts: [] as Array<IFeedPost>,
     post: {} as IPostModel,
     postComments: [] as Array<IComment>,
@@ -15,7 +15,7 @@ export const usePostStore = defineStore("postStore", {
   }),
   getters: {
     _feed: (state: any) => state.feed as Array<IFeedPost>,
-    _userPosts: (state: any) => state.userPosts as Array<IFeedPost>,
+    _userPosts: (state: any) => state.userPosts as Array<IPostModel>,
     _savedPosts: (state: any) => state.savedPosts as Array<IFeedPost>,
     _post: (state: any) => state.post as IPostModel,
     _postComments: (state: any) => state.postComments as Array<IComment>,
@@ -36,7 +36,7 @@ export const usePostStore = defineStore("postStore", {
       try {
         const res = await instance.get(`/Post/User/${userId}?skip=0&take=10`);
         console.log(res.data.data);
-        res.data.data.forEach((element: IFeedPost) =>
+        res.data.data.forEach((element: IPostModel) =>
           this.userPosts.push(element)
         );
       } catch (error: any) {
@@ -105,6 +105,9 @@ export const usePostStore = defineStore("postStore", {
         const res = await instance.post("/Post/Comment", message);
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -127,6 +130,9 @@ export const usePostStore = defineStore("postStore", {
         });
         console.log(res.data);
         this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
       } catch (error: any) {
         console.log(error.message);
       }

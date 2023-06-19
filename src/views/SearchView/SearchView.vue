@@ -1,7 +1,7 @@
 <template>
   <div>
     <Transition appear @before-enter="beforeEnterTitle" @enter="enterTitle">
-      <h1 class="display-6 fw-bold px-2">Search</h1>
+      <h1 class="display-6 fw-bold px-2">Arama</h1>
     </Transition>
     <div class="container">
       <!-- <div class="col-8 offset-2">
@@ -24,7 +24,7 @@
           v-model="search.text"
           :style="{ width: search.text.length > 0 ? '100%' : '' }"
           @keydown.enter="handleSearch"
-          placeholder="Search"
+          placeholder="Arama"
         />
       </div>
       <div class="container">
