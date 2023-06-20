@@ -1,5 +1,5 @@
 import type { IMessage } from "@/models/message_mode";
-import { instance } from "./network_manager";
+import { instance } from "../utils/network_manager";
 import { defineStore } from "pinia";
 import type { IRecentChat } from "@/models/recent_chat_model";
 

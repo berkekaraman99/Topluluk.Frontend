@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuthStore } from "./auth";
+import { useAuthStore } from "@/stores/auth";
 
 const baseURL: string = "https://localhost:7149/api";
 const timeOut: number = 120000;

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { instance } from "./network_manager";
+import { instance } from "../utils/network_manager";
 import type { IEventModel } from "@/models/event_model";
 import type { IEventPreview } from "@/models/event_preview_model";
 

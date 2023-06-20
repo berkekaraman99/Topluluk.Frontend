@@ -1,5 +1,5 @@
 import type { ICommunity } from "@/models/community_model";
-import { instance } from "./network_manager";
+import { instance } from "../utils/network_manager";
 import { defineStore } from "pinia";
 import type { ICommunityPreview } from "@/models/community_preview_model";
 import type { ICommunityParticipiant } from "@/models/community_participiant_model";

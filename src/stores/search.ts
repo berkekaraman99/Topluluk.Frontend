@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { instance } from "./network_manager";
+import { instance } from "../utils/network_manager";
 import type { ISearchItem } from "@/models/search_item_model";
 
 export const useSearchStore = defineStore("searchStore", {

@@ -1,7 +1,7 @@
 import type { IAuthUser } from "@/models/auth_user_model";
 import type { ILogInModel } from "../models/login_model";
 import type { ISignUpModel } from "../models/signup_model";
-import { instance } from "./network_manager";
+import { instance } from "../utils/network_manager";
 import { defineStore } from "pinia";
 import SecureLS from "secure-ls";
 // import router from "@/router";

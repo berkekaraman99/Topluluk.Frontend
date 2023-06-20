@@ -1,58 +1,38 @@
 .animate {
   animation-duration: 0.3s;
-  -webkit-animation-duration: 0.3s;
   animation-fill-mode: both;
-  -webkit-animation-fill-mode: both;
 }
 
 @keyframes scaleOut {
   0% {
     transform: scale(85%);
-    /* transform: translateY(0px); */
     opacity: 0;
   }
 
   100% {
     transform: scale(100%);
-    /* transform: translateY(-64px); */
     opacity: 1;
   }
 }
 
-@-webkit-keyframes scaleOut {
-  0% {
-    -webkit-transform: scale(85%);
-    -webkit-opacity: 0;
-  }
-
-  100% {
-    -webkit-transform: scale(100%);
-    -webkit-opacity: 1;
-  }
-}
-
 .scaleOut {
-  -webkit-animation-name: scaleOut;
   animation-name: scaleOut;
 }
 
 .dropdown-menu {
-  -webkit-animation-name: scaleOut;
   animation-name: scaleOut;
   animation-duration: 0.3s;
-  -webkit-animation-duration: 0.3s;
   animation-fill-mode: both;
-  -webkit-animation-fill-mode: both;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
-  /* transform: scale(100%); */
+  transition: 0.3s ease;
+  transform: scale(100%);
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  /* transform: scale(90%); */
+  transform: scale(90%);
 }

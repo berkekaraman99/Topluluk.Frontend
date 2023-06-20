@@ -1,12 +1,12 @@
 <template>
   <div class="container-fluid d-flex">
     <Background class="d-none d-md-block" />
-    <SignUp />
+    <SignupVue />
   </div>
 </template>
 
 <script setup lang="ts">
-import SignUp from "@/components/common/auth/SignUp.vue";
+import SignupVue from "@/components/common/auth/SignupVue.vue";
 import Background from "@/components/common/auth/BackgroundVue.vue";
 </script>
 

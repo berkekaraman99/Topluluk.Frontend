@@ -92,7 +92,7 @@
         <!-- PUSH SIGN UP -->
         <div class="text-end mt-4">
           <p>
-            Hesabınız yok mo?
+            Hesabınız yok mu?
             <RouterLink :to="{ name: 'signup' }" class="text-decoration-none"
               >Hemen kaydolun</RouterLink
             >

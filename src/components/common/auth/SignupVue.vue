@@ -34,7 +34,7 @@
             }"
           >
             <!-- STEP ONE -->
-            <FormKit type="step" name="Adım">
+            <FormKit type="step" label="Name">
               <FormKit
                 type="text"
                 label="Adınız"
@@ -56,7 +56,7 @@
               />
             </FormKit>
             <!-- STEP TWO -->
-            <FormKit type="step" name="Adım">
+            <FormKit type="step" label="Adim">
               <FormKit
                 type="text"
                 label="Kullanıcı Adı"

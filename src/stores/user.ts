@@ -1,4 +1,4 @@
-import { instance } from "./network_manager";
+import { instance } from "../utils/network_manager";
 import { defineStore } from "pinia";
 import { useAuthStore } from "./auth";
 import type { IUser } from "@/models/user_model";
