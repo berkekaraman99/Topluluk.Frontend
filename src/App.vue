@@ -10,76 +10,75 @@
         "
       />
     </Transition>
-    <Transition name="fade">
-      <div
-        class="h-100"
-        :class="{
-          'container-fluid':
-            $route.name === 'login' ||
-            $route.name === 'signup' ||
-            $route.name === 'forgetpassword',
-          container:
-            $route.name !== 'login' &&
-            $route.name !== 'signup' &&
-            $route.name !== 'forgetpassword',
-        }"
-        :style="{
-          marginTop:
-            $route.name !== 'login' &&
-            $route.name !== 'signup' &&
-            $route.name !== 'forgetpassword'
-              ? '72px'
-              : '0px',
-        }"
-      >
-        <div class="row">
-          <Transition name="fade" mode="out-in">
-            <div
-              class="col-md-1 col-lg-2 px-0 px-0 pe-sm-0 pe-md-2 pe-lg-0"
-              v-if="
-                $route.name === 'home' ||
-                $route.name === 'communities' ||
-                $route.name === 'search' ||
-                $route.name === 'events'
-              "
-            >
-              <SidebarLeft />
-            </div>
-          </Transition>
 
-          <!-- Main -->
-          <main
-            class="col-12 col-md-11 col-lg-7 col-xl-7 px-0"
-            :class="{
-              'col-md-12 col-lg-12 col-xl-12':
-                $route.name !== 'home' &&
-                $route.name !== 'search' &&
-                $route.name !== 'communities' &&
-                $route.name !== 'events',
-            }"
+    <div
+      class="h-100"
+      :class="{
+        'container-fluid':
+          $route.name === 'login' ||
+          $route.name === 'signup' ||
+          $route.name === 'forgetpassword',
+        container:
+          $route.name !== 'login' &&
+          $route.name !== 'signup' &&
+          $route.name !== 'forgetpassword',
+      }"
+      :style="{
+        marginTop:
+          $route.name !== 'login' &&
+          $route.name !== 'signup' &&
+          $route.name !== 'forgetpassword'
+            ? '72px'
+            : '0px',
+      }"
+    >
+      <div class="row">
+        <Transition name="fade" mode="out-in">
+          <div
+            class="col-md-1 col-lg-2 px-0 px-0 pe-sm-0 pe-md-2 pe-lg-0"
+            v-if="
+              $route.name === 'home' ||
+              $route.name === 'communities' ||
+              $route.name === 'search' ||
+              $route.name === 'events'
+            "
           >
-            <RouterView v-slot="{ Component, route }">
-              <Transition name="fade" mode="out-in">
-                <component :is="Component" :key="route.path" />
-              </Transition>
-            </RouterView>
-          </main>
+            <SidebarLeft />
+          </div>
+        </Transition>
 
-          <Transition name="fade" mode="out-in">
-            <div
-              class="d-none d-sm-none d-md-none d-lg-flex col-md-3 col-lg-3 justify-content-lg-center px-0"
-              v-if="
-                $route.name === 'home' ||
-                $route.name === 'search' ||
-                $route.name === 'events'
-              "
-            >
-              <SidebarRight />
-            </div>
-          </Transition>
-        </div>
+        <!-- Main -->
+        <main
+          class="col-12 col-md-11 col-lg-7 col-xl-7 px-0"
+          :class="{
+            'col-md-12 col-lg-12 col-xl-12':
+              $route.name !== 'home' &&
+              $route.name !== 'search' &&
+              $route.name !== 'communities' &&
+              $route.name !== 'events',
+          }"
+        >
+          <RouterView v-slot="{ Component, route }">
+            <Transition name="fade" mode="out-in">
+              <component :is="Component" :key="route.path" />
+            </Transition>
+          </RouterView>
+        </main>
+
+        <Transition name="fade" mode="out-in">
+          <div
+            class="d-none d-sm-none d-md-none d-lg-flex col-md-3 col-lg-3 justify-content-lg-center px-0"
+            v-if="
+              $route.name === 'home' ||
+              $route.name === 'search' ||
+              $route.name === 'events'
+            "
+          >
+            <SidebarRight />
+          </div>
+        </Transition>
       </div>
-    </Transition>
+    </div>
   </div>
 </template>
 

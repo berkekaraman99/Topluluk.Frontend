@@ -117,7 +117,9 @@ export const usePostStore = defineStore("postStore", {
       try {
         const res = await instance.post(`/post/comment/delete/${commentId}`);
         console.log(res.data);
-        await usePostStore().getPostComments(postId);
+        if (res.data.statusCode === 200) {
+          await usePostStore().getPostComments(postId);
+        }
       } catch (error: any) {
         console.log(error.message);
       }

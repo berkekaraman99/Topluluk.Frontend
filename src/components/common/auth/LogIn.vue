@@ -12,9 +12,9 @@
     :content="content"
   />
   <div
-    class="container-fluid d-flex align-items-center justify-content-center overflow-auto vh-100"
+    class="container-fluid d-flex align-items-center justify-content-center overflow-auto min-vh-100"
   >
-    <div class="row w-100 align-items-center mx-3">
+    <div class="row w-100 h-100 align-items-center mx-3">
       <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
         <p class="fw-bold text-center fs-2 py-4">Topluluk'a Giriş Yap</p>
 

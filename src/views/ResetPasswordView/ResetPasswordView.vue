@@ -6,7 +6,7 @@
     >
       <div class="row w-100 align-items-center my-5 mx-5">
         <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-          <h1 class="text-center">Forgot Your Password?</h1>
+          <h1 class="text-center">Şifremi Unuttum?</h1>
           <FormKit type="form" :actions="false">
             <FormKit
               type="multi-step"
@@ -20,7 +20,7 @@
               }"
             >
               <FormKit type="step" name="Enter email">
-                <h4 class="fw-bold mb-3">Enter your Email</h4>
+                <h4 class="fw-bold mb-3">E-mailinizi giriniz</h4>
                 <FormKit
                   type="email"
                   label="Email"
@@ -31,7 +31,7 @@
               </FormKit>
 
               <FormKit type="step" name="Code sending method">
-                <h4 class="fw-bold mb-3">Choose where to send the code</h4>
+                <h4 class="fw-bold mb-3">Kodun gönderileceği yeri seçiniz</h4>
                 <FormKit
                   type="radio"
                   label=""
@@ -60,7 +60,7 @@
                 </template>
               </FormKit>
               <FormKit type="step" name="Enter code">
-                <h5 class="formkit-label">Enter your code here</h5>
+                <h5 class="formkit-label">Kodunuzu giriniz</h5>
                 <div class="d-flex justify-content-center mb-3">
                   <input
                     type="number"
@@ -125,7 +125,7 @@
                 </div>
 
                 <FormKit type="button" :disabled="codeSended" @click="sendCode">
-                  Resend Code
+                  Kodu Tekrar Gönder
                 </FormKit>
                 <template #stepNext="{ handlers, node }">
                   <FormKit
@@ -146,7 +146,7 @@
                 </template>
               </FormKit>
               <FormKit type="step" name="Enter new password">
-                <h2>Create a new password</h2>
+                <h2>Yeni şifreni oluştur</h2>
                 <FormKit
                   type="password"
                   name="newpassword"
@@ -195,7 +195,7 @@
         @click="router.back()"
       >
         <i class="fa-solid fa-angle-left"></i>
-        <span class="ps-2">Go Back</span>
+        <span class="ps-2">Geri Dön</span>
       </div>
     </div>
   </div>

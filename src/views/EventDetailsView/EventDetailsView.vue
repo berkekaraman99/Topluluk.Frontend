@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
     <div class="container">
-      <LoadingSpinner v-if="loading" />
-      <Transition appear name="fade">
-        <div class="row" v-if="!loading">
+      <Transition name="fade" mode="out-in">
+        <LoadingSpinner v-if="loading" />
+        <div class="row" v-else>
           <!-- Sidebar -->
           <div class="col-md-12 col-lg-2 mb-4 mb-md-2 mb-lg-0 my-2">
             <div

@@ -28,56 +28,65 @@
         />
       </div>
       <div class="container">
-        <RouterLink
-          :to="{ name: 'userprofile', params: { id: item.id } }"
-          class="card px-4 py-3 my-4 col-12 col-sm-12 col-md-8 offset-md-2"
-          v-for="item in searchItems"
-          v-bind:key="item.id"
-          id="search-highlights"
+        <TransitionGroup
+          appear
+          @before-enter="beforeEnterSearch"
+          @enter="enterSearch"
+          @before-leave="beforeLeaveSearch"
+          @leave="leaveSearch"
         >
-          <div
-            class="search-user-background position-absolute top-0 start-0 end-0 bottom-0"
-            :style="{
-              'background-image': `url(${item.profileImage})`,
-            }"
-          ></div>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-              <div
-                :style="{
-                  'background-image': `url(${item.profileImage})`,
-                }"
-                alt="profile image"
-                class="post-profile-image me-4"
-                v-if="item.profileImage"
-              ></div>
-              <img
-                src="@/assets/images/profile-man.png"
-                alt="profile-man"
-                class="post-profile-image me-4"
-                v-else-if="item.gender == 2"
-              />
-              <img
-                src="@/assets/images/profile-woman.png"
-                alt="profile-woman"
-                class="post-profile-image me-4"
-                v-else-if="item.gender == 1"
-              />
-              <img
-                src="@/assets/images/user.png"
-                alt="profile"
-                class="post-profile-image me-4"
-                v-else
-              />
-              <div>
-                <div class="fw-bold text-white">
-                  {{ item.firstName }} {{ item.lastName }}
+          <RouterLink
+            :to="{ name: 'userprofile', params: { id: item.id } }"
+            class="card px-4 py-3 my-4 col-12 col-sm-12 col-md-8 offset-md-2"
+            v-for="(item, index) in searchItems"
+            v-bind:key="item.id"
+            :data-index="index"
+            id="search-highlights"
+          >
+            <div
+              class="search-user-background position-absolute top-0 start-0 end-0 bottom-0"
+              :style="{
+                'background-image': `url(${item.profileImage})`,
+              }"
+            ></div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <div
+                  :style="{
+                    'background-image': `url(${item.profileImage})`,
+                  }"
+                  alt="profile image"
+                  class="post-profile-image me-4"
+                  v-if="item.profileImage"
+                ></div>
+                <img
+                  src="@/assets/images/profile-man.png"
+                  alt="profile-man"
+                  class="post-profile-image me-4"
+                  v-else-if="item.gender == 2"
+                />
+                <img
+                  src="@/assets/images/profile-woman.png"
+                  alt="profile-woman"
+                  class="post-profile-image me-4"
+                  v-else-if="item.gender == 1"
+                />
+                <img
+                  src="@/assets/images/user.png"
+                  alt="profile"
+                  class="post-profile-image me-4"
+                  v-else
+                />
+                <div class="tw-bg-black/50 tw-rounded px-1 py-1">
+                  <div class="fw-bold text-white">
+                    {{ item.firstName }} {{ item.lastName }}
+                  </div>
+                  <div class="text-white-50">@{{ item.userName }}</div>
                 </div>
-                <div class="text-white-50">@{{ item.userName }}</div>
               </div>
             </div>
-          </div>
-        </RouterLink>
+          </RouterLink>
+        </TransitionGroup>
       </div>
     </div>
   </div>
@@ -100,6 +109,32 @@ const enterTitle: any = (el: HTMLElement, done: any) => {
     opacity: 1,
     ease: "bounce.out",
     onComplete: done,
+  });
+};
+
+const beforeEnterSearch: any = (el: HTMLElement) => {
+  el.style.opacity = "0";
+  el.style.transform = "translateY(100px)";
+};
+const enterSearch: any = (el: HTMLElement) => {
+  const index = el.dataset.index ? parseInt(el.dataset.index) : 0;
+  gsap.to(el, {
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    delay: 0.1 * index,
+  });
+};
+const beforeLeaveSearch: any = (el: HTMLElement) => {
+  el.style.opacity = "1";
+};
+const leaveSearch: any = (el: HTMLElement) => {
+  const index = el.dataset.index ? parseInt(el.dataset.index) : 0;
+  gsap.to(el, {
+    opacity: 0,
+    y: 100,
+    duration: 0.6,
+    delay: 0.1 * index,
   });
 };
 
