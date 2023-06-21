@@ -40,12 +40,18 @@
                 label="Adınız"
                 validation="required"
                 v-model="userObject.firstName"
+                :classes="{
+                  inner: 'rounded-5',
+                }"
               />
               <FormKit
                 type="text"
                 label="Soyadınız"
                 validation="required"
                 v-model="userObject.lastName"
+                :classes="{
+                  inner: 'rounded-5',
+                }"
               />
               <FormKit
                 type="email"
@@ -53,6 +59,10 @@
                 validation="required|email"
                 prefix-icon="email"
                 v-model="userObject.email"
+                :classes="{
+                  inner: 'rounded-5',
+                  prefixIcon: 'rounded-5',
+                }"
               />
             </FormKit>
             <!-- STEP TWO -->
@@ -63,6 +73,10 @@
                 validation="required"
                 v-model="userObject.userName"
                 prefix-icon="avatarMan"
+                :classes="{
+                  inner: 'rounded-5',
+                  prefixIcon: 'rounded-5',
+                }"
               />
               <FormKit
                 type="password"
@@ -70,6 +84,10 @@
                 validation="required"
                 v-model="userObject.password"
                 prefix-icon="password"
+                :classes="{
+                  inner: 'rounded-5',
+                  prefixIcon: 'rounded-5',
+                }"
               />
               <FormKit
                 type="select"
@@ -82,6 +100,9 @@
                 ]"
                 validation="required"
                 v-model="userObject.gender"
+                :classes="{
+                  inner: 'rounded-5',
+                }"
               />
             </FormKit>
           </FormKit>

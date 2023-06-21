@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <h1 class="fw-bold text-center fs-2 py-2">Create Community</h1>
+    <h1 class="fw-bold text-center fs-2 py-2">Topluluk Oluştur</h1>
     <div class="row">
       <FormKit
         type="form"
@@ -12,7 +12,7 @@
           type="multi-step"
           tab-style="progress"
           :hide-progress-labels="true"
-          :allow-incomplete="true"
+          :allow-incomplete="false"
           :classes="{
             outer: 'mx-auto',
             wrapper: 'mx-auto',
@@ -21,34 +21,27 @@
           <FormKit type="step">
             <FormKit
               type="text"
-              label="Community Name"
+              label="Topluluk Adı"
               validation="required"
               v-model="communityObject.Title"
             />
             <FormKit
               type="textarea"
-              label="Community Description"
+              label="Topluluk Açıklaması"
               validation="required"
               v-model="communityObject.Description"
             />
             <FormKit
               type="number"
-              label="Participiant Limit"
+              label="Üye Sayısı Limit"
               value="1"
               step="1"
               min="1"
               v-model="communityObject.ParticipiantLimit"
             />
             <FormKit
-              type="text"
-              label="Location"
-              validation="required"
-              v-model="communityObject.Location"
-              disabled
-            />
-            <FormKit
               type="select"
-              label="Select Community Location"
+              label="Topluluk Konumunu Seçiniz"
               name="planet"
               v-model="communityObject.Location"
             >
@@ -72,12 +65,19 @@
                 </option>
               </optgroup>
             </FormKit>
+            <FormKit
+              type="text"
+              placeholder="Konum"
+              validation="required"
+              v-model="communityObject.Location"
+              disabled
+            />
           </FormKit>
 
           <FormKit type="step">
             <FormKit
               type="file"
-              label="Cover Image"
+              label="Kapak Resmi"
               accept=".png,.jpg,.jpeg"
               multiple="false"
               validation="required"
@@ -86,7 +86,7 @@
 
             <FormKit
               type="file"
-              label="Banner Image"
+              label="Afiş Resmi"
               accept=".png,.jpg,.jpeg"
               multiple="false"
               validation="required"
@@ -95,11 +95,11 @@
 
             <FormKit
               type="select"
-              label="Community Is Public?"
+              label="Topluluk Halka Açık mı?"
               placeholder="Select..."
               :options="[
-                { label: 'True', value: true },
-                { label: 'False', value: false },
+                { label: 'Evet', value: true },
+                { label: 'Hayır', value: false },
               ]"
               validation="required"
               v-model="communityObject.IsPublic"
@@ -107,11 +107,11 @@
 
             <FormKit
               type="select"
-              label="Community Is Visible?"
+              label="Topluluk Görünür mü?"
               placeholder="Select..."
               :options="[
-                { label: 'True', value: true },
-                { label: 'False', value: false },
+                { label: 'Evet', value: true },
+                { label: 'Hayır', value: false },
               ]"
               validation="required"
               v-model="communityObject.IsVisible"
@@ -122,10 +122,10 @@
           type="submit"
           :label="
             loading
-              ? 'Loading'
+              ? 'Oluşturuluyor'
               : statusCode !== 200
-              ? 'Create Community'
-              : 'Success'
+              ? 'Topluluğu Oluştur'
+              : 'Başarılı'
           "
           wrapper-class="mx-auto text-center"
           :classes="{ input: 'w-100' }"
@@ -146,7 +146,6 @@ import { storeToRefs } from "pinia";
 import { useCommunityStore } from "@/stores/community";
 import type { ILocation } from "@/models/location_model";
 
-console.log(data);
 const locationInfo: Array<ILocation> = data;
 
 const authStore = useAuthStore();

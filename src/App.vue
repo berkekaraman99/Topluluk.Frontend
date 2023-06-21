@@ -1,5 +1,6 @@
 <template>
   <div class="h-100">
+    <!-- NAVBAR -->
     <Transition name="fade">
       <NavBar
         v-if="
@@ -33,6 +34,7 @@
       }"
     >
       <div class="row">
+        <!-- SIDEBAR LEFT -->
         <Transition name="fade" mode="out-in">
           <div
             class="col-md-1 col-lg-2 px-0 px-0 pe-sm-0 pe-md-2 pe-lg-0"
@@ -47,7 +49,7 @@
           </div>
         </Transition>
 
-        <!-- Main -->
+        <!-- MAIN - ROUTER.VIEW -->
         <main
           class="col-12 col-md-11 col-lg-7 col-xl-7 px-0"
           :class="{
@@ -65,6 +67,7 @@
           </RouterView>
         </main>
 
+        <!-- SIDEBAR RIGHT -->
         <Transition name="fade" mode="out-in">
           <div
             class="d-none d-sm-none d-md-none d-lg-flex col-md-3 col-lg-3 justify-content-lg-center px-0"

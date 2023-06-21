@@ -158,6 +158,7 @@
                       <li
                         class="dropdown-item text-danger"
                         @click="blockUser(currentUser)"
+                        v-if="!currentUser.isBlocked"
                       >
                         <img
                           src="@/assets/images/ic_block.png"
@@ -165,6 +166,18 @@
                           height="21"
                         />
                         Kullanıcıyı Engelle
+                      </li>
+                      <li
+                        class="dropdown-item text-danger"
+                        @click="unblockUser(currentUser)"
+                        v-else
+                      >
+                        <img
+                          src="@/assets/images/ic_block.png"
+                          alt="block"
+                          height="21"
+                        />
+                        Engellemeyi Kaldır
                       </li>
                       <li
                         class="dropdown-item text-warning-emphasis"
@@ -369,6 +382,13 @@ const blockUser = async (user: IUser) => {
   const userId = user.id;
   body.append("targetId", userId);
   await userStore.blockUser(body).then(() => (user.isBlocked = true));
+};
+
+const unblockUser = async (user: IUser) => {
+  const body = new FormData();
+  const userId = user.id;
+  body.append("targetId", userId);
+  await userStore.unblockUser(body).then(() => (user.isBlocked = false));
 };
 
 const removeFollowRequest = async (currentUser: IUser) => {

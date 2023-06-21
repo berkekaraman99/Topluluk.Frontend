@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="container">
-      <h1 class="fw-bold text-center fs-2 py-2">Create Event</h1>
+      <h1 class="fw-bold text-center fs-2 py-2">Etkinlik Oluştur</h1>
       <div class="row">
         <FormKit
           type="form"
@@ -13,7 +13,7 @@
             type="multi-step"
             tab-style="tab"
             :hide-progress-labels="true"
-            :allow-incomplete="true"
+            :allow-incomplete="false"
             :classes="{
               outer: 'mx-auto',
               wrapper: 'mx-auto',
@@ -22,33 +22,33 @@
             <FormKit type="step" name="Step One">
               <FormKit
                 type="text"
-                label="Event Title"
+                label="Etkinlik Başlığı"
                 validation="required"
-                placeholder="Write your event title here..."
+                placeholder="Etkinlik başlığını buraya yazınız..."
                 v-model="eventObject.title"
               />
               <FormKit
                 type="textarea"
-                label="Event Description"
+                label="Etkinlik Açıklaması"
                 validation="required"
-                placeholder="Write your event description here..."
+                placeholder="Etkinlik açıklamasını buraya yazınız..."
                 v-model="eventObject.description"
               />
               <FormKit
                 type="select"
-                label="Event Is Limited?"
+                label="Etkinlik Sınırlı mı?"
                 placeholder="Select..."
                 :options="[
-                  { label: 'True', value: true },
-                  { label: 'False', value: false },
+                  { label: 'Evet', value: true },
+                  { label: 'Hayır', value: false },
                 ]"
                 validation="required"
                 v-model="eventObject.isLimited"
               />
               <FormKit
                 type="number"
-                label="Attendees Limit"
-                help="How many people can attend this event?"
+                label="Katılımcı Sayısı Limit"
+                help="Kaç kişi bu etkinliğe katılabilir?"
                 value="1"
                 step="1"
                 min="1"
@@ -59,7 +59,7 @@
             <FormKit type="step" name="Step Two">
               <FormKit
                 type="file"
-                label="Event Files"
+                label="Etkinlik Dosyaları"
                 accept=".png,.jpg,.jpeg"
                 multiple="true"
                 validation="required"
@@ -67,28 +67,20 @@
               />
               <FormKit
                 type="select"
-                label="Event Location Is Online?"
+                label="Etkinlik Online mı?"
                 placeholder="Select..."
                 :options="[
-                  { label: 'True', value: true },
-                  { label: 'False', value: false },
+                  { label: 'Evet', value: true },
+                  { label: 'Hayır', value: false },
                 ]"
                 validation="required"
                 v-model="eventObject.isLocationOnline"
-              />
-              <FormKit
-                v-if="!eventObject.isLocationOnline"
-                type="text"
-                label="Location"
-                validation="required"
-                v-model="eventObject.location"
-                disabled=""
               />
 
               <FormKit
                 v-if="!eventObject.isLocationOnline"
                 type="select"
-                label="Select Community Location"
+                label="Etkinlik Konumunu Seçiniz"
                 name="planet"
                 v-model="eventObject.location"
               >
@@ -102,20 +94,33 @@
                     class="group-text"
                     v-for="ilce in location.ilceler"
                     :key="ilce.ilce_kodu"
-                    :value="location.il_adi + ' - ' + ilce.ilce_adi"
+                    :value="
+                      location.il_adi +
+                      ' - ' +
+                      changeLetterToLowercase(ilce.ilce_adi)
+                    "
                   >
-                    {{ ilce.ilce_adi }}
+                    {{ changeLetterToLowercase(ilce.ilce_adi) }}
                   </option>
                 </optgroup>
               </FormKit>
 
               <FormKit
+                v-if="!eventObject.isLocationOnline"
+                type="text"
+                placeholder="Konum"
+                validation="required"
+                v-model="eventObject.location"
+                disabled=""
+              />
+
+              <FormKit
                 type="select"
-                label="Event Is Visible?"
+                label="Etkinlik Görünür mü?"
                 placeholder="Select..."
                 :options="[
-                  { label: 'True', value: true },
-                  { label: 'False', value: false },
+                  { label: 'Evet', value: true },
+                  { label: 'Hayır', value: false },
                 ]"
                 validation="required"
                 v-model="eventObject.isVisible"
@@ -126,7 +131,7 @@
               <FormKit
                 type="datetime-local"
                 value="2020-03-13T18:22"
-                label="Event start date"
+                label="Başlangıç Tarihi"
                 validation="required|date_after"
                 validation-visibility="live"
                 v-model="eventObject.startDate"
@@ -134,18 +139,18 @@
               <FormKit
                 type="datetime-local"
                 value="2020-03-13T18:22"
-                label="Event end date"
+                label="Bitiş Tarihi"
                 validation="required|date_after"
                 validation-visibility="live"
                 v-model="eventObject.endDate"
               />
               <FormKit
                 type="select"
-                label="Event Is Paid?"
+                label="Etkinlik Paralı mı?"
                 placeholder="Select..."
                 :options="[
-                  { label: 'True', value: true },
-                  { label: 'False', value: false },
+                  { label: 'Evet', value: true },
+                  { label: 'Hayır', value: false },
                 ]"
                 validation="required"
                 v-model="eventObject.isPaid"
@@ -153,7 +158,7 @@
               <FormKit
                 v-if="eventObject.isPaid"
                 type="text"
-                label="Price"
+                label="Ücret"
                 validation="required"
                 v-model="eventObject.price"
               />
@@ -164,10 +169,10 @@
             type="submit"
             :label="
               loading
-                ? 'Loading'
+                ? 'Oluşturuluyor'
                 : statusCode !== 200
-                ? 'Create Event'
-                : 'Success'
+                ? 'Etkinliği Oluştur'
+                : 'Başarılı'
             "
             wrapper-class="mx-auto text-center"
             :classes="{ input: 'w-100' }"
@@ -273,6 +278,14 @@ const submitEvent = async () => {
     changeLoadingState();
     console.log(error.message);
   }
+};
+
+const changeLetterToLowercase = (item: string) => {
+  let changedItem: string = item[0];
+  for (let index = 1; index < item.length; index++) {
+    changedItem += item[index].toLowerCase();
+  }
+  return changedItem;
 };
 
 onBeforeUnmount(() => {

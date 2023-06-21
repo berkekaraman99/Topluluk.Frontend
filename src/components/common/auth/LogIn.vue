@@ -36,17 +36,21 @@
             name="username"
             placeholder="Kullanıcı Adı"
             prefix-icon="avatarMan"
-            validation="required"
+            validation="required|length:6"
             v-model="userObject.userName"
             :wrapper-class="{
               'formkit-wrapper': false,
+            }"
+            :classes="{
+              inner: 'rounded-5',
+              prefixIcon: 'rounded-5',
             }"
           />
           <FormKit
             type="password"
             name="password"
             placeholder="Şifre"
-            validation="required"
+            validation="required|length:6"
             minlength="6"
             prefix-icon="password"
             suffix-icon="eyeClosed"
@@ -54,6 +58,10 @@
             v-model="userObject.password"
             :wrapper-class="{
               'formkit-wrapper': false,
+            }"
+            :classes="{
+              inner: 'rounded-5',
+              prefixIcon: 'rounded-5',
             }"
           />
           <div class="d-flex justify-content-between align-items-center my-3">
@@ -80,7 +88,7 @@
           <FormKit
             type="submit"
             :label="loading ? 'Yükleniyor' : 'Giriş Yap'"
-            :classes="{ input: 'w-100' }"
+            :classes="{ input: 'w-100 rounded-5' }"
             :disabled="loading || statusCode === 200"
             :wrapper-class="{
               'formkit-wrapper': false,
@@ -90,7 +98,7 @@
         </FormKit>
 
         <!-- PUSH SIGN UP -->
-        <div class="text-end mt-4">
+        <div class="text-center mt-4">
           <p>
             Hesabınız yok mu?
             <RouterLink :to="{ name: 'signup' }" class="text-decoration-none"

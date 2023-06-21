@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="container">
-      <h1 class="text-center">Create Post</h1>
+      <h1 class="text-center">Post Oluştur</h1>
       <div class="row">
         <FormKit
           type="form"
@@ -17,13 +17,13 @@
         >
           <FormKit
             type="textarea"
-            label="Description"
+            label="Açıklama"
             validation="required"
             v-model="postModel.description"
           />
           <FormKit
             type="file"
-            label="Files"
+            label="Dosyalar"
             accept=".png,.jpg,.jpeg,.jfif"
             multiple="true"
             v-on:change="onFileChange"
@@ -32,10 +32,10 @@
             type="submit"
             :label="
               loading
-                ? 'Loading'
+                ? 'Oluşturuluyor'
                 : statusCode !== 200
-                ? 'Create Post'
-                : 'Success'
+                ? 'Post Oluştur'
+                : 'Başarılı'
             "
             wrapper-class="mx-auto text-center"
             :classes="{ input: 'w-100' }"

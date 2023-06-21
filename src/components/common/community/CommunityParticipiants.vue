@@ -3,7 +3,7 @@
     <div class="my-3">
       <h3>Admin</h3>
       <div
-        class="card border hover:tw-bg-slate-100 transition ease-in-out duration-350"
+        class="card border hover:tw-bg-slate-100 tw-transition tw-ease-in-out tw-duration-350"
       >
         <div class="card-body d-flex align-items-center">
           <div

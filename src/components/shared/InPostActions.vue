@@ -1,6 +1,6 @@
 <template>
   <div class="row d-flex align-items-center">
-    <div class="col-12 col-sm-6 col-md-3 text-center my-1 dropup-center">
+    <div class="col-12 col-sm-6 col-md-4 text-center my-1 dropup-center">
       <div
         id="interactions"
         :data-bs-toggle="post.isInteracted != null ? '' : 'dropdown'"
@@ -137,21 +137,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-12 col-sm-6 col-md-3 text-center my-1">
-      <RouterLink
-        :to="{ name: 'postcomments', params: { id: post.id.toString() } }"
-        class="text-decoration-none text-black"
-      >
-        <div
-          id="comments"
-          class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
-        >
-          <i class="fa-regular fa-message fa-lg my-3"></i>
-          <div>{{ post.commentCount }} Yorumlar</div>
-        </div>
-      </RouterLink>
-    </div>
-    <div class="col-12 col-sm-6 col-md-3 text-center my-1">
+    <div class="col-12 col-sm-6 col-md-4 text-center my-1">
       <div
         id="share"
         class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
@@ -160,7 +146,7 @@
         <div>Paylaş</div>
       </div>
     </div>
-    <div class="col-12 col-sm-6 col-md-3 text-center my-1">
+    <div class="col-12 col-sm-6 col-md-4 text-center my-1">
       <div
         v-if="post.isSaved"
         id="save"
@@ -183,7 +169,6 @@
 </template>
 
 <script setup lang="ts">
-import type { IFeedPost } from "@/models/feed_post_model";
 import type { IInteractionPreview } from "@/models/interaction_preview_model";
 import type { IPostModel } from "@/models/post_model";
 import { usePostStore } from "@/stores/post";
@@ -192,7 +177,7 @@ import { ref } from "vue";
 
 const props = defineProps({
   post: {
-    type: Object as PropType<IPostModel> | PropType<IFeedPost>,
+    type: Object as PropType<IPostModel>,
     required: true,
   },
 });

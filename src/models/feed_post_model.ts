@@ -1,5 +1,6 @@
 import type { IFileModel } from "./file_model";
 import type { IInteractionPreview } from "./interaction_preview_model";
+import type { IIsInteracted } from "./is_interacted_model";
 
 export interface IFeedPost {
   commentCount: number;
@@ -14,7 +15,7 @@ export interface IFeedPost {
   interactionCount: number;
   interactionPreviews: Array<IInteractionPreview>;
   isFollowing: boolean;
-  isInteracted: Object;
+  isInteracted: IIsInteracted | null;
   isSaved: boolean;
   lastName: string;
   profileImage: string | null;

@@ -8,13 +8,13 @@ import {
   createFloatingLabelsPlugin,
   createMultiStepPlugin,
 } from "@formkit/addons";
+import io from "socket.io-client";
 
+//THEME OR CSS
 import "@formkit/themes/genesis";
 import "@formkit/addons/css/multistep";
-import "./assets/css/normalize.css";
-import "./assets/css/main.css";
 import "./style.css";
-import io from "socket.io-client";
+import "@/assets/css/style.scss";
 
 const URL = "http://localhost:4000";
 const socket = io(URL, {
@@ -41,9 +41,3 @@ app.use(
 );
 
 app.mount("#app");
-
-// const loadUser = async () => {
-//   const authStore = useAuthStore();
-//   await authStore.loadUser().then(() => (authStore.userIsAuthorized = true));
-// };
-// loadUser();

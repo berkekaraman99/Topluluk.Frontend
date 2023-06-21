@@ -65,8 +65,22 @@ export const useUserStore = defineStore("userStore", {
 
     //BLOCK USER
     async blockUser(targetId: FormData) {
-      const res = await instance.post("/User/Block", targetId);
-      console.log(res.data);
+      try {
+        const res = await instance.post("/User/Block", targetId);
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    },
+
+    //UNBLOCK USER
+    async unblockUser(targetId: FormData) {
+      try {
+        const res = await instance.post("/User/Unblock", targetId);
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.message);
+      }
     },
 
     //DELETE USER
