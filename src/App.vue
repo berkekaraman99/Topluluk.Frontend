@@ -35,7 +35,7 @@
     >
       <div class="row">
         <!-- SIDEBAR LEFT -->
-        <Transition name="fade" mode="out-in">
+        <Transition name="scaleInOut" mode="out-in">
           <div
             class="col-md-1 col-lg-2 px-0 px-0 pe-sm-0 pe-md-2 pe-lg-0"
             v-if="
@@ -61,14 +61,14 @@
           }"
         >
           <RouterView v-slot="{ Component, route }">
-            <Transition name="fade" mode="out-in">
+            <Transition name="scaleInOut" mode="out-in">
               <component :is="Component" :key="route.path" />
             </Transition>
           </RouterView>
         </main>
 
         <!-- SIDEBAR RIGHT -->
-        <Transition name="fade" mode="out-in">
+        <Transition name="scaleInOut" mode="out-in">
           <div
             class="d-none d-sm-none d-md-none d-lg-flex col-md-3 col-lg-3 justify-content-lg-center px-0"
             v-if="

@@ -1,81 +1,83 @@
 <template>
-  <LoadingSpinner v-if="loading" />
-  <div v-else-if="userCommunities.length === 0">
-    <h1 class="text-center fw-light">Burada hiç topluluk yok...</h1>
-  </div>
-  <div class="row" v-else-if="userCommunities.length">
-    <TransitionGroup
-      appear
-      @before-enter="beforeEnterCommunity"
-      @enter="enterCommunity"
-    >
-      <div
-        class="col-sm-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2"
-        v-for="(community, index) in userCommunities"
-        v-bind:key="community.id"
-        :data-index="index"
+  <Transition name="scaleInOut" mode="out-in">
+    <LoadingSpinner v-if="loading" />
+    <div v-else-if="userCommunities.length === 0">
+      <h1 class="text-center fw-light">Burada hiç topluluk yok...</h1>
+    </div>
+    <div class="row" v-else-if="userCommunities.length">
+      <TransitionGroup
+        appear
+        @before-enter="beforeEnterCommunity"
+        @enter="enterCommunity"
       >
-        <RouterLink
-          :to="{
-            name: 'communitydetails',
-            params: { id: community.id, name: community.title },
-          }"
-          class="text-decoration-none text-dark"
+        <div
+          class="col-sm-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2"
+          v-for="(community, index) in userCommunities"
+          v-bind:key="community.id"
+          :data-index="index"
         >
-          <div class="container shadow mb-5 rounded-3">
-            <div class="row">
-              <div
-                class="col-sm-12 col-md-4 d-sm-flex align-items-sm-center justify-content-sm-center"
-              >
-                <img
-                  :src="community.coverImage"
-                  alt="community cover"
-                  class="p-2 img-fluid rounded-4"
-                  v-if="community.coverImage"
-                />
-                <img
-                  class="my-2 rounded-3 img-fluid"
-                  src="https://picsum.photos/400"
-                  alt="event-image"
-                  v-else
-                />
-              </div>
-
-              <div class="col-sm-12 col-md-8 col lg-6">
+          <RouterLink
+            :to="{
+              name: 'communitydetails',
+              params: { id: community.id, name: community.title },
+            }"
+            class="text-decoration-none text-dark"
+          >
+            <div class="container shadow mb-5 rounded-3">
+              <div class="row">
                 <div
-                  class="d-flex flex-column justify-content-between rounded-4 m-2 p-2"
+                  class="col-sm-12 col-md-4 d-sm-flex align-items-sm-center justify-content-sm-center"
                 >
-                  <div>
-                    <h3 class="fw-bold">{{ community.title }}</h3>
-                    <p class="description">
-                      {{
-                        WordCount(community.description) < 30
-                          ? community.description
-                          : getDescriptionCharacters(
-                              community.description
-                            ).concat("...")
-                      }}
-                    </p>
-                  </div>
-                  <div>
+                  <img
+                    :src="community.coverImage"
+                    alt="community cover"
+                    class="p-2 img-fluid rounded-4"
+                    v-if="community.coverImage"
+                  />
+                  <img
+                    class="my-2 rounded-3 img-fluid"
+                    src="https://picsum.photos/400"
+                    alt="event-image"
+                    v-else
+                  />
+                </div>
+
+                <div class="col-sm-12 col-md-8 col lg-6">
+                  <div
+                    class="d-flex flex-column justify-content-between rounded-4 m-2 p-2"
+                  >
                     <div>
-                      Üye Sayısı:
-                      <span class="fw-bold">{{
-                        community.participiantsCount
-                      }}</span>
+                      <h3 class="fw-bold">{{ community.title }}</h3>
+                      <p class="description">
+                        {{
+                          WordCount(community.description) < 30
+                            ? community.description
+                            : getDescriptionCharacters(
+                                community.description
+                              ).concat("...")
+                        }}
+                      </p>
+                    </div>
+                    <div>
+                      <div>
+                        Üye Sayısı:
+                        <span class="fw-bold">{{
+                          community.participiantsCount
+                        }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </RouterLink>
-      </div>
-    </TransitionGroup>
-  </div>
-  <div class="my-3" v-else>
-    <p class="text-center fs-5">Burada hiç topluluk yok...</p>
-  </div>
+          </RouterLink>
+        </div>
+      </TransitionGroup>
+    </div>
+    <div class="my-3" v-else>
+      <p class="text-center fs-5">Burada hiç topluluk yok...</p>
+    </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">

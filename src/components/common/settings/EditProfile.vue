@@ -70,7 +70,7 @@
               : 'Başarılı'
           "
           wrapper-class="text-center"
-          :classes="{ input: 'w-100' }"
+          :classes="{ input: 'w-100 rounded-5' }"
           :disabled="loading || statusCode === 200"
         />
       </FormKit>

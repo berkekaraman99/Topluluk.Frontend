@@ -25,10 +25,9 @@
         <div class="col-12 col-lg-8 col-xl-9" v-else>
           <div class="profile-header position-relative">
             <div
-              class="profile-banner rounded-top-4"
+              class="profile-banner rounded-top-4 tw-bg-slate-100"
               :style="{
                 'background-image': `url(${currentUser.bannerImage})`,
-                'background-color': 'grey',
               }"
             ></div>
             <div
@@ -70,7 +69,7 @@
                     @click="getFollowers"
                   >
                     <h3 class="fw-bold d-inline-block">
-                      {{ currentUser.followersCount }}
+                      {{ followerCount }}
                     </h3>
                     Takipçiler
                   </div>
@@ -81,7 +80,7 @@
                     @click="getFollowings"
                   >
                     <h3 class="fw-bold d-inline-block">
-                      {{ currentUser.followingCount }}
+                      {{ followingCount }}
                     </h3>
                     Takipler
                   </div>
@@ -105,13 +104,19 @@
           </div>
 
           <!-- Followers Modal -->
-          <FollowersModal :id="userId.toString()" />
+          <FollowersModal
+            :id="userId.toString()"
+            @decrement-follower-count="() => (followerCount -= 1)"
+          />
 
           <!-- Followings Modal -->
           <FollowingsModal :id="userId.toString()" />
 
           <!-- Follower Requests Modal -->
-          <FollowerRequestsModal :id="userId.toString()" />
+          <FollowerRequestsModal
+            :id="userId.toString()"
+            @update-follower-count="() => (followerCount += 1)"
+          />
         </div>
         <div class="col-lg-4 col-xl-3 d-none d-sm-none d-lg-block">
           <UserSuggestions />
@@ -271,6 +276,9 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/user";
 import FollowerRequestsModal from "@/components/shared/FollowerRequestsModal.vue";
 
+const followerCount = ref(0);
+const followingCount = ref(0);
+
 const authStore = useAuthStore();
 const { _user: user } = storeToRefs(authStore);
 const userId = user.value.id;
@@ -282,15 +290,18 @@ const loading = ref(true);
 const changeLoadingState = () => {
   loading.value = !loading.value;
 };
+const { _currentUser: currentUser, _userFollowersRequests: followersRequests } =
+  storeToRefs(userStore);
 
-userStore.getUserById(user.value.id.toString()).then(changeLoadingState);
+userStore.getUserById(user.value.id.toString()).then(() => {
+  changeLoadingState();
+  followerCount.value = currentUser.value.followersCount;
+  followingCount.value = currentUser.value.followingCount;
+});
 
 const changeCategory = (tab: string) => {
   category.value = tab;
 };
-
-const { _currentUser: currentUser, _userFollowersRequests: followersRequests } =
-  storeToRefs(userStore);
 
 const getFollowers = async () => {
   await userStore.getUserFollowers(userId.toString());
@@ -350,6 +361,7 @@ label span {
 
 .category:hover {
   color: #111;
+  letter-spacing: 1px;
 }
 
 .selected {
@@ -359,5 +371,6 @@ label span {
   margin: 0 6px;
   z-index: 2;
   position: relative;
+  letter-spacing: 1px;
 }
 </style>

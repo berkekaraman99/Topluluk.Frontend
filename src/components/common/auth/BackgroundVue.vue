@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid d-none d-md-block">
-    <div class="bg-image"></div>
+    <div class="bg-image rounded-end-4"></div>
   </div>
 </template>
 

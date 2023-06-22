@@ -1,10 +1,10 @@
 <template>
-  <div class="">
-    <div class="card rounded-3" id="suggestions" v-if="!loading">
+  <div>
+    <div class="card border rounded-3" id="suggestions" v-if="!loading">
       <div class="card-header p-0">
-        <h4 class="fw-bold my-3 text-center">Öneriler</h4>
+        <h4 class="fw-bold my-3 text-center">Kullanıcı Önerisi</h4>
       </div>
-      <div class="card-body py-0 px-1 overflow-auto">
+      <div class="card-body py-0 tw-px-1 overflow-auto">
         <ul class="list-unstyled">
           <div
             v-if="suggestions.length === 0"
@@ -14,7 +14,7 @@
           </div>
           <li
             v-else
-            class="py-3 px-3 my-2 suggestion card shadow-sm"
+            class="py-3 px-3 my-2 suggestion card"
             v-for="suggested in suggestions"
             v-bind:key="suggested.id"
           >

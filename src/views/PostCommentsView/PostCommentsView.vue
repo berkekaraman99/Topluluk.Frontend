@@ -1,5 +1,5 @@
 <template>
-  <Transition name="fade" mode="out-in">
+  <Transition name="scaleInOut" mode="out-in">
     <LoadingSpinner v-if="loading" />
     <div class="container my-3" v-else-if="post">
       <div class="row">

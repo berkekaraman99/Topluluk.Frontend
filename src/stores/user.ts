@@ -214,6 +214,7 @@ export const useUserStore = defineStore("userStore", {
     async removeUserFromFollowers(targetId: string) {
       const res = await instance.post("/user/remove-follower", { targetId });
       console.log(res.data);
+      this.statusCode = res.data.statusCode;
       this.userFollowers = this.userFollowers.filter((t: any) => {
         return t.id !== targetId;
       });

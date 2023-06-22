@@ -109,6 +109,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["updateFollowerCount"]);
+
 const userStore = useUserStore();
 const loading = ref(true);
 const changeLoadingState = () => {
@@ -123,6 +125,7 @@ const acceptFollowRequest = async (id: string, user: any) => {
   await userStore.acceptFollowRequest(id).then(async () => {
     if (statusCode.value === 200) {
       user = null;
+      emit("updateFollowerCount");
       setTimeout(() => {
         userStore.$patch({
           statusCode: 0,

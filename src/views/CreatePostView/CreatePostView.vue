@@ -14,6 +14,10 @@
               messages: 'text-center',
             },
           }"
+          :classes="{
+            form: 'mx-auto tw-p-8 shadow rounded-5',
+          }"
+          style="max-width: 512px"
         >
           <FormKit
             type="textarea"
@@ -38,7 +42,7 @@
                 : 'Başarılı'
             "
             wrapper-class="mx-auto text-center"
-            :classes="{ input: 'w-100' }"
+            :classes="{ input: 'w-100 rounded-5' }"
             :disabled="loading || statusCode === 200"
           />
         </FormKit>

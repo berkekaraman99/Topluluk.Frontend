@@ -1,16 +1,18 @@
 <template>
-  <LoadingSpinner v-if="loading" />
-  <div v-else-if="savedPosts.length === 0">
-    <h1 class="text-center fw-light">Kaydedilen post yok...</h1>
-  </div>
-  <div v-else-if="savedPosts.length">
-    <div class="row" v-for="post in savedPosts" v-bind:key="post.id">
-      <PostComponentFeed :post="post" />
+  <Transition name="scaleInOut" mode="out-in">
+    <LoadingSpinner v-if="loading" />
+    <div v-else-if="savedPosts.length === 0">
+      <h1 class="text-center fw-light">Kaydedilen post yok...</h1>
     </div>
-  </div>
-  <div class="my-3" v-else>
-    <p class="text-center fs-5">Kaydedilen post yok...</p>
-  </div>
+    <div v-else-if="savedPosts.length">
+      <div class="row" v-for="post in savedPosts" v-bind:key="post.id">
+        <PostComponentFeed :post="post" />
+      </div>
+    </div>
+    <div class="my-3" v-else>
+      <p class="text-center fs-5">Kaydedilen post yok...</p>
+    </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">

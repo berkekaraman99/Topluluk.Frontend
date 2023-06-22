@@ -4,7 +4,7 @@
     <div class="container" v-else>
       <div class="row">
         <div
-          class="col-12 col-sm-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 col-xxl-6 offset-xxl-3"
+          class="col-12 col-sm-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2"
         >
           <h1 class="display-5 fw-bold">Ayarlar</h1>
           <h4 class="mb-3 text-primary-emphasis">

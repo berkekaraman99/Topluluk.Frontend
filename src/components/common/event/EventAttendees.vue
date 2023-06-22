@@ -1,5 +1,5 @@
 <template>
-  <Transition appear name="fade">
+  <Transition appear name="scaleInOut">
     <div>
       <div class="card-text d-flex align-items-center">
         <div class="fw-bold fs-3">

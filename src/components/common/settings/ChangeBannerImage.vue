@@ -25,7 +25,7 @@
             type="submit"
             label="Afişi Değiştir"
             wrapper-class="text-center"
-            :classes="{ input: '' }"
+            :classes="{ input: 'rounded-5' }"
           />
           <FormKit
             type="button"
@@ -38,7 +38,7 @@
             "
             @click="removeBannerImage"
             wrapper-class="text-center"
-            :classes="{ input: 'bg-danger' }"
+            :classes="{ input: 'bg-danger rounded-5' }"
             :disabled="loading || statusCode === 200"
           />
         </div>

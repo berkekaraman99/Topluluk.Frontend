@@ -1,29 +1,31 @@
 <template>
-  <LoadingSpinner v-if="loading" />
-  <div v-else-if="userPosts.length === 0">
-    <h1 class="text-center fw-light">Post bulunamadı</h1>
-  </div>
-  <div class="container my-3" v-else-if="userPosts.length">
-    <TransitionGroup
-      appear
-      @before-enter="beforeEnterFeed"
-      @enter="enterFeed"
-      @before-leave="beforeLeaveFeed"
-      @leave="leaveFeed"
-    >
-      <div
-        class="row"
-        v-for="(post, index) in userPosts"
-        v-bind:key="post.id"
-        :data-index="index"
+  <Transition name="scaleInOut" mode="out-in">
+    <LoadingSpinner v-if="loading" />
+    <div v-else-if="userPosts.length === 0">
+      <h1 class="text-center fw-light">Post bulunamadı</h1>
+    </div>
+    <div class="container my-3" v-else-if="userPosts.length">
+      <TransitionGroup
+        appear
+        @before-enter="beforeEnterFeed"
+        @enter="enterFeed"
+        @before-leave="beforeLeaveFeed"
+        @leave="leaveFeed"
       >
-        <PostComponentProfile :post="post" />
-      </div>
-    </TransitionGroup>
-  </div>
-  <div class="container my-3" v-else>
-    <h1>Post bulunamadı</h1>
-  </div>
+        <div
+          class="row"
+          v-for="(post, index) in userPosts"
+          v-bind:key="post.id"
+          :data-index="index"
+        >
+          <PostComponentProfile :post="post" />
+        </div>
+      </TransitionGroup>
+    </div>
+    <div class="container my-3" v-else>
+      <h1>Post bulunamadı</h1>
+    </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12" v-if="loading">
-          <div class="profile-header position-relative placeholder-wave">
+          <div class="profile-header position-relative placeholder-glow">
             <div class="profile-banner rounded-top-4 placeholder"></div>
             <div class="profile-image placeholder bg-black"></div>
             <div class="profile-details">
@@ -52,10 +52,9 @@
         <div class="col-12" v-else>
           <div class="profile-header position-relative">
             <div
-              class="profile-banner rounded-top-4"
+              class="profile-banner rounded-top-4 tw-bg-slate-100"
               :style="{
                 'background-image': `url(${currentUser.bannerImage})`,
-                'background-color': 'grey',
               }"
             ></div>
             <div
@@ -439,6 +438,7 @@ onBeforeUnmount(() => {
 
 .category:hover {
   color: #111;
+  letter-spacing: 1px;
 }
 
 .selected {
@@ -448,6 +448,7 @@ onBeforeUnmount(() => {
   margin: 0 6px;
   z-index: 2;
   position: relative;
+  letter-spacing: 1px;
 }
 
 .radio {

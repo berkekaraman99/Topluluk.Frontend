@@ -18,7 +18,7 @@
           type="password"
           name="old_password"
           label="Eski Şifre"
-          help="Enter your old password"
+          help="Eski şifrenizi giriniz"
           validation="required"
           v-model="userInfo.oldPassword"
         />
@@ -26,7 +26,7 @@
           type="password"
           name="password"
           label="Yeni Şifre"
-          help="Enter a new password"
+          help="Yeni şifrenizi giriniz"
           validation="required"
           v-model="userInfo.newPassword"
         />
@@ -40,7 +40,7 @@
               : 'Başarılı'
           "
           wrapper-class="text-center"
-          :classes="{ input: 'w-100' }"
+          :classes="{ input: 'w-100 rounded-5' }"
           :disabled="loading || statusCode === 200"
         />
       </FormKit>

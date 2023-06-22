@@ -75,6 +75,7 @@ import TabVue from "./TabVue.vue";
   }
   @media screen and (min-width: 993px) {
     position: fixed;
+
     // width: fit-content;
   }
 }

@@ -11,12 +11,14 @@
         >
           <FormKit
             type="multi-step"
-            tab-style="tab"
+            tab-style="progress"
+            valid-step-icon="star"
             :hide-progress-labels="true"
             :allow-incomplete="false"
             :classes="{
               outer: 'mx-auto',
               wrapper: 'mx-auto',
+              steps: 'border-0 rounded-5',
             }"
           >
             <FormKit type="step" name="Step One">
@@ -175,7 +177,7 @@
                 : 'Başarılı'
             "
             wrapper-class="mx-auto text-center"
-            :classes="{ input: 'w-100' }"
+            :classes="{ input: 'w-100 rounded-5' }"
             :disabled="loading || statusCode === 200"
           />
         </FormKit>

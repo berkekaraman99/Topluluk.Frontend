@@ -11,12 +11,13 @@
             <FormKit
               type="multi-step"
               tab-style="progress"
+              valid-step-icon="star"
               :hide-progress-labels="true"
               :allow-incomplete="false"
               :classes="{
                 outer: 'mx-auto',
                 wrapper: 'mx-auto',
-                steps: 'bg-light',
+                steps: 'bg-light border-0 rounded-5',
               }"
             >
               <FormKit type="step" name="Enter email">

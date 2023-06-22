@@ -25,14 +25,14 @@
             type="submit"
             label="Profil Resmini Değiştir"
             wrapper-class="text-center"
-            :classes="{ input: '' }"
+            :classes="{ input: 'rounded-5' }"
           />
           <FormKit
             type="button"
             :label="loading ? 'Kaldırılıyor' : 'Profil Resmini Kaldır'"
             @click="removeProfileImage"
             wrapper-class="text-center"
-            :classes="{ input: 'bg-danger' }"
+            :classes="{ input: 'bg-danger rounded-5' }"
             :disabled="loading"
           />
         </div>

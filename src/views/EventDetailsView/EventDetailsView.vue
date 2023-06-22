@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="container">
-      <Transition name="fade" mode="out-in">
+      <Transition name="scaleInOut" mode="out-in">
         <LoadingSpinner v-if="loading" />
         <div class="row" v-else>
           <!-- Sidebar -->
@@ -174,7 +174,7 @@
                 </div>
               </div>
               <div class="card-footer">
-                <Transition mode="out-in" name="fade">
+                <Transition mode="out-in" name="scaleInOut">
                   <EventAbout
                     :currentEvent="currentEvent"
                     v-if="category === 'About'"

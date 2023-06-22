@@ -1,74 +1,75 @@
 <template>
   <div class="container">
-    <Transition name="fade" mode="out-in">
+    <Transition name="scaleInOut" mode="out-in">
       <LoadingSpinner v-if="isLoading" />
       <div class="row" v-else>
-        <!-- Sidebar -->
-        <div
-          id="sidebar"
-          class="col-md-12 col-lg-2 mb-4 mb-md-4 mb-lg-0 d-flex align-items-start justify-content-start flex-column flex-sm-row flex-lg-column"
-        >
+        <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+          <!-- Sidebar -->
           <div
-            class="nav-link d-flex align-items-center justify-content-center justify-content-lg-start"
-            @click="changeCategory('About')"
-            :class="{ selected: category === 'About' }"
+            id="sidebar"
+            class="d-flex align-items-start justify-content-start flex-column flex-sm-row flex-md-column flex-lg-column"
           >
-            <input
-              type="radio"
-              name="group-radio"
-              id="radio-1"
-              class="radio"
-              value="radio1"
-              :checked="category === 'About'"
-            />
-            <label for="radio-1">
-              <span class="fw-bold" id="about">Hakkında</span>
-            </label>
-          </div>
+            <div
+              class="nav-link d-flex align-items-center justify-content-center justify-content-lg-start"
+              @click="changeCategory('About')"
+              :class="{ selected: category === 'About' }"
+            >
+              <input
+                type="radio"
+                name="group-radio"
+                id="radio-1"
+                class="radio"
+                value="radio1"
+                :checked="category === 'About'"
+              />
+              <label for="radio-1">
+                <span class="fw-bold" id="about">Hakkında</span>
+              </label>
+            </div>
 
-          <div
-            class="nav-link d-flex align-items-center justify-content-center justify-content-lg-start"
-            @click="changeCategory('Participiants')"
-            :class="{ selected: category === 'Participiants' }"
-          >
-            <input
-              type="radio"
-              name="group-radio"
-              id="radio-2"
-              class="radio"
-              value="radio2"
-              :checked="category === 'Participiants'"
-            />
-            <label for="radio-2">
-              <span class="fw-bold" id="participiants">Üyeler </span>
-            </label>
-          </div>
+            <div
+              class="nav-link d-flex align-items-center justify-content-center justify-content-lg-start"
+              @click="changeCategory('Participiants')"
+              :class="{ selected: category === 'Participiants' }"
+            >
+              <input
+                type="radio"
+                name="group-radio"
+                id="radio-2"
+                class="radio"
+                value="radio2"
+                :checked="category === 'Participiants'"
+              />
+              <label for="radio-2">
+                <span class="fw-bold" id="participiants">Üyeler </span>
+              </label>
+            </div>
 
-          <div
-            class="nav-link d-flex align-items-center justify-content-center justify-content-lg-start"
-            v-if="community.adminId === user.id"
-            @click="changeCategory('Settings')"
-            :class="{ selected: category === 'Settings' }"
-          >
-            <input
-              type="radio"
-              name="group-radio"
-              id="radio-3"
-              class="radio"
-              value="radio3"
-              :checked="category === 'Settings'"
-            />
-            <label for="radio-3">
-              <span class="fw-bold" id="settings">Ayarlar</span>
-            </label>
+            <div
+              class="nav-link d-flex align-items-center justify-content-center justify-content-lg-start"
+              v-if="community.adminId === user.id"
+              @click="changeCategory('Settings')"
+              :class="{ selected: category === 'Settings' }"
+            >
+              <input
+                type="radio"
+                name="group-radio"
+                id="radio-3"
+                class="radio"
+                value="radio3"
+                :checked="category === 'Settings'"
+              />
+              <label for="radio-3">
+                <span class="fw-bold" id="settings">Ayarlar</span>
+              </label>
+            </div>
           </div>
         </div>
-
         <!-- Community View -->
-        <div class="col-12 col-md-12 offset-md-0 col-lg-10">
+        <div class="col-12 col-sm-12 col-md-10 col-lg-10">
           <div class="card shadow-sm my-2">
             <div
-              class="banner-image"
+              class="banner-image tw-bg-slate-100"
               :style="{
                 'background-image': `url(${community.bannerImage})`,
               }"
@@ -137,7 +138,7 @@
                 </div>
               </div>
               <br />
-              <Transition mode="out-in" name="fade">
+              <Transition mode="out-in" name="scaleInOut">
                 <CommunityAbout
                   :community="community"
                   v-if="category === 'About'"
@@ -239,7 +240,6 @@ onBeforeUnmount(() => {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-color: grey;
   height: 224px;
   border-radius: 1.25rem;
 }
@@ -274,37 +274,54 @@ onBeforeUnmount(() => {
 
 #sidebar {
   border-radius: 12px;
-  padding: 11px 8px;
+  padding: 0.5rem 0px;
   height: fit-content;
-  margin-top: 0.5rem;
+
+  @media screen and (max-width: 992px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 768px) and (max-width: 992px) {
+    position: fixed;
+    width: fit-content;
+  }
+  @media screen and (max-width: 576px) {
+    top: 60px;
+  }
+  @media screen and (min-width: 993px) {
+    position: fixed;
+  }
 }
 
 .nav-link {
+  font-weight: 500;
   height: 40px;
   width: 100%;
-  border-radius: 12px;
-  transition: 0.3s ease;
-  padding: 0px 12px;
+  border-radius: 0.7rem;
+  transition: 0.35s ease;
   margin: 3px 0px;
   border: 1px solid white;
-
-  @media screen and (max-width: 992px) {
-    margin: 3px 4px;
-  }
+  display: flex;
+  text-decoration: none;
+  color: rgb(27, 27, 27);
+  padding: 0px 1rem;
 
   &:hover {
-    background-color: rgb(245, 245, 245);
-    color: var(--color-text-dark);
+    color: var(--color-primary);
   }
 
-  span {
-    margin-left: 6px;
+  @media screen and (max-width: 992px) {
+    margin: 3px 6px;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 992px) {
+    padding: 0px 4px;
   }
 }
 
 .selected {
-  color: var(--color-text);
-  background-color: var(--color-primary);
-  border: 1px solid var(--color-primary-hover);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+
+  box-shadow: 1px 1px 7px -5px black;
 }
 </style>

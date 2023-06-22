@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Transition name="scaleInOut" mode="out-in">
     <LoadingSpinner v-if="loading" />
     <div v-else-if="userEvents.length === 0">
       <h1 class="text-center fw-light">Etkinlik Bulunamadı</h1>
@@ -82,7 +82,7 @@
         </div>
       </TransitionGroup>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">

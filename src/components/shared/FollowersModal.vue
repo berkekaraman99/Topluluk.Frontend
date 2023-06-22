@@ -98,15 +98,22 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["decrementFollowerCount"]);
+
 const userStore = useUserStore();
 
 const authStore = useAuthStore();
 const { _user: authUser } = storeToRefs(authStore);
 
 userStore.getUserFollowers(props.id);
-const { _userFollowers: followers } = storeToRefs(userStore);
+const { _userFollowers: followers, _statusCode: statusCode } =
+  storeToRefs(userStore);
 
 const removeFollower = async (id: string) => {
-  await userStore.removeUserFromFollowers(id);
+  await userStore.removeUserFromFollowers(id).then(() => {
+    if (statusCode.value === 200) {
+      emit("decrementFollowerCount");
+    }
+  });
 };
 </script>

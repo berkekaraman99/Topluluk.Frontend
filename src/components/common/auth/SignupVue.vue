@@ -31,6 +31,7 @@
             :classes="{
               outer: 'mx-auto',
               wrapper: 'mx-auto',
+              steps: 'border-0 rounded-5',
             }"
           >
             <!-- STEP ONE -->
@@ -138,7 +139,9 @@
 
         <!-- ALTERNATIVE SIGNUPS -->
         <div class="alternative-signups my-4">
-          <div class="btn btn-white w-75 shadow-sm mt-3 rounded-1">
+          <div
+            class="btn btn-light w-75 shadow-sm mt-3 rounded-5 hover:tw-bg-slate-50"
+          >
             <img
               src="@/assets/images/logos/ic_google.png"
               height="16"
@@ -148,7 +151,7 @@
             />
             <span class="fw-bold">Google ile Kayıt Ol</span>
           </div>
-          <div class="btn btn-dark w-75 shadow-sm mt-3 rounded-1">
+          <div class="btn btn-dark w-75 shadow-sm mt-3 rounded-5">
             <i class="fa-brands fa-apple fa-lg me-2"></i>
             <span class="fw-bold">Apple ile Kayıt Ol</span>
           </div>

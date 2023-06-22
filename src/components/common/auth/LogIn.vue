@@ -76,6 +76,9 @@
                 'align-items-center': true,
                 'm-0': true,
               }"
+              :classes="{
+                decorator: 'rounded-1',
+              }"
               @click="toggleRememberMe"
             />
             <RouterLink
@@ -113,7 +116,9 @@
 
         <!-- ALTERNATIVE LOGINS -->
         <div class="alternative-logins my-4">
-          <div class="btn btn-white d-block shadow-sm mt-3">
+          <div
+            class="btn btn-light d-block shadow-sm mt-3 rounded-5 hover:tw-bg-slate-50"
+          >
             <img
               src="@/assets/images/logos/ic_google.png"
               height="16"
@@ -123,7 +128,7 @@
             />
             <span class="fw-bold">Google ile giriş yap</span>
           </div>
-          <div class="btn btn-dark d-block shadow-sm mt-3">
+          <div class="btn btn-dark d-block shadow-sm mt-3 rounded-5">
             <i class="fa-brands fa-apple fa-lg me-2"></i>
             <span class="fw-bold">Apple ile giriş yap</span>
           </div>

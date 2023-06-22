@@ -280,6 +280,7 @@ const savePost = async (post: IPostModel) => {
 }
 
 .dropdown-menu {
+  transition: all 0.3s ease;
   animation-name: translateUp;
 }
 
