@@ -167,7 +167,7 @@
         </div>
         <div class="container">
           <PostActions
-            :post="post"
+            :post="props.post"
             @interact-post="interactPost"
             @remove-interaction="removeInteraction"
             @save-post="savePost"

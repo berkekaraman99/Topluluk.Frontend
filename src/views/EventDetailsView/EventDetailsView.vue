@@ -129,10 +129,10 @@
                           max-width: 600px;
                         "
                         v-for="image in currentEvent.images"
-                        :key="image.toString()"
+                        :key="image"
                       >
                         <img
-                          :src="image.toString()"
+                          :src="image"
                           class="d-block img-fluid w-100 object-fit-contain"
                           style="height: 300px"
                           alt="image"

@@ -20,14 +20,14 @@
           v-else
           class="d-flex card-body align-items-start p-3 hover-effect"
           v-for="community in communityList"
-          :key="community.id.toString()"
+          :key="community.id"
         >
           <RouterLink
             :to="{
               name: 'communitydetails',
               params: {
-                id: community.id.toString(),
-                name: community.title.toString(),
+                id: community.id,
+                name: community.title,
               },
             }"
             class="text-decoration-none"

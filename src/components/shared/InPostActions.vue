@@ -228,7 +228,7 @@ const interactPost = async (type: number, post: IPostModel) => {
 
 const removeInteraction = async (post: IPostModel) => {
   if (interactionId.value != null) {
-    await postStore.removeInteractionPost(post.id.toString()).then(() => {
+    await postStore.removeInteractionPost(post.id).then(() => {
       for (const item of post.interactionPreviews) {
         if (
           post.interactionPreviews.length <= 3 &&
@@ -249,7 +249,7 @@ const removeInteraction = async (post: IPostModel) => {
 };
 
 const savePost = async (post: IPostModel) => {
-  await postStore.savePost(post.id.toString()).then(() => {
+  await postStore.savePost(post.id).then(() => {
     post.isSaved = true;
   });
 };

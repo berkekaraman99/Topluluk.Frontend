@@ -85,7 +85,7 @@
                     class="cover-image p-2 mx-3 d-flex align-items-center justify-content-center shadow-sm"
                   >
                     <img
-                      :src="community.coverImage.toString()"
+                      :src="community.coverImage"
                       alt="cover image"
                       class="img-fluid rounded-4"
                       v-if="community.coverImage != null"
@@ -151,7 +151,7 @@
                 <CommunitySettings
                   v-else-if="category === 'Settings'"
                   :id="id"
-                  :adminId="community.adminId.toString()"
+                  :adminId="community.adminId"
                 />
               </Transition>
             </div>
@@ -307,6 +307,10 @@ onBeforeUnmount(() => {
 
   &:hover {
     color: var(--color-primary);
+  }
+
+  @media screen and (min-width: 993px) {
+    width: 144px;
   }
 
   @media screen and (max-width: 992px) {

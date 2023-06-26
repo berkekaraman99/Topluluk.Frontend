@@ -216,13 +216,13 @@
               <div
                 class="my-2"
                 v-for="(comment, index) in comments"
-                v-bind:key="comment.id.toString()"
+                v-bind:key="comment.id"
                 :data-index="index"
               >
                 <CommentVue
                   :comment="comment"
-                  :user-id="user.id.toString()"
-                  :post-id="post.id.toString()"
+                  :user-id="user.id"
+                  :post-id="post.id"
                   @delete-comment="deleteComment"
                 />
               </div>
@@ -291,11 +291,6 @@ const message = ref("");
 const postStore = usePostStore();
 postStore.getPostById(props.id).then(changeLoadingState);
 postStore.getPostComments(props.id);
-const savePost = async (post: any) => {
-  await postStore.savePost(post.id).then(() => {
-    post.isSaved = true;
-  });
-};
 
 const formatTime = (time: any) => {
   return moment(time).fromNow();
@@ -329,42 +324,6 @@ const createComment = async () => {
 };
 const deleteComment = async (commentId: string, postId: string) => {
   await postStore.deleteComment({ commentId, postId });
-};
-
-const interactPost = async ({ type, post }: any) => {
-  if (post.isInteracted == null) {
-    await postStore
-      .interactionPost({
-        interactionType: type,
-        targetId: post.id,
-      })
-      .then(() => {
-        post.interactionCount++;
-        post.isInteracted = {
-          interaction: type,
-        };
-      });
-  } else {
-    await removeInteraction(post);
-    await postStore
-      .interactionPost({
-        interactionType: type,
-        targetId: post.id,
-      })
-      .then(() => {
-        post.interactionCount++;
-        post.isInteracted = {
-          interaction: type,
-        };
-      });
-  }
-};
-
-const removeInteraction = async (post: any) => {
-  await postStore.removeInteractionPost(post.id).then(() => {
-    post.interactionCount--;
-    post.isInteracted = null;
-  });
 };
 
 const { _post: post, _postComments: comments } = storeToRefs(postStore);

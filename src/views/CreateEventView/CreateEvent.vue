@@ -187,7 +187,7 @@
 </template>
 
 <script setup lang="ts">
-import { data } from "@/data/il-ilce.json";
+import { data } from "@/data/location-data.json";
 import { reactive, ref, onBeforeUnmount } from "vue";
 import type { ICreateEventModel } from "../../models/create_event_model";
 import router from "@/router";

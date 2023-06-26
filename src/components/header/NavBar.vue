@@ -1,14 +1,19 @@
 <template>
   <!-- Navbar -->
-  <nav
-    class="navbar navbar-expand-lg bg-body-tertiary shadow-sm position-fixed start-0 end-0 top-0 z-3"
-  >
+  <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
     <div class="container-xxl d-flex">
-      <span
-        class="navbar-brand pointer fw-bold mx-1 fs-4"
-        @click="router.push({ name: 'home' })"
-        >Topluluk</span
-      >
+      <div>
+        <span
+          @click="togglebar"
+          class="pointer rounded-5 p-2 tw-transition tw-ease-in-out tw-duration-350 hover:tw-bg-slate-200"
+          ><i class="fa-solid fa-bars-staggered fa-lg"></i
+        ></span>
+        <span
+          class="navbar-brand pointer fw-bold px-2 fs-4"
+          @click="router.push({ name: 'home' })"
+          >Topluluk</span
+        >
+      </div>
 
       <div class="d-flex align-items-center justify-content-center">
         <template v-if="userIsAuthorized">
@@ -22,35 +27,7 @@
               >
                 Oluştur
               </button>
-              <ul class="dropdown-menu dropdown-menu-end animate scaleOut">
-                <li>
-                  <RouterLink
-                    :to="{ name: 'createCommunity' }"
-                    class="dropdown-item"
-                  >
-                    <i class="fa-solid fa-users"></i>
-                    Topluluk Oluştur
-                  </RouterLink>
-                </li>
-                <li>
-                  <RouterLink
-                    :to="{ name: 'createPost' }"
-                    class="dropdown-item"
-                  >
-                    <i class="fa-solid fa-note-sticky"></i>
-                    Post Oluştur
-                  </RouterLink>
-                </li>
-                <li>
-                  <RouterLink
-                    :to="{ name: 'createEvent' }"
-                    class="dropdown-item"
-                  >
-                    <i class="fa-solid fa-calendar"></i>
-                    Etkinlik Oluştur
-                  </RouterLink>
-                </li>
-              </ul>
+              <CreateLink />
             </div>
 
             <div class="pointer">
@@ -91,58 +68,7 @@
               </ul>
             </div>
 
-            <div class="dropdown user-options">
-              <div data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="d-flex align-items-center justify-content-center">
-                  <div
-                    class="profile-icon"
-                    :style="{
-                      'background-image': `url(${user.profileImage})`,
-                    }"
-                    v-if="user.profileImage != null"
-                  ></div>
-                  <img
-                    src="@/assets/images/profile-man.png"
-                    alt="profile-man"
-                    class="profile-icon"
-                    v-else-if="user.gender == 2"
-                  />
-                  <img
-                    src="@/assets/images/profile-woman.png"
-                    alt="profile-woman"
-                    class="profile-icon"
-                    v-else-if="user.gender == 1"
-                  />
-                  <img
-                    src="@/assets/images/user.png"
-                    alt="profile"
-                    class="profile-icon"
-                    v-else
-                  />
-                </div>
-              </div>
-
-              <ul class="dropdown-menu dropdown-menu-end z-3">
-                <li>
-                  <RouterLink :to="{ name: 'profile' }" class="dropdown-item"
-                    ><i class="fa-solid fa-user me-1"></i> Profile</RouterLink
-                  >
-                </li>
-                <li>
-                  <RouterLink
-                    :to="{ name: 'profileSettings' }"
-                    class="dropdown-item"
-                    ><i class="fa-solid fa-gear me-1"></i> Settings</RouterLink
-                  >
-                </li>
-                <li @click="logout">
-                  <a class="dropdown-item text-danger"
-                    ><i class="fa-solid fa-arrow-right-from-bracket me-1"></i>
-                    Logout</a
-                  >
-                </li>
-              </ul>
-            </div>
+            <ProfileIcon :user="user" @logout="logout" />
           </div>
           <div class="d-flex" v-else>
             <RouterLink :to="{ name: 'login' }" class="btn btn-primary me-3"
@@ -162,6 +88,9 @@
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
+import CreateLink from "./CreateLink.vue";
+import ProfileIcon from "./ProfileIcon.vue";
+import { ref } from "vue";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -171,17 +100,36 @@ const { _user: user, _userIsAuthorized: userIsAuthorized } =
 const logout = async () => {
   await authStore.logout();
 };
+
+const leftBarToggle = ref(false);
+
+const togglebar = () => {
+  const leftBar: HTMLElement = document.getElementById("left-bar")!;
+  const navbar: HTMLElement = document.getElementById("navbar")!;
+  const mainEl: HTMLElement = document.getElementById("main")!;
+
+  if (!leftBarToggle.value) {
+    leftBar.style.left = "-64px";
+    navbar.style.left = "0px";
+    mainEl.style.paddingLeft = "0px";
+    leftBarToggle.value = true;
+  } else {
+    leftBar.style.left = "0px";
+    navbar.style.left = "64px";
+    mainEl.style.paddingLeft = "80px";
+    leftBarToggle.value = false;
+  }
+};
 </script>
 
 <style scoped lang="scss">
-.user-options {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 8px;
-  cursor: pointer;
-  text-decoration: none;
-  margin-left: 16px;
+#navbar {
+  transition: all 0.3s ease;
+  position: fixed;
+  left: 64px;
+  top: 0;
+  right: 0;
+  z-index: 1;
 }
 
 .create-nav {

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="card border rounded-3" id="suggestions" v-if="!loading">
-      <div class="card-header p-0">
-        <h4 class="fw-bold my-3 text-center">Kullanıcı Önerisi</h4>
+    <div class="" id="suggestions" v-if="!loading">
+      <div class="card-header p-0 border-bottom">
+        <h4 class="fw-bold my-3 text-center">Takip Önerileri</h4>
       </div>
       <div class="card-body py-0 tw-px-1 overflow-auto">
         <ul class="list-unstyled">
@@ -14,50 +14,60 @@
           </div>
           <li
             v-else
-            class="py-3 px-3 my-2 suggestion card"
+            class="py-3 px-3 my-2 suggestion card tw-bg-slate-50"
             v-for="suggested in suggestions"
             v-bind:key="suggested.id"
           >
-            <RouterLink
-              :to="{ name: 'userprofile', params: { id: suggested.id } }"
-              class="text-decoration-none"
-            >
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                  <div
-                    :style="{
-                      backgroundImage: `url(${suggested.profileImage})`,
-                    }"
-                    class="suggestion-profile-image me-4 shadow-sm"
-                    v-if="suggested.profileImage"
-                  ></div>
-                  <img
-                    src="@/assets/images/profile-man.png"
-                    alt="profile-man"
-                    class="suggestion-profile-image me-4"
-                    v-else-if="suggested.gender == 2"
-                  />
-                  <img
-                    src="@/assets/images/profile-woman.png"
-                    alt="profile-woman"
-                    class="suggestion-profile-image me-4"
-                    v-else-if="suggested.gender == 1"
-                  />
-                  <img
-                    src="@/assets/images/user.png"
-                    alt="profile"
-                    class="suggestion-profile-image me-4"
-                    v-else
-                  />
-                  <div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <div
+                  :style="{
+                    backgroundImage: `url(${suggested.profileImage})`,
+                  }"
+                  class="suggestion-profile-image me-4 shadow-sm"
+                  v-if="suggested.profileImage"
+                ></div>
+                <img
+                  src="@/assets/images/profile-man.png"
+                  alt="profile-man"
+                  class="suggestion-profile-image me-4"
+                  v-else-if="suggested.gender == 2"
+                />
+                <img
+                  src="@/assets/images/profile-woman.png"
+                  alt="profile-woman"
+                  class="suggestion-profile-image me-4"
+                  v-else-if="suggested.gender == 1"
+                />
+                <img
+                  src="@/assets/images/user.png"
+                  alt="profile"
+                  class="suggestion-profile-image me-4"
+                  v-else
+                />
+                <div>
+                  <RouterLink
+                    :to="{ name: 'userprofile', params: { id: suggested.id } }"
+                    class="text-decoration-none"
+                  >
                     <div class="fw-bold text-black">
                       {{ suggested.firstName }} {{ suggested.lastName }}
                     </div>
-                    <div class="text-secondary">@{{ suggested.userName }}</div>
-                  </div>
+                  </RouterLink>
+                  <!-- <div class="text-secondary">@{{ suggested.userName }}</div> -->
+                  <div>{{ suggested.mutualFriendCount }} ortak arkadaş</div>
+                  <button
+                    class="btn follow px-4 mt-2"
+                    @click="followUser(suggested)"
+                  >
+                    Takip Et
+                  </button>
+                  <!-- <button class="btn follow px-4">
+                    Takip İsteği Gönderildi
+                  </button> -->
                 </div>
               </div>
-            </RouterLink>
+            </div>
           </li>
         </ul>
       </div>
@@ -104,14 +114,21 @@ import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
 
+import type { IFollowSuggestion } from "@/models/follow_suggestion_model";
+
 const userStore = useUserStore();
 const loading = ref(true);
 const changeLoadingsState = () => {
   loading.value = !loading.value;
 };
 
-userStore.getUserSuggestions().then(changeLoadingsState);
-const { _userSuggestions: suggestions } = storeToRefs(userStore);
+// userStore.getUserSuggestions().then(changeLoadingsState);
+userStore.getFollowSuggestions().then(changeLoadingsState);
+const { _followSuggestions: suggestions } = storeToRefs(userStore);
+
+const followUser = async (user: IFollowSuggestion) => {
+  await userStore.followUser(user.id);
+};
 </script>
 
 <style scoped>

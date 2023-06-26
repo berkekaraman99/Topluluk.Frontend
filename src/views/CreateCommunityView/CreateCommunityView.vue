@@ -139,7 +139,7 @@
 </template>
 
 <script setup lang="ts">
-import { data } from "@/data/il-ilce.json";
+import { data } from "@/data/location-data.json";
 import { reactive, ref, onBeforeUnmount } from "vue";
 import type { ICreateCommunityModel } from "../../models/create_community_model";
 import router from "@/router";
@@ -192,7 +192,7 @@ const submitCommunity = async () => {
     CoverImage: communityObject.CoverImage!,
     IsVisible: communityObject.IsVisible,
     IsPublic: communityObject.IsPublic,
-    CreatedById: communityObject.CreatedById.toString(),
+    CreatedById: communityObject.CreatedById,
     BannerImage: communityObject.BannerImage!,
   };
   console.log(communityObject);

@@ -95,7 +95,7 @@
                 Profil Resmini Değiştir
               </div>
             </div>
-            <ChangeProfileImage :id="userId.toString()" />
+            <ChangeProfileImage :id="userId" />
           </div>
 
           <!-- CHANGE BANNER IMAGE -->
@@ -112,7 +112,7 @@
                 Afişi Değiştir
               </div>
             </div>
-            <ChangeBannerImage :id="userId.toString()" />
+            <ChangeBannerImage :id="userId" />
           </div>
 
           <!-- DARK MODE -->

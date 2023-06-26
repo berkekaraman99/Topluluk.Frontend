@@ -152,7 +152,7 @@ const createComment = async () => {
   await eventStore
     .createComment({
       message: message.value,
-      eventId: props.id.toString(),
+      eventId: props.id,
     })
     .then(() => {
       emit("updateComments");

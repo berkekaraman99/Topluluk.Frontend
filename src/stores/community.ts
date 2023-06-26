@@ -11,6 +11,7 @@ export const useCommunityStore = defineStore("communityStore", {
     userCommunities: [] as Array<ICommunityPreview>,
     participiants: [] as Array<ICommunityParticipiant>,
     searchedParticipiants: [] as Array<ICommunityParticipiant>,
+    joinRequests: [] as any,
     statusCode: 0 as number,
   }),
 
@@ -23,6 +24,7 @@ export const useCommunityStore = defineStore("communityStore", {
     _participiants: (state: any) => state.participiants,
     _searchedParticipiants: (state: any) =>
       state.searchedParticipiants as Array<ICommunityParticipiant>,
+    _joinRequests: (state: any) => state.joinRequests as any,
     _statusCode: (state: any) => state.statusCode as number,
   },
 
@@ -146,6 +148,44 @@ export const useCommunityStore = defineStore("communityStore", {
         this.searchedParticipiants = res.data.data;
       } catch (error: any) {
         console.log(error.data);
+      }
+    },
+
+    //JOIN REQUESTS
+    async getJoinRequests(communityId: FormData) {
+      try {
+        const res = await instance.get(
+          "/Community/Join-Requests?skip=0&take=5"
+        );
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    },
+
+    //ACCEPT JOIN REQUESTS
+    async acceptJoinRequest(communityId: string, targetId: string) {
+      try {
+        const res = await instance.post(
+          `/community/${communityId}/accept-join-request?id=${targetId}`
+        );
+
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    },
+
+    //DECLINE JOIN REQUESTS
+    async declineJoinRequest(communityId: string, targetId: string) {
+      try {
+        const res = await instance.post(
+          `/community/${communityId}/decline-join-request?id=${targetId}`
+        );
+
+        console.log(res.data);
+      } catch (error: any) {
+        console.log(error.message);
       }
     },
 

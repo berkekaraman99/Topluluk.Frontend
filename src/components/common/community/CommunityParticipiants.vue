@@ -131,7 +131,7 @@
                   </li>
                   <li
                     class="dropdown-item text-danger"
-                    @click="kickUser(community.id.toString(), participiant.id)"
+                    @click="kickUser(community.id, participiant.id)"
                   >
                     <i class="fa-solid fa-user-xmark"></i> Kick User
                   </li>
@@ -169,9 +169,7 @@ const { _searchedParticipiants: searchedParticipiants } =
   storeToRefs(communityStore);
 const kickUser = async (communityId: string, targetId: string) => {
   await communityStore.kickUser(communityId, targetId).then(async () => {
-    await communityStore.getCommunityParticipiants(
-      props.community.id.toString()
-    );
+    await communityStore.getCommunityParticipiants(props.community.id);
   });
 };
 

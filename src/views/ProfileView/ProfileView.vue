@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="container">
+    <div class="container px-0">
       <div class="row">
         <div class="col-12 col-lg-8 col-xl-9" v-if="loading">
           <div class="profile-header position-relative placeholder-glow">
@@ -22,7 +22,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-8 col-xl-9" v-else>
+        <div class="col-12 col-lg-8 col-xl-9 px-0" v-else>
           <div class="profile-header position-relative">
             <div
               class="profile-banner rounded-top-4 tw-bg-slate-100"
@@ -105,16 +105,16 @@
 
           <!-- Followers Modal -->
           <FollowersModal
-            :id="userId.toString()"
+            :id="userId"
             @decrement-follower-count="() => (followerCount -= 1)"
           />
 
           <!-- Followings Modal -->
-          <FollowingsModal :id="userId.toString()" />
+          <FollowingsModal :id="userId" />
 
           <!-- Follower Requests Modal -->
           <FollowerRequestsModal
-            :id="userId.toString()"
+            :id="userId"
             @update-follower-count="() => (followerCount += 1)"
           />
         </div>
@@ -147,7 +147,7 @@
         </div>
       </div>
 
-      <div id="options" class="container my-4" v-else>
+      <div id="options" class="container my-4 px-0" v-else>
         <div
           class="d-flex align-items-center justify-content-around flex-column flex-sm-column flex-md-row border-top border-bottom"
         >
@@ -253,7 +253,7 @@
         </div>
       </div>
       <div>
-        <UserPosts v-if="category === 'posts'" :userId="userId.toString()" />
+        <UserPosts v-if="category === 'posts'" :userId="userId" />
         <UserCommunities v-else-if="category === 'communities'" />
         <UserEvents v-else-if="category === 'events'" />
         <UserSavedPosts v-else-if="category === 'saved'" />
@@ -293,7 +293,7 @@ const changeLoadingState = () => {
 const { _currentUser: currentUser, _userFollowersRequests: followersRequests } =
   storeToRefs(userStore);
 
-userStore.getUserById(user.value.id.toString()).then(() => {
+userStore.getUserById(user.value.id).then(() => {
   changeLoadingState();
   followerCount.value = currentUser.value.followersCount;
   followingCount.value = currentUser.value.followingCount;
@@ -304,11 +304,11 @@ const changeCategory = (tab: string) => {
 };
 
 const getFollowers = async () => {
-  await userStore.getUserFollowers(userId.toString());
+  await userStore.getUserFollowers(userId);
 };
 
 const getFollowings = async () => {
-  await userStore.getUserFollowings(userId.toString());
+  await userStore.getUserFollowings(userId);
 };
 
 onBeforeUnmount(() => {

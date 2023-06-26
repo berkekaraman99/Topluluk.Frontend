@@ -345,11 +345,11 @@ const changeCategory = (tab: string) => {
 };
 
 const getFollowers = async () => {
-  await userStore.getUserFollowers(currentUser.value.id.toString());
+  await userStore.getUserFollowers(currentUser.value.id);
 };
 
 const getFollowings = async () => {
-  await userStore.getUserFollowings(currentUser.value.id.toString());
+  await userStore.getUserFollowings(currentUser.value.id);
 };
 
 const followUser = async (currentUser: IUser) => {
@@ -369,7 +369,7 @@ const followUser = async (currentUser: IUser) => {
 const unfollowUser = async (user: IUser) => {
   try {
     await userStore
-      .unfollowUser(user.id.toString())
+      .unfollowUser(user.id)
       .then(() => (user.isFollowing = false));
   } catch (error: any) {
     console.log(error.response.data);
@@ -415,16 +415,6 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: center;
   flex-direction: column;
-}
-
-.follow {
-  background-color: #24a0ed;
-  color: white;
-  border-radius: 99px;
-}
-
-.follow:hover {
-  background-color: #1b74ac;
 }
 
 .category {

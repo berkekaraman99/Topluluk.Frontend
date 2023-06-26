@@ -15,7 +15,7 @@
       <div
         class="row"
         v-for="(post, index) in postFeed"
-        v-bind:key="post.id.toString()"
+        v-bind:key="post.id"
         :data-index="index"
       >
         <PostComponentFeed :post="post" />
@@ -80,7 +80,7 @@ const changeLoadingState = () => {
   loading.value = !loading.value;
 };
 
-const skip = ref(0);
+const skip = ref<number>(0);
 
 const postStore = usePostStore();
 postStore.getPostFeed(skip.value.toString()).then(changeLoadingState);
@@ -94,26 +94,6 @@ onBeforeUnmount(() => {
     feed: [],
   });
 });
-
-// window.onscroll = function () {
-//   var d = document.documentElement;
-//   var offset = d.scrollTop + window.innerHeight;
-//   var height = d.offsetHeight;
-//   var threshold = 200; // Eşik değeri
-
-//   if (offset > height - window.innerHeight - threshold) {
-//     // Burada yapmak istediğiniz isteği yapabilirsiniz.
-//     // Örneğin, bir API'ye istek gönderebilirsiniz.
-//     console.log("Sayfanın en altına ulaşıldı, istek gönderildi.");
-
-//     // İsteği gönderdikten sonra onsroll olayını kaldırıyoruz
-//     window.onscroll = null;
-//     skip.value += 1;
-//     // window.onscroll = null;
-
-//     postStore.getPostFeed(skip.value.toString());
-//   }
-// };
 </script>
 
 <style scoped></style>

@@ -30,17 +30,9 @@
               v-else
             />
             <div class="mx-3">
-              <RouterLink
-                class="text-decoration-none"
-                :to="{
-                  name: 'userprofile',
-                  params: { id: post.userId.toString() },
-                }"
-              >
-                <div class="fw-bold">
-                  {{ post.firstName }} {{ post.lastName }}
-                </div>
-              </RouterLink>
+              <div class="fw-bold">
+                {{ post.firstName }} {{ post.lastName }}
+              </div>
               <small>
                 {{ formatTime(post.createdAt) }}
               </small>

@@ -137,7 +137,7 @@ const deleteComment = (commentId: String, postId: string) => {
 const postStore = usePostStore();
 const { _statusCode: statusCode } = storeToRefs(postStore);
 
-const message = ref(props.comment.message.toString());
+const message = ref(props.comment.message);
 const loading = ref(false);
 const changeLoadingState = () => {
   loading.value = !loading.value;
@@ -155,21 +155,19 @@ const cancelEditing = () => {
 
 const updateComment = async (comment: IComment) => {
   changeLoadingState();
-  await postStore
-    .editComment(props.comment.id.toString(), message.value)
-    .then(() => {
-      changeLoadingState();
-      if (statusCode.value === 200) {
-        comment.message = message.value;
-        comment.isEdited = true;
-      }
-      isCommentEditable.value = false;
-      setTimeout(() => {
-        postStore.$patch({
-          statusCode: 0,
-        });
-      }, 3000);
-    });
+  await postStore.editComment(props.comment.id, message.value).then(() => {
+    changeLoadingState();
+    if (statusCode.value === 200) {
+      comment.message = message.value;
+      comment.isEdited = true;
+    }
+    isCommentEditable.value = false;
+    setTimeout(() => {
+      postStore.$patch({
+        statusCode: 0,
+      });
+    }, 3000);
+  });
 };
 
 const formatTime = (time: any) => {

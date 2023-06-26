@@ -5,6 +5,7 @@ import type { IUser } from "@/models/user_model";
 import type { IUserSuggestions } from "@/models/user_suggestions_model";
 import type { IUserFollowers } from "@/models/user_followers_model";
 import type { IUserFollowings } from "@/models/user_followings_model";
+import type { IFollowSuggestion } from "@/models/follow_suggestion_model";
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({
@@ -14,6 +15,7 @@ export const useUserStore = defineStore("userStore", {
     userFollowers: [] as Array<IUserFollowers>,
     userFollowersRequests: [] as Array<any>,
     userSuggestions: [] as Array<IUserSuggestions>,
+    followSuggestions: [] as Array<IFollowSuggestion>,
     statusCode: 0 as number,
   }),
   getters: {
@@ -26,6 +28,8 @@ export const useUserStore = defineStore("userStore", {
       state.userFollowers as Array<IUserFollowers>,
     _userSuggestions: (state: any) =>
       state.userSuggestions as Array<IUserSuggestions>,
+    _followSuggestions: (state: any) =>
+      state.followSuggestions as Array<IFollowSuggestion>,
     _userFollowersRequests: (state: any) => state.userFollowersRequests,
     _statusCode: (state: any) => state.statusCode as number,
   },
@@ -50,7 +54,7 @@ export const useUserStore = defineStore("userStore", {
     },
 
     //GET USER BY NAME
-    async getUserByName(name: string) {
+    async getUserByUsername(name: string) {
       const res = await instance.get(`/User/${name}`);
       console.log(res.data);
       this.currentUser = res.data.data;
@@ -61,6 +65,13 @@ export const useUserStore = defineStore("userStore", {
       const res = await instance.get("/User/suggestions?limit=3");
       console.log(res.data);
       this.userSuggestions = res.data.data;
+    },
+
+    //GET FOLLOW SUGGESTIONS
+    async getFollowSuggestions() {
+      const res = await instance.get("/User/follow-suggestions");
+      console.log(res.data);
+      this.followSuggestions = res.data.data;
     },
 
     //BLOCK USER

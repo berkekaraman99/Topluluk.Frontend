@@ -1,1 +1,21 @@
 @import "./main.css";
+
+.follow {
+  background-color: #24a0ed;
+  color: white;
+  border-radius: 99px;
+
+  &:hover {
+    background-color: #1b74ac;
+    color: white;
+  }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 0;
+
+  &:hover {
+    opacity: 1;
+  }
+}

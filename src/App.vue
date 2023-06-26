@@ -12,8 +12,19 @@
       />
     </Transition>
 
+    <Transition name="fade">
+      <LeftBar
+        v-if="
+          $route.name !== 'login' &&
+          $route.name !== 'signup' &&
+          $route.name !== 'forgetpassword' &&
+          $route.path !== '/'
+        "
+      />
+    </Transition>
+
     <div
-      class="h-100"
+      id="main"
       :class="{
         'container-fluid':
           $route.name === 'login' ||
@@ -25,12 +36,19 @@
           $route.name !== 'forgetpassword',
       }"
       :style="{
-        marginTop:
-          $route.name !== 'login' &&
-          $route.name !== 'signup' &&
-          $route.name !== 'forgetpassword'
-            ? '72px'
-            : '0px',
+        'padding-left':
+          $route.name === 'login' ||
+          $route.name === 'signup' ||
+          $route.name === 'forgetpassword'
+            ? '0px'
+            : '80px',
+
+        'padding-top':
+          $route.name === 'login' ||
+          $route.name === 'signup' ||
+          $route.name === 'forgetpassword'
+            ? '0'
+            : '64px',
       }"
     >
       <div class="row">
@@ -89,15 +107,19 @@
 import SidebarLeft from "./components/Sidebar/Left/SidebarLeft.vue";
 import SidebarRight from "./components/Sidebar/Right/SidebarRight.vue";
 import NavBar from "./components/header/NavBar.vue";
+import LeftBar from "./components/shared/LeftBar.vue";
 </script>
 
 <style lang="scss">
-.carousel-control-prev,
-.carousel-control-next {
-  opacity: 0;
-
-  &:hover {
-    opacity: 1;
-  }
+#main {
+  // position: relative;
+  // top: 64px;
+  // left: 64px;
+  // bottom: 0;
+  // right: 0;
+  // overflow: hidden;
+  transition: all 0.3s ease;
+  padding-left: 80px;
+  padding-top: 80px;
 }
 </style>

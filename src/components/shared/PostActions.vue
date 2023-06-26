@@ -139,7 +139,7 @@
     </div>
     <div class="col-12 col-sm-6 col-md-3 text-center my-1">
       <RouterLink
-        :to="{ name: 'postcomments', params: { id: post.id.toString() } }"
+        :to="{ name: 'postcomments', params: { id: post.id } }"
         class="text-decoration-none text-black"
       >
         <div
@@ -203,7 +203,7 @@ const interactionId = ref<number | null>(
 
 const postStore = usePostStore();
 
-const interactPost = async (type: number, post: IPostModel) => {
+const interactPost = async (type: number, post: IPostModel | IFeedPost) => {
   if (post.isInteracted == null) {
     await postStore
       .interactionPost({
@@ -241,9 +241,9 @@ const interactPost = async (type: number, post: IPostModel) => {
   }
 };
 
-const removeInteraction = async (post: IPostModel) => {
+const removeInteraction = async (post: IPostModel | IFeedPost) => {
   if (interactionId.value != null) {
-    await postStore.removeInteractionPost(post.id.toString()).then(() => {
+    await postStore.removeInteractionPost(post.id).then(() => {
       for (const item of post.interactionPreviews) {
         if (
           post.interactionPreviews.length <= 3 &&
@@ -263,8 +263,8 @@ const removeInteraction = async (post: IPostModel) => {
   }
 };
 
-const savePost = async (post: IPostModel) => {
-  await postStore.savePost(post.id.toString()).then(() => {
+const savePost = async (post: IPostModel | IFeedPost) => {
+  await postStore.savePost(post.id).then(() => {
     post.isSaved = true;
   });
 };

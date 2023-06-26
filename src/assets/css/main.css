@@ -44,7 +44,7 @@
   height: 267px;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100vh;
+  background-size: cover;
 }
 
 .search-user-background {

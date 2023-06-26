@@ -17,13 +17,13 @@
           <div
             class="col-12"
             v-for="(userEvent, index) in userEvents"
-            v-bind:key="userEvent.id.toString()"
+            v-bind:key="userEvent.id"
             :data-index="index"
           >
             <RouterLink
               :to="{
                 name: 'eventdetails',
-                params: { id: userEvent.id.toString() },
+                params: { id: userEvent.id },
               }"
               class="text-decoration-none text-dark"
             >
@@ -31,7 +31,7 @@
                 <div class="row">
                   <div class="col-sm-12 col-md-4 d-grid align-content-center">
                     <img
-                      :src="userEvent.images[0].toString()"
+                      :src="userEvent.images[0]"
                       alt="community cover"
                       class="my-2 img-fluid rounded-3"
                       v-if="userEvent.images.length !== 0"
@@ -137,7 +137,7 @@ const changeLoadingState = () => {
   loading.value = !loading.value;
 };
 
-eventStore.getUserEvents(_user.value.id.toString()).then(changeLoadingState);
+eventStore.getUserEvents(_user.value.id).then(changeLoadingState);
 const { _userEvents: userEvents } = storeToRefs(eventStore);
 </script>
 

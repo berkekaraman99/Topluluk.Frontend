@@ -55,7 +55,7 @@
                   () => {
                     selectUser(recentChat);
                     getUserId(recentChat.userId);
-                    setUserHandle(mainUser.id.toString());
+                    setUserHandle(mainUser.id);
                   }
                 "
               >
@@ -241,7 +241,7 @@ const receiveMessage = ref(chat.value);
 const userId = ref<string>("");
 const message = ref<string>("");
 const user = ref<any>({
-  id: mainUser.value.id.toString(),
+  id: mainUser.value.id,
   firstName: mainUser.value.firstName,
   lastName: mainUser.value.lastName,
   profileImage: mainUser.value.profileImage,
@@ -321,7 +321,7 @@ const setUserHandle = (userId: string) => {
   console.log("setUserHandle  calıstı id : " + userId);
   connection.value.emit("setUser", {
     connectionId: connection.value.id,
-    id: mainUser.value.id.toString(),
+    id: mainUser.value.id,
     firstName: mainUser.value.firstName,
     lastName: mainUser.value.lastName,
     profileImage: mainUser.value.profileImage,
@@ -329,7 +329,7 @@ const setUserHandle = (userId: string) => {
   });
   user.value = {
     connectionId: connection.value.id,
-    id: mainUser.value.id.toString(),
+    id: mainUser.value.id,
     firstName: mainUser.value.firstName,
     lastName: mainUser.value.lastName,
     profileImage: mainUser.value.profileImage,
