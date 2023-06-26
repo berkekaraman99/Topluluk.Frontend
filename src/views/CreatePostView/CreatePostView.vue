@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="container">
-      <h1 class="text-center">Post Oluştur</h1>
+      <h1 class="text-center">Gönderi Oluştur</h1>
       <div class="row">
         <FormKit
           type="form"
@@ -11,6 +11,7 @@
             classes: {
               outer: 'mx-auto',
               wrapper: 'mx-auto',
+
               messages: 'text-center',
             },
           }"
@@ -20,10 +21,47 @@
           style="max-width: 512px"
         >
           <FormKit
+            v-model="postStyle"
+            type="radio"
+            label="Gönderi şeklini seçiniz"
+            :options="[
+              { label: 'Normal Gönderi', value: 'normal' },
+              { label: 'Topluluk için gönderi', value: 'community' },
+              {
+                label: 'Etkinlik için gönderi',
+                value: 'Event',
+                attrs: { disabled: true },
+              },
+            ]"
+            help=""
+            :classes="{
+              fieldset: 'mx-auto',
+              legend: 'mb-3',
+            }"
+          />
+
+          <FormKit
+            v-if="postStyle === 'community'"
+            type="select"
+            label="Gönderi yapılacak Topluluğu seçiniz"
+            name="country"
+            placeholder="Topluluk seçiniz"
+            v-model="communityId"
+          >
+            <option
+              v-for="community in userCommunities"
+              :key="community.id"
+              :value="community.id"
+            >
+              {{ community.title }}
+            </option>
+          </FormKit>
+
+          <FormKit
             type="textarea"
             label="Açıklama"
             validation="required"
-            v-model="postModel.description"
+            v-model="postDescription"
           />
           <FormKit
             type="file"
@@ -38,7 +76,7 @@
               loading
                 ? 'Oluşturuluyor'
                 : statusCode !== 200
-                ? 'Post Oluştur'
+                ? 'Gönderiyi Oluştur'
                 : 'Başarılı'
             "
             wrapper-class="mx-auto text-center"
@@ -54,16 +92,22 @@
 <script setup lang="ts">
 import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
-import { reactive, ref, onBeforeUnmount } from "vue";
+import { ref, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import type { ICreatePostModel } from "../../models/create_post_model";
+import { useCommunityStore } from "@/stores/community";
+
+const communityStore = useCommunityStore();
+const { _userCommunities: userCommunities } = storeToRefs(communityStore);
 
 const postStore = usePostStore();
 const router = useRouter();
-const postModel = reactive({
-  description: "",
-  files: null,
-});
+
+const postStyle = ref("normal");
+const postDescription = ref("");
+const postFiles = ref<FileList>();
+const communityId = ref("");
+
 const { _statusCode: statusCode } = storeToRefs(postStore);
 
 const loading = ref(false);
@@ -73,35 +117,40 @@ const changeLoadingState = () => {
 
 const onFileChange = (e: any) => {
   let files = e.target.files || e.dataTransfer.files;
-  postModel.files = files;
-  console.log(postModel.files);
+  postFiles.value = files;
+  console.log(postFiles.value);
 };
 
 const submitPost = async () => {
   changeLoadingState();
   const body = new FormData();
 
-  const pModel: ICreatePostModel = {
-    description: postModel.description,
-    files: postModel.files!,
-  };
+  body.append("description", postDescription.value);
 
-  body.append("description", pModel.description);
-
-  if (pModel.files !== null) {
-    for (let i = 0; i < pModel.files.length; i++) {
-      body.append("Files", pModel.files[i]);
+  if (postFiles.value != null) {
+    for (let i = 0; i < postFiles.value!.length; i++) {
+      body.append("Files", postFiles.value![i]);
     }
   } else {
     body.append("Files", "");
   }
 
-  await postStore.createPost(body).then(() => {
-    changeLoadingState();
-    setTimeout(() => {
-      router.push({ name: "home" });
-    }, 3000);
-  });
+  if (postStyle.value === "normal") {
+    await postStore.createPost(body).then(() => {
+      changeLoadingState();
+      setTimeout(() => {
+        router.push({ name: "home" });
+      }, 3000);
+    });
+  } else if (postStyle.value === "community") {
+    body.append("CommunityId", communityId.value);
+    await postStore.createPost(body).then(() => {
+      changeLoadingState();
+      setTimeout(() => {
+        router.push({ name: "home" });
+      }, 3000);
+    });
+  }
 };
 
 onBeforeUnmount(() => {

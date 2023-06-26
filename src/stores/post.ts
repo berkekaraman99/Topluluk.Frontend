@@ -3,11 +3,13 @@ import { instance } from "../utils/network_manager";
 import { defineStore } from "pinia";
 import type { IPostModel } from "@/models/post_model";
 import type { IComment } from "@/models/comment_model";
+import type { ICommunityPost } from "@/models/community_post_model";
 
 export const usePostStore = defineStore("postStore", {
   state: () => ({
     feed: [] as Array<IFeedPost>,
     userPosts: [] as Array<IPostModel>,
+    communityPosts: [] as Array<ICommunityPost>,
     savedPosts: [] as Array<IFeedPost>,
     post: {} as IPostModel,
     postComments: [] as Array<IComment>,
@@ -16,6 +18,8 @@ export const usePostStore = defineStore("postStore", {
   getters: {
     _feed: (state: any) => state.feed as Array<IFeedPost>,
     _userPosts: (state: any) => state.userPosts as Array<IPostModel>,
+    _communityPosts: (state: any) =>
+      state.communityPosts as Array<ICommunityPost>,
     _savedPosts: (state: any) => state.savedPosts as Array<IFeedPost>,
     _post: (state: any) => state.post as IPostModel,
     _postComments: (state: any) => state.postComments as Array<IComment>,
@@ -79,6 +83,17 @@ export const usePostStore = defineStore("postStore", {
       }
     },
 
+    async getCommunityPosts(communityId: string) {
+      try {
+        const res = await instance.get(`/Post/community/${communityId}`);
+        console.log(res.data);
+
+        this.communityPosts = res.data.data;
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    },
+
     async createPost(postObject: object) {
       try {
         const res = await instance.post("/post/create", postObject);
@@ -88,6 +103,10 @@ export const usePostStore = defineStore("postStore", {
         console.log(error.data);
       }
     },
+
+    // async createCommunityPost() {
+
+    // },
 
     async deletePost({ postId, userId }: any) {
       try {

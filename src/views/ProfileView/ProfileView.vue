@@ -186,7 +186,7 @@
                 :class="{ selected: category === 'posts' }"
                 id="posts"
                 @click="changeCategory('posts')"
-                >Postlar</span
+                >Gönderiler</span
               >
             </label>
           </div>

@@ -20,7 +20,7 @@ const links = [
   {
     id: 2,
     routeName: "createPost",
-    content: "Post Oluştur",
+    content: "Gönderi Oluştur",
     icon: "fa-solid fa-note-sticky",
   },
   {

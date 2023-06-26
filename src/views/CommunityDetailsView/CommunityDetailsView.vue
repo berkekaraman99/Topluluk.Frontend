@@ -29,8 +29,8 @@
 
             <div
               class="nav-link d-flex align-items-center justify-content-center justify-content-lg-start"
-              @click="changeCategory('Participiants')"
-              :class="{ selected: category === 'Participiants' }"
+              @click="changeCategory('Posts')"
+              :class="{ selected: category === 'Posts' }"
             >
               <input
                 type="radio"
@@ -38,9 +38,27 @@
                 id="radio-2"
                 class="radio"
                 value="radio2"
-                :checked="category === 'Participiants'"
+                :checked="category === 'Posts'"
               />
               <label for="radio-2">
+                <span class="fw-bold" id="posts">Gönderiler</span>
+              </label>
+            </div>
+
+            <div
+              class="nav-link d-flex align-items-center justify-content-center justify-content-lg-start"
+              @click="changeCategory('Participiants')"
+              :class="{ selected: category === 'Participiants' }"
+            >
+              <input
+                type="radio"
+                name="group-radio"
+                id="radio-3"
+                class="radio"
+                value="radio3"
+                :checked="category === 'Participiants'"
+              />
+              <label for="radio-3">
                 <span class="fw-bold" id="participiants">Üyeler </span>
               </label>
             </div>
@@ -54,12 +72,12 @@
               <input
                 type="radio"
                 name="group-radio"
-                id="radio-3"
+                id="radio-4"
                 class="radio"
-                value="radio3"
+                value="radio4"
                 :checked="category === 'Settings'"
               />
-              <label for="radio-3">
+              <label for="radio-4">
                 <span class="fw-bold" id="settings">Ayarlar</span>
               </label>
             </div>
@@ -143,6 +161,7 @@
                   :community="community"
                   v-if="category === 'About'"
                 />
+                <CommunityPosts :id="id" v-else-if="category === 'Posts'" />
                 <CommunityParticipiants
                   :community="community"
                   v-else-if="category === 'Participiants'"
@@ -172,6 +191,7 @@ import { useAuthStore } from "@/stores/auth";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import CommunitySettings from "@/components/common/community/CommunitySettings.vue";
 import type { ICommunity } from "@/models/community_model";
+import CommunityPosts from "@/components/common/community/CommunityPosts.vue";
 
 const props = defineProps({
   id: {
