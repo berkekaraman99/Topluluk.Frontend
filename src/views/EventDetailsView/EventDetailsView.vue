@@ -267,21 +267,24 @@ onUnmounted(() => {
 }
 
 .nav-link {
+  background-color: white;
+  font-weight: 500;
   height: 40px;
   width: 100%;
-  border-radius: 12px;
-  transition: 0.3s ease;
+  // border-radius: 12px;
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   padding: 0px 12px;
   margin: 3px 0px;
-  border: 1px solid white;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 
   @media screen and (max-width: 992px) {
     margin: 3px 4px;
   }
 
   &:hover {
-    background-color: rgb(245, 245, 245);
-    color: var(--color-text-dark);
+    color: var(--color-primary);
+    box-shadow: inset 8px 0px 0px -2px grey;
   }
 
   span {
@@ -290,9 +293,9 @@ onUnmounted(() => {
 }
 
 .selected {
-  color: var(--color-text);
-  background-color: var(--color-primary);
-  border: 1px solid var(--color-primary-hover);
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  box-shadow: inset 8px 0px 0px -2px var(--color-primary);
 }
 
 #eventAction {

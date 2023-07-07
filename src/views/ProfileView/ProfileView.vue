@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="container px-0">
       <div class="row">
-        <div class="col-12 col-lg-8 col-xl-9" v-if="loading">
+        <div class="col-12 col-lg-8 col-xl-9 px-0 mt-3" v-if="loading">
           <div class="profile-header position-relative placeholder-glow">
             <div class="profile-banner rounded-top-4 placeholder"></div>
             <div class="profile-image placeholder bg-black"></div>
@@ -16,13 +16,13 @@
                   <h3 class="placeholder col-3 me-1"></h3>
                   <h3 class="placeholder col-3 me-1"></h3>
                   <h3 class="placeholder col-3"></h3>
-                  <p class="placeholder col-12 h3"></p>
+                  <p class="placeholder col-12 h2 my-3"></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-8 col-xl-9 px-0" v-else>
+        <div class="col-12 col-lg-8 col-xl-9 px-0 mt-3" v-else>
           <div class="profile-header position-relative">
             <div
               class="profile-banner rounded-top-4 tw-bg-slate-100"
@@ -118,7 +118,7 @@
             @update-follower-count="() => (followerCount += 1)"
           />
         </div>
-        <div class="col-lg-4 col-xl-3 d-none d-sm-none d-lg-block">
+        <div class="col-lg-4 col-xl-3 d-none d-sm-none d-lg-block mt-3">
           <UserSuggestions />
         </div>
       </div>

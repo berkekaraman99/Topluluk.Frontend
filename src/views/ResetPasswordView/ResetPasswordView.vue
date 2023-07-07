@@ -286,23 +286,26 @@ input[type="number"] {
   text-align: center;
   margin: 24px 8px;
   border-radius: 10px;
-  transition: 0.3s;
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   box-sizing: border-box;
   border: 2px solid rgb(216, 216, 216);
   outline: none;
   font-size: 1.5rem;
-  box-shadow: 0px 2px 10px -5px black;
 
   &:not(:placeholder-shown) {
-    border-color: palevioletred;
+    // border-color: palevioletred;
+    box-shadow: inset 0 -5px 2px -2px palevioletred;
+  }
+  &:hover {
+    box-shadow: inset 0 -5px 2px -2px grey;
   }
   &:focus {
-    transition: 0.3s;
-    border-color: orange;
+    // border-color: orange;
+    box-shadow: inset 0 -5px 2px -2px var(--color-primary);
   }
-  &:active {
-    border-color: rebeccapurple;
-  }
+  // &:active {
+  //   border-color: rebeccapurple;
+  // }
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

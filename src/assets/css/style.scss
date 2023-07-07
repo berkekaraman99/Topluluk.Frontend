@@ -19,3 +19,27 @@
     opacity: 1;
   }
 }
+
+input {
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+
+  &:hover {
+    box-shadow: inset 0 -3px 2px -2px grey;
+  }
+
+  &:focus {
+    box-shadow: inset 0 -4px 2px -2px var(--color-primary);
+  }
+}
+
+textarea {
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+
+  &:hover {
+    box-shadow: inset 0 -4px 2px -2px grey;
+  }
+
+  &:focus {
+    box-shadow: inset 0 -4px 2px -2px var(--color-primary);
+  }
+}

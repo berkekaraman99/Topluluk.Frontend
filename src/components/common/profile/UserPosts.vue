@@ -1,10 +1,10 @@
 <template>
   <Transition name="scaleInOut" mode="out-in">
     <LoadingSpinner v-if="loading" />
-    <div v-else-if="userPosts.length === 0">
-      <h1 class="text-center fw-light">Post bulunamadı</h1>
+    <div class="my-5" v-else-if="userPosts.length === 0">
+      <h1 class="text-center fw-light">Burada hiç gönderi yok...</h1>
     </div>
-    <div class="container my-3" v-else-if="userPosts.length">
+    <div class="container my-3" v-else-if="userPosts.length > 0">
       <TransitionGroup
         appear
         @before-enter="beforeEnterFeed"
@@ -21,9 +21,6 @@
           <PostComponentProfile :post="post" />
         </div>
       </TransitionGroup>
-    </div>
-    <div class="container my-3" v-else>
-      <h1>Post bulunamadı</h1>
     </div>
   </Transition>
 </template>

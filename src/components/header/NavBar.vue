@@ -5,7 +5,7 @@
       <div>
         <span
           @click="togglebar"
-          class="pointer rounded-5 p-2 tw-transition tw-ease-in-out tw-duration-350 hover:tw-bg-slate-200"
+          class="pointer rounded-3 p-2 tw-transition tw-ease-in-out tw-duration-350 hover:tw-bg-slate-200"
           ><i class="fa-solid fa-bars-staggered fa-lg"></i
         ></span>
         <span
@@ -20,7 +20,6 @@
           <div class="d-flex align-items-center" v-if="user">
             <div class="dropdown create-nav">
               <button
-                class="dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -106,17 +105,17 @@ const leftBarToggle = ref(false);
 const togglebar = () => {
   const leftBar: HTMLElement = document.getElementById("left-bar")!;
   const navbar: HTMLElement = document.getElementById("navbar")!;
-  const mainEl: HTMLElement = document.getElementById("main")!;
+  const mainEl: HTMLElement = document.querySelector(".main")!;
 
   if (!leftBarToggle.value) {
     leftBar.style.left = "-64px";
     navbar.style.left = "0px";
-    mainEl.style.paddingLeft = "0px";
+    mainEl.style.paddingLeft = "12px";
     leftBarToggle.value = true;
   } else {
     leftBar.style.left = "0px";
     navbar.style.left = "64px";
-    mainEl.style.paddingLeft = "80px";
+    mainEl.style.paddingLeft = "76px";
     leftBarToggle.value = false;
   }
 };
@@ -124,7 +123,7 @@ const togglebar = () => {
 
 <style scoped lang="scss">
 #navbar {
-  transition: all 0.3s ease;
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   position: fixed;
   left: 64px;
   top: 0;
@@ -147,7 +146,7 @@ const togglebar = () => {
   border-radius: 6px;
   border: none;
   padding: 12px;
-  transition: all 0.3s ease;
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   margin: 0px 4px;
   height: 48px;
 

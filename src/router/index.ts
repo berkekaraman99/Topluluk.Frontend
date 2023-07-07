@@ -38,6 +38,12 @@ const routes = [
     props: true,
   },
   {
+    path: "/post/:postid/comment/:commentid",
+    name: "CommentReplies",
+    component: () => import("@/views/CommentRepliesView/CommentReplies.vue"),
+    props: true,
+  },
+  {
     path: "/profile/:id",
     name: "userprofile",
     component: () => import("@/views/UserProfileView/UserProfile.vue"),

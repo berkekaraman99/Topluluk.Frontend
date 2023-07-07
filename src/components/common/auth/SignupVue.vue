@@ -42,7 +42,7 @@
                 validation="required"
                 v-model="userObject.firstName"
                 :classes="{
-                  inner: 'rounded-5',
+                  inner: 'rounded-1',
                 }"
               />
               <FormKit
@@ -51,7 +51,7 @@
                 validation="required"
                 v-model="userObject.lastName"
                 :classes="{
-                  inner: 'rounded-5',
+                  inner: 'rounded-1',
                 }"
               />
               <FormKit
@@ -61,8 +61,8 @@
                 prefix-icon="email"
                 v-model="userObject.email"
                 :classes="{
-                  inner: 'rounded-5',
-                  prefixIcon: 'rounded-5',
+                  inner: 'rounded-1',
+                  prefixIcon: 'rounded-1',
                 }"
               />
             </FormKit>
@@ -75,8 +75,8 @@
                 v-model="userObject.userName"
                 prefix-icon="avatarMan"
                 :classes="{
-                  inner: 'rounded-5',
-                  prefixIcon: 'rounded-5',
+                  inner: 'rounded-1',
+                  prefixIcon: 'rounded-1',
                 }"
               />
               <FormKit
@@ -86,8 +86,8 @@
                 v-model="userObject.password"
                 prefix-icon="password"
                 :classes="{
-                  inner: 'rounded-5',
-                  prefixIcon: 'rounded-5',
+                  inner: 'rounded-1',
+                  prefixIcon: 'rounded-1',
                 }"
               />
               <FormKit
@@ -102,7 +102,7 @@
                 validation="required"
                 v-model="userObject.gender"
                 :classes="{
-                  inner: 'rounded-5',
+                  inner: 'rounded-1',
                 }"
               />
             </FormKit>
@@ -128,7 +128,7 @@
               'mx-auto text-center': true,
             }"
             :classes="{
-              input: 'rounded-5',
+              input: 'rounded-1',
             }"
           />
         </FormKit>

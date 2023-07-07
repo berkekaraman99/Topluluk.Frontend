@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 import type { IPostModel } from "@/models/post_model";
 import type { IComment } from "@/models/comment_model";
 import type { ICommunityPost } from "@/models/community_post_model";
+import type { ICreateComment } from "@/models/create_comment_model";
 
 export const usePostStore = defineStore("postStore", {
   state: () => ({
@@ -13,6 +14,9 @@ export const usePostStore = defineStore("postStore", {
     savedPosts: [] as Array<IFeedPost>,
     post: {} as IPostModel,
     postComments: [] as Array<IComment>,
+    comment: {} as IComment,
+    commentNode: [] as Array<IComment>,
+    commentReplies: [] as Array<IComment>,
     statusCode: 0 as number,
   }),
   getters: {
@@ -23,6 +27,9 @@ export const usePostStore = defineStore("postStore", {
     _savedPosts: (state: any) => state.savedPosts as Array<IFeedPost>,
     _post: (state: any) => state.post as IPostModel,
     _postComments: (state: any) => state.postComments as Array<IComment>,
+    _comment: (state: any) => state.comment as IComment,
+    _commentNode: (state: any) => state.commentNode as Array<IComment>,
+    _commentReplies: (state: any) => state.commentReplies as Array<IComment>,
     _statusCode: (state: any) => state.statusCode as number,
   },
   actions: {
@@ -30,7 +37,8 @@ export const usePostStore = defineStore("postStore", {
       try {
         const res = await instance.get(`/Post/feed?take=10&skip=${skip}`);
         console.log(res.data.data);
-        res.data.data.forEach((element: IFeedPost) => this.feed.push(element));
+        this.feed = res.data.data;
+        // res.data.data.forEach((element: IFeedPost) => this.feed.push(element));
       } catch (error: any) {
         console.log(error.message);
       }
@@ -40,9 +48,10 @@ export const usePostStore = defineStore("postStore", {
       try {
         const res = await instance.get(`/Post/User/${userId}?skip=0&take=10`);
         console.log(res.data.data);
-        res.data.data.forEach((element: IPostModel) =>
-          this.userPosts.push(element)
-        );
+        this.userPosts = res.data.data;
+        // res.data.data.forEach((element: IPostModel) =>
+        //   this.userPosts.push(element)
+        // );
       } catch (error: any) {
         console.log(error.message);
       }
@@ -75,9 +84,32 @@ export const usePostStore = defineStore("postStore", {
 
     async getPostComments(id: string) {
       try {
-        const res = await instance.get(`/post/comments?id=${id}`);
+        const res = await instance.get(`/post/${id}/comments?skip=0&take=10`);
         console.log(res.data.data);
         this.postComments = res.data.data;
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    },
+
+    async getCommentReplies(commentId: string) {
+      try {
+        const res = await instance.get(
+          `/post/comment/${commentId}/replies?skip=0&take=10`
+        );
+        console.log(res.data);
+        this.commentReplies = res.data.data;
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    },
+
+    async interactComment(commentId: string, interactionType: string) {
+      try {
+        const res = await instance.get(
+          `/post/comment/${commentId}/interaction?type=${interactionType}`
+        );
+        console.log(res.data);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -104,10 +136,6 @@ export const usePostStore = defineStore("postStore", {
       }
     },
 
-    // async createCommunityPost() {
-
-    // },
-
     async deletePost({ postId, userId }: any) {
       try {
         const res = await instance.post("/post/delete", { postId });
@@ -119,7 +147,7 @@ export const usePostStore = defineStore("postStore", {
       }
     },
 
-    async createComment(message: object) {
+    async createComment(message: ICreateComment) {
       try {
         const res = await instance.post("/Post/Comment", message);
         console.log(res.data);

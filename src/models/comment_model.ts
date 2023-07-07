@@ -9,5 +9,6 @@ export interface IComment {
   lastName: string;
   message: string;
   profileImage: string | null;
+  replyCount: number;
   userId: string;
 }

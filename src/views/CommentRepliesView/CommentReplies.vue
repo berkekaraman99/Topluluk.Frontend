@@ -1,7 +1,7 @@
 <template>
   <Transition name="scaleInOut" mode="out-in">
     <LoadingSpinner v-if="loading" />
-    <div class="container my-3" v-else-if="post">
+    <div class="container my-3" v-else-if="comment">
       <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 my-4">
           <div class="card shadow-sm">
@@ -11,136 +11,46 @@
                   <div
                     class="post-profile-image"
                     :style="{
-                      'background-image': 'url(' + post.profileImage + ')',
+                      'background-image': 'url(' + comment.profileImage + ')',
                       'background-color': 'grey',
                     }"
                   ></div>
                   <div class="mx-3">
                     <div class="fw-bold">
-                      {{ post.firstName }} {{ post.lastName }}
+                      {{ comment.firstName }} {{ comment.lastName }}
                     </div>
                     <small>
-                      {{ formatTime(post.createdAt) }}
+                      {{ formatTime(comment.createdAt) }}
                     </small>
                   </div>
-                </div>
-                <div v-if="post.userId != user.id">
-                  <a href="#" class="text-decoration-none">{{
-                    post.isUserFollowing ? null : "+ Follow"
-                  }}</a>
                 </div>
               </div>
             </div>
 
             <div class="card-body p-0">
               <div class="my-4 px-3">
-                <p>{{ post.description }}</p>
-              </div>
-              <div
-                :id="`carousel${post.id}`"
-                class="carousel slide"
-                v-if="post.files.length"
-              >
-                <div class="carousel-inner">
-                  <div
-                    class="carousel-item"
-                    :class="{ active: post.files[0] === file }"
-                    v-for="file in post.files"
-                    :key="file.file"
-                  >
-                    <img
-                      v-if="file.type === 1 || file.type === 0"
-                      :src="file.file"
-                      class="d-block w-100 img-fluid"
-                      alt="image"
-                      style="transition: 0.1s"
-                    />
-                    <video
-                      controls
-                      v-else-if="file.type === 2"
-                      :src="file.file"
-                      class="d-block w-100"
-                    ></video>
-                  </div>
-                </div>
-                <button
-                  class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y"
-                  type="button"
-                  :data-bs-target="`#carousel${post.id}`"
-                  data-bs-slide="prev"
-                  v-if="post.files.length !== 1"
-                >
-                  <i class="fa-solid fa-circle-chevron-left fa-lg"></i>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button
-                  class="carousel-control-next position-absolute top-50 end-0 translate-middle-y"
-                  type="button"
-                  :data-bs-target="`#carousel${post.id}`"
-                  data-bs-slide="next"
-                  v-if="post.files.length !== 1"
-                >
-                  <i class="fa-solid fa-circle-chevron-right fa-lg"></i>
-                  <span class="visually-hidden">Next</span>
-                </button>
+                <p>{{ comment.message }}</p>
               </div>
             </div>
 
-            <div class="card-footer px-0">
-              <div
-                id="interactionPreviews"
-                class="container"
-                v-if="post.interactionPreviews != null"
-              >
-                <span
-                  v-for="interactionPreview in post.interactionPreviews"
-                  :key="interactionPreview.interaction"
-                >
-                  <span v-if="interactionPreview.interaction === 0"
-                    ><img
-                      src="@/assets/images/interactions/ic_like.png"
-                      alt="Like"
-                      height="32"
-                    />
-                  </span>
-                  <span v-if="interactionPreview.interaction === 1"
-                    ><img
-                      src="@/assets/images/interactions/ic_celebrate.png"
-                      alt="Celebrate"
-                      height="32"
-                    />
-                  </span>
-                  <span v-if="interactionPreview.interaction === 2"
-                    ><img
-                      src="@/assets/images/interactions/ic_support.png"
-                      alt="Support"
-                      height="32"
-                    />
-                  </span>
-                  <span v-if="interactionPreview.interaction === 3"
-                    ><img
-                      src="@/assets/images/interactions/ic_insight.png"
-                      alt="Insightfull"
-                      height="32"
-                    />
-                  </span>
-                  <span v-if="interactionPreview.interaction === 4"
-                    ><img
-                      src="@/assets/images/interactions/ic_dislike.png"
-                      alt="Dislike"
-                      height="32"
-                    />
-                  </span>
-                </span>
-                <span v-if="post.interactionCount === 1" class="ms-2">
-                  {{ post.interactionCount }} İfade
-                </span>
-                <span v-else-if="post.interactionCount !== 0" class="ms-2">
-                  {{ post.interactionCount }} İfade
-                </span>
-              </div>
-              <div class="container">
-                <InPostActions :post="post" />
+            <div class="card-footer border-0">
+              <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center">
+                  <div class="fs-5 mx-1">0</div>
+                  <div
+                    class="rounded-3 py-1 hover:tw-bg-orange-500 hover:tw-text-white tw-transition tw-ease-in-out tw-duration-300 pointer"
+                  >
+                    <i class="fa-solid fa-arrow-up fa-lg mx-2"></i>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <div class="fs-5 mx-1">0</div>
+                  <div
+                    class="rounded-3 py-1 hover:tw-bg-purple-500 hover:tw-text-white tw-transition tw-ease-in-out tw-duration-300 pointer"
+                  >
+                    <i class="fa-solid fa-arrow-down fa-lg mx-2"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -215,15 +125,14 @@
             >
               <div
                 class="my-2"
-                v-for="(comment, index) in comments"
-                v-bind:key="comment.id"
+                v-for="(reply, index) in commentReplies"
+                v-bind:key="reply.id"
                 :data-index="index"
               >
-                <CommentVue
-                  :comment="comment"
+                <ReplyVue
+                  :comment="reply"
+                  :post-id="postid"
                   :user-id="user.id"
-                  :post-id="post.id"
-                  @delete-comment="deleteComment"
                 />
               </div>
             </TransitionGroup>
@@ -239,16 +148,19 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount } from "vue";
 import gsap from "gsap";
-import moment from "moment";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { usePostStore } from "@/stores/post";
-import CommentVue from "@/components/shared/CommentVue.vue";
-import InPostActions from "@/components/shared/InPostActions.vue";
+import ReplyVue from "@/components/shared/ReplyVue.vue";
+import moment from "moment";
 
 const props = defineProps({
-  id: {
+  commentid: {
+    type: String,
+    required: true,
+  },
+  postid: {
     type: String,
     required: true,
   },
@@ -279,6 +191,7 @@ const leaveFeed: any = (el: HTMLElement) => {
     delay: 0.1 * index,
   });
 };
+
 const loading = ref(true);
 const changeLoadingState = () => {
   loading.value = !loading.value;
@@ -289,14 +202,9 @@ const { _user: user } = storeToRefs(authStore);
 const message = ref("");
 
 const postStore = usePostStore();
-postStore.getPostById(props.id).then(changeLoadingState);
-postStore.getPostComments(props.id);
+postStore.getCommentReplies(props.commentid).then(changeLoadingState);
 
-const formatTime = (time: any) => {
-  return moment(time).fromNow();
-};
-
-const { _statusCode: statusCode } = storeToRefs(postStore);
+const { _statusCode: statusCode, _comment: comment } = storeToRefs(postStore);
 
 const isPosting = ref(false);
 const changePostingState = () => {
@@ -307,13 +215,13 @@ const createComment = async () => {
   changePostingState();
   await postStore
     .createComment({
-      postId: props.id,
-      parentCommentId: "",
+      postId: props.postid,
+      parentCommentId: props.commentid,
       message: message.value,
     })
     .then(async () => {
       changePostingState();
-      await postStore.getPostComments(props.id);
+      await postStore.getCommentReplies(props.commentid);
       setTimeout(() => {
         postStore.$patch({
           statusCode: 0,
@@ -322,11 +230,12 @@ const createComment = async () => {
     });
   message.value = "";
 };
-const deleteComment = async (commentId: string, postId: string) => {
-  await postStore.deleteComment({ commentId, postId });
-};
 
-const { _post: post, _postComments: comments } = storeToRefs(postStore);
+const { _commentReplies: commentReplies } = storeToRefs(postStore);
+
+const formatTime = (time: any) => {
+  return moment(time).fromNow();
+};
 
 onBeforeUnmount(() => {
   postStore.$patch({

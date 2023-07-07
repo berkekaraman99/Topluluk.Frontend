@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100">
+  <div class="min-vh-100">
     <!-- NAVBAR -->
     <Transition name="fade">
       <NavBar
@@ -24,9 +24,9 @@
     </Transition>
 
     <div
-      id="main"
+      class="main"
       :class="{
-        'container-fluid':
+        'container-fluid ps-0':
           $route.name === 'login' ||
           $route.name === 'signup' ||
           $route.name === 'forgetpassword',
@@ -36,13 +36,6 @@
           $route.name !== 'forgetpassword',
       }"
       :style="{
-        'padding-left':
-          $route.name === 'login' ||
-          $route.name === 'signup' ||
-          $route.name === 'forgetpassword'
-            ? '0px'
-            : '80px',
-
         'padding-top':
           $route.name === 'login' ||
           $route.name === 'signup' ||
@@ -51,11 +44,11 @@
             : '64px',
       }"
     >
-      <div class="row">
+      <div class="row overflow-hidden h-100">
         <!-- SIDEBAR LEFT -->
         <Transition name="scaleInOut" mode="out-in">
           <div
-            class="col-md-1 col-lg-2 px-0 px-0 pe-sm-0 pe-md-2 pe-lg-0"
+            class="col-md-1 col-lg-2"
             v-if="
               $route.name === 'home' ||
               $route.name === 'communities' ||
@@ -69,9 +62,9 @@
 
         <!-- MAIN - ROUTER.VIEW -->
         <main
-          class="col-12 col-md-11 col-lg-7 col-xl-7 px-0"
+          class="col-12 col-sm-12 col-md-11 col-lg-7 col-xl-7 px-4 px-md-0"
           :class="{
-            'col-md-12 col-lg-12 col-xl-12':
+            'col-md-12 col-lg-12 col-xl-12 px-0':
               $route.name !== 'home' &&
               $route.name !== 'search' &&
               $route.name !== 'communities' &&
@@ -111,15 +104,15 @@ import LeftBar from "./components/shared/LeftBar.vue";
 </script>
 
 <style lang="scss">
-#main {
+.main {
   // position: relative;
   // top: 64px;
   // left: 64px;
   // bottom: 0;
   // right: 0;
   // overflow: hidden;
-  transition: all 0.3s ease;
-  padding-left: 80px;
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  padding-left: 76px;
   padding-top: 80px;
 }
 </style>

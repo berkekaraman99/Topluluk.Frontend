@@ -1,10 +1,10 @@
 <template>
   <Transition name="scaleInOut" mode="out-in">
     <LoadingSpinner v-if="loading" />
-    <div v-else-if="userCommunities.length === 0">
+    <div class="my-5" v-else-if="userCommunities.length === 0">
       <h1 class="text-center fw-light">Burada hiç topluluk yok...</h1>
     </div>
-    <div class="row" v-else-if="userCommunities.length">
+    <div class="row" v-else-if="userCommunities.length > 0">
       <TransitionGroup
         appear
         @before-enter="beforeEnterCommunity"
@@ -73,9 +73,6 @@
           </RouterLink>
         </div>
       </TransitionGroup>
-    </div>
-    <div class="my-3" v-else>
-      <p class="text-center fs-5">Burada hiç topluluk yok...</p>
     </div>
   </Transition>
 </template>

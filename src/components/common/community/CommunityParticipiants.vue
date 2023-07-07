@@ -48,6 +48,7 @@
     <div>
       <div>
         <input
+          v-if="searchedParticipiants.length >= 1"
           type="text"
           class="form-control form-control-lg mb-3"
           :placeholder="user ? 'Üye ara' : 'Please login to search'"

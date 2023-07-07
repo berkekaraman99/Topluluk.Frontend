@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="" id="suggestions" v-if="!loading">
-      <div class="card-header p-0 border-bottom">
-        <h4 class="fw-bold my-3 text-center">Takip Önerileri</h4>
+    <div class="card border rounded-3" id="suggestions" v-if="!loading">
+      <div class="card-header p-0">
+        <h4 class="fw-medium my-3 text-center">Takip Önerileri</h4>
       </div>
       <div class="card-body py-0 tw-px-1 overflow-auto">
         <ul class="list-unstyled">
@@ -14,7 +14,7 @@
           </div>
           <li
             v-else
-            class="py-3 px-3 my-2 suggestion card tw-bg-slate-50"
+            class="py-3 px-3 my-2 suggestion card"
             v-for="suggested in suggestions"
             v-bind:key="suggested.id"
           >
@@ -50,14 +50,16 @@
                     :to="{ name: 'userprofile', params: { id: suggested.id } }"
                     class="text-decoration-none"
                   >
-                    <div class="fw-bold text-black">
+                    <div class="fw-medium text-black">
                       {{ suggested.firstName }} {{ suggested.lastName }}
                     </div>
                   </RouterLink>
                   <!-- <div class="text-secondary">@{{ suggested.userName }}</div> -->
-                  <div>{{ suggested.mutualFriendCount }} ortak arkadaş</div>
+                  <div class="fw-light">
+                    {{ suggested.mutualFriendCount }} ortak arkadaş
+                  </div>
                   <button
-                    class="btn follow px-4 mt-2"
+                    class="btn follow px-4 mt-2 fw-light"
                     @click="followUser(suggested)"
                   >
                     Takip Et
@@ -142,6 +144,6 @@ const followUser = async (user: IFollowSuggestion) => {
 }
 .suggestion:hover {
   transition: 0.4s all;
-  background-color: rgb(222, 222, 222);
+  background-color: rgb(241, 245, 249);
 }
 </style>

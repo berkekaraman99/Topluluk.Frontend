@@ -3,13 +3,13 @@
     id="community-suggestions"
     class="mb-4 mb-md-4 mb-lg-0 d-none d-md-none d-lg-flex flex-column"
   >
-    <div class="card">
-      <div class="card-header border rounded-top-3 px-md-4 px-xl-5">
+    <div class="card border rounded-3 overflow-hidden">
+      <div class="card-header px-md-4 px-xl-5">
         <div class="fw-bold text-start text-lg-center fs-6">
           Topluluk Önerileri
         </div>
       </div>
-      <div class="card-body p-0 border rounded-bottom-3 overflow-hidden">
+      <div class="card-body p-0">
         <div
           v-if="communityList.length === 0"
           class="d-flex align-items-center justify-content-center py-5"
@@ -43,7 +43,7 @@
                 class="suggestion-profile-image bg-secondary me-4"
               ></div>
               <div>
-                <div class="fw-bold text-black">
+                <div class="fw-light text-black">
                   {{ community.title }}
                 </div>
               </div>

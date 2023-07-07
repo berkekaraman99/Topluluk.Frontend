@@ -1,8 +1,9 @@
 <template>
   <div id="left-bar" class="bg-body-tertiary border-end">
-    <div
-      class="d-flex flex-column justify-content-center align-items-center mt-1"
-    >
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <div class="tw-bg-slate-200 w-100 text-center py-2 mb-1">
+        <i class="fa-solid fa-people-group"></i>
+      </div>
       <div
         class="tt my-1"
         v-for="community in communities"
@@ -18,9 +19,11 @@
           }"
         >
           <div
+            v-if="community.coverImage != null"
             class="cover-preview tw-bg-slate-200 shadow-sm"
             :style="{ 'background-image': `url(${community.coverImage})` }"
           ></div>
+          <div v-else class="cover-preview tw-bg-slate-200 shadow-sm"></div>
         </RouterLink>
       </div>
     </div>
@@ -51,7 +54,7 @@ const { _userCommunities: communities } = storeToRefs(communityStore);
 
 <style lang="scss" scoped>
 #left-bar {
-  transition: all 0.3s ease;
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   position: fixed;
   bottom: 0;
   top: 0;
@@ -59,17 +62,19 @@ const { _userCommunities: communities } = storeToRefs(communityStore);
   z-index: 1;
 }
 .cover-preview {
-  transition: 0.3s linear;
+  transition: all 0.1s ease;
   width: 48px;
   height: 48px;
   border-radius: 99px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  border: 1px solid rgb(226, 232, 240);
 
   &:hover {
-    transition: 0.3s ease;
+    // transition: all 0.4s ease;
     border-radius: 18px;
+    border: 1px solid var(--color-primary);
   }
 }
 </style>

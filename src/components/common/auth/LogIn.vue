@@ -42,8 +42,8 @@
               'formkit-wrapper': false,
             }"
             :classes="{
-              inner: 'rounded-5',
-              prefixIcon: 'rounded-5',
+              inner: 'rounded-1',
+              prefixIcon: 'rounded-1',
             }"
           />
           <FormKit
@@ -60,8 +60,8 @@
               'formkit-wrapper': false,
             }"
             :classes="{
-              inner: 'rounded-5',
-              prefixIcon: 'rounded-5',
+              inner: 'rounded-1',
+              prefixIcon: 'rounded-1',
             }"
           />
           <div class="d-flex justify-content-between align-items-center my-3">
@@ -230,9 +230,18 @@ const handleLogin = async () => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 div .row {
   max-width: 600px;
   min-width: 300px;
+}
+
+input[type="password"] {
+  &:hover {
+    box-shadow: inset none !important;
+  }
+  &:focus {
+    box-shadow: inset none !important;
+  }
 }
 </style>

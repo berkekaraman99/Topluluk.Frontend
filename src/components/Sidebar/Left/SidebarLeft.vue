@@ -1,55 +1,53 @@
 <template>
-  <div class="d-flex justify-content-center">
-    <div
-      id="sidebar-left"
-      class="d-flex align-items-start justify-content-start flex-column flex-sm-row flex-md-column flex-lg-column"
+  <div
+    id="sidebar-left"
+    class="d-flex align-items-start justify-content-start flex-column flex-sm-row flex-md-column flex-lg-column"
+  >
+    <RouterLink
+      :to="{ name: 'home' }"
+      class="sidebar-link justify-content-center justify-content-md-center justify-content-lg-start"
     >
-      <RouterLink
-        :to="{ name: 'home' }"
-        class="sidebar-link justify-content-center justify-content-md-center justify-content-lg-start"
-      >
-        <TabVue>
-          <template v-slot:icon>
-            <i class="fa-solid fa-bolt"></i>
-          </template>
-          <template v-slot:name> Akış </template>
-        </TabVue>
-      </RouterLink>
+      <TabVue>
+        <template v-slot:icon>
+          <i class="fa-solid fa-bolt"></i>
+        </template>
+        <template v-slot:name> Akış </template>
+      </TabVue>
+    </RouterLink>
 
-      <RouterLink
-        :to="{ name: 'events' }"
-        class="sidebar-link justify-content-center justify-content-md-center justify-content-lg-start"
-      >
-        <TabVue>
-          <template v-slot:icon>
-            <i class="fa-solid fa-calendar-days"></i>
-          </template>
-          <template v-slot:name> Etkinliklerim </template>
-        </TabVue>
-      </RouterLink>
-      <RouterLink
-        :to="{ name: 'communities' }"
-        class="sidebar-link justify-content-center justify-content-md-center justify-content-lg-start"
-      >
-        <TabVue>
-          <template v-slot:icon>
-            <i class="fa-solid fa-people-group"></i>
-          </template>
-          <template v-slot:name> Topluluklar </template>
-        </TabVue>
-      </RouterLink>
-      <RouterLink
-        :to="{ name: 'search' }"
-        class="sidebar-link justify-content-center justify-content-md-center justify-content-lg-start"
-      >
-        <TabVue>
-          <template v-slot:icon>
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </template>
-          <template v-slot:name> Arama </template>
-        </TabVue>
-      </RouterLink>
-    </div>
+    <RouterLink
+      :to="{ name: 'events' }"
+      class="sidebar-link justify-content-center justify-content-md-center justify-content-lg-start"
+    >
+      <TabVue>
+        <template v-slot:icon>
+          <i class="fa-solid fa-calendar-days"></i>
+        </template>
+        <template v-slot:name> Etkinliklerim </template>
+      </TabVue>
+    </RouterLink>
+    <RouterLink
+      :to="{ name: 'communities' }"
+      class="sidebar-link justify-content-center justify-content-md-center justify-content-lg-start"
+    >
+      <TabVue>
+        <template v-slot:icon>
+          <i class="fa-solid fa-people-group"></i>
+        </template>
+        <template v-slot:name> Topluluklar </template>
+      </TabVue>
+    </RouterLink>
+    <RouterLink
+      :to="{ name: 'search' }"
+      class="sidebar-link justify-content-center justify-content-md-center justify-content-lg-start"
+    >
+      <TabVue>
+        <template v-slot:icon>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </template>
+        <template v-slot:name> Arama </template>
+      </TabVue>
+    </RouterLink>
   </div>
 </template>
 
@@ -81,19 +79,21 @@ import TabVue from "./TabVue.vue";
 }
 
 .sidebar-link {
+  background-color: white;
   font-weight: 500;
   height: 40px;
   width: 100%;
-  border-radius: 0.7rem;
-  transition: 0.35s ease;
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   margin: 3px 0px;
-  border: 1px solid white;
   display: flex;
   text-decoration: none;
   color: rgb(27, 27, 27);
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 
   &:hover {
     color: var(--color-primary);
+    box-shadow: inset 8px 0px 0px -2px grey;
   }
 
   @media screen and (max-width: 992px) {
@@ -107,8 +107,7 @@ import TabVue from "./TabVue.vue";
 
 a.router-link-exact-active {
   color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-
-  box-shadow: 1px 1px 7px -5px black;
+  background-color: var(--color-secondary);
+  box-shadow: inset 8px 0px 0px -2px var(--color-primary);
 }
 </style>

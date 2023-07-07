@@ -41,7 +41,6 @@
                     </li>
                     <li
                       class="dropdown-item text-danger"
-                      @click="deleteComment(props.comment.id, props.postId)"
                       v-if="props.comment.userId === props.userId"
                     >
                       <i class="fa-regular fa-trash-can"></i>
@@ -165,14 +164,14 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["deleteComment"]);
-
-const deleteComment = (commentId: String, postId: string) => {
-  emit("deleteComment", commentId, postId);
-};
-
 const postStore = usePostStore();
 const { _statusCode: statusCode } = storeToRefs(postStore);
+
+const message = ref(props.comment.message);
+const loading = ref(false);
+const changeLoadingState = () => {
+  loading.value = !loading.value;
+};
 
 const setComment = (comment: IComment) => {
   postStore.$patch({
@@ -180,12 +179,6 @@ const setComment = (comment: IComment) => {
     commentReplies: [],
   });
   postStore.commentNode.push(comment);
-};
-
-const message = ref(props.comment.message);
-const loading = ref(false);
-const changeLoadingState = () => {
-  loading.value = !loading.value;
 };
 
 const isCommentEditable = ref(false);

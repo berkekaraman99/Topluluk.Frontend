@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="container">
       <div class="row">
-        <div class="col-12" v-if="loading">
+        <div class="col-12 mt-3" v-if="loading">
           <div class="profile-header position-relative placeholder-glow">
             <div class="profile-banner rounded-top-4 placeholder"></div>
             <div class="profile-image placeholder bg-black"></div>
@@ -49,7 +49,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12" v-else>
+        <div class="col-12 mt-3" v-else>
           <div class="profile-header position-relative">
             <div
               class="profile-banner rounded-top-4 tw-bg-slate-100"
@@ -92,15 +92,21 @@
                   <div
                     class="me-3 pointer"
                     :data-bs-toggle="
-                      !currentUser.isPrivate || currentUser.isFollowing
-                        ? 'modal'
-                        : null
+                      currentUser.isPrivate || currentUser.isBlocked
+                        ? null
+                        : 'modal'
                     "
                     data-bs-target="#followers"
-                    @click="getFollowers"
+                    @click="
+                      currentUser.isPrivate || currentUser.isBlocked
+                        ? null
+                        : getFollowers()
+                    "
                   >
                     <h3 class="fw-bold d-inline-block">
-                      {{ currentUser.followersCount }}
+                      {{
+                        currentUser.isBlocked ? "-" : currentUser.followersCount
+                      }}
                     </h3>
                     Takipçiler
                   </div>
@@ -108,15 +114,21 @@
                   <div
                     class="me-3 pointer"
                     :data-bs-toggle="
-                      !currentUser.isPrivate || currentUser.isFollowing
-                        ? 'modal'
-                        : null
+                      currentUser.isPrivate || currentUser.isBlocked
+                        ? null
+                        : 'modal'
                     "
                     data-bs-target="#followings"
-                    @click="getFollowings"
+                    @click="
+                      currentUser.isPrivate || currentUser.isBlocked
+                        ? null
+                        : getFollowings()
+                    "
                   >
                     <h3 class="fw-bold d-inline-block">
-                      {{ currentUser.followingCount }}
+                      {{
+                        currentUser.isBlocked ? "-" : currentUser.followingCount
+                      }}
                     </h3>
                     Takipler
                   </div>
@@ -131,17 +143,19 @@
               </div>
               <div class="d-flex justify-content-center align-self-baseline">
                 <button
-                  class="btn follow px-4"
+                  class="btn follow px-4 fw-light"
                   @click="removeFollowRequest(currentUser)"
                   v-if="currentUser.isFollowRequestSent"
                 >
                   Takip İsteğinden Vazgeç
                 </button>
                 <button
-                  class="btn follow px-4"
+                  class="btn follow px-4 fw-light"
                   @click="followUser(currentUser)"
                   v-else-if="
-                    currentUser.id !== user.id && !currentUser.isFollowing
+                    currentUser.id !== user.id &&
+                    !currentUser.isFollowing &&
+                    !currentUser.isBlocked
                   "
                 >
                   Takip Et

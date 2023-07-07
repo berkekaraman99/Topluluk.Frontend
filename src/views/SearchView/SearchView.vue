@@ -173,9 +173,14 @@ const handleSearch = async () => {
     width: 100px;
   }
 
+  &:hover {
+    box-shadow: inset 0 -4px 2px -2px grey;
+  }
+
   &:focus {
     width: 100%;
-    border-radius: 0.5rem;
+    border-radius: 4px;
+    box-shadow: inset 0 -4px 2px -2px var(--color-primary);
   }
 }
 .card {

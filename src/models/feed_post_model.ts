@@ -20,4 +20,5 @@ export interface IFeedPost {
   lastName: string;
   profileImage: string | null;
   userId: string;
+  username: string;
 }

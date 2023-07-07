@@ -2,7 +2,7 @@
   <div class="container">
     <Transition name="scaleInOut" mode="out-in">
       <LoadingSpinner v-if="isLoading" />
-      <div class="row" v-else>
+      <div class="row mt-3" v-else>
         <div class="col-12 col-sm-12 col-md-2 col-lg-2">
           <!-- Sidebar -->
           <div
@@ -261,7 +261,8 @@ onBeforeUnmount(() => {
   background-size: cover;
   background-position: center;
   height: 224px;
-  border-radius: 1.25rem;
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
 }
 
 .cover-image {
@@ -313,20 +314,23 @@ onBeforeUnmount(() => {
 }
 
 .nav-link {
+  background-color: white;
   font-weight: 500;
   height: 40px;
   width: 100%;
-  border-radius: 0.7rem;
-  transition: 0.35s ease;
+  // border-radius: 0.25rem;
+  transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   margin: 3px 0px;
-  border: 1px solid white;
   display: flex;
   text-decoration: none;
   color: rgb(27, 27, 27);
   padding: 0px 1rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 
   &:hover {
     color: var(--color-primary);
+    box-shadow: inset 8px 0px 0px -2px grey;
   }
 
   @media screen and (min-width: 993px) {
@@ -344,8 +348,10 @@ onBeforeUnmount(() => {
 
 .selected {
   color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+  background-color: var(--color-secondary);
+  box-shadow: inset 8px 0px 0px -2px var(--color-primary);
+  // border: 1px solid var(--color-primary);
 
-  box-shadow: 1px 1px 7px -5px black;
+  // box-shadow: 1px 1px 7px -5px black;
 }
 </style>

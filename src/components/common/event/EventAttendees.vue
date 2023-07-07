@@ -10,7 +10,9 @@
 
       <!-- ATTEND CARD -->
       <div v-for="attend in attendees" :key="attend">
-        <div class="card my-3 border">
+        <div
+          class="card my-3 border hover:tw-bg-slate-100 tw-transition tw-ease-in-out tw-duration-350"
+        >
           <div class="card-body d-flex align-items-center">
             <div
               alt="profile image"
@@ -38,9 +40,14 @@
               class="suggestion-profile-image me-4"
               v-else
             />
-            <span class="fw-bold">
-              {{ attend.firstName }} {{ attend.lastName }}
-            </span>
+            <RouterLink
+              :to="{ name: 'userprofile', params: { id: attend.id } }"
+              class="text-decoration-none tw-text-blue-800"
+            >
+              <span class="fw-bold">
+                {{ attend.firstName }} {{ attend.lastName }}
+              </span>
+            </RouterLink>
           </div>
         </div>
       </div>

@@ -1,12 +1,12 @@
 <template>
   <Transition name="scaleInOut" mode="out-in">
     <LoadingSpinner v-if="loading" />
-    <div v-else-if="userEvents.length === 0">
+    <div class="my-5" v-else-if="userEvents.length === 0">
       <h1 class="text-center fw-light">Burada hiç etkinlik yok...</h1>
     </div>
     <div
       class="row d-flex justify-content-center align-items-center"
-      v-else-if="userEvents.length"
+      v-else-if="userEvents.length > 0"
     >
       <TransitionGroup
         appear
