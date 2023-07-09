@@ -4,18 +4,6 @@
       <h1 class="display-6 fw-bold px-2">Arama</h1>
     </Transition>
     <div class="container">
-      <!-- <div class="col-8 offset-2">
-        <FormKit
-          type="search"
-          placeholder="Search..."
-          prefix-icon="search"
-          @keydown.enter="handleSearch"
-          v-model="search.text"
-          :classes="{
-            wrapper: 'mw-100',
-          }"
-        />
-      </div> -->
       <div class="col-6 offset-3 d-flex justify-content-center">
         <input
           type="text"
@@ -51,14 +39,12 @@
             ></div>
             <div class="d-flex justify-content-between align-items-center">
               <div class="d-flex align-items-center">
-                <div
-                  :style="{
-                    'background-image': `url(${item.profileImage})`,
-                  }"
+                <img
+                  :src="item.profileImage"
                   alt="profile image"
                   class="post-profile-image me-4"
                   v-if="item.profileImage"
-                ></div>
+                />
                 <img
                   src="@/assets/images/profile-man.png"
                   alt="profile-man"
@@ -157,6 +143,7 @@ const handleSearch = async () => {
 <style scoped lang="scss">
 #search-highlights {
   text-decoration: none;
+  border-radius: 8px;
 }
 
 #search {

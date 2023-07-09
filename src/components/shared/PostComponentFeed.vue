@@ -4,29 +4,27 @@
       <div class="card-header py-3">
         <div class="d-flex justify-content-between">
           <div class="d-flex align-items-center">
-            <div
-              class="post-profile-image"
-              :style="{
-                'background-image': `url(${post.profileImage})`,
-              }"
+            <img
               v-if="post.profileImage != null"
-            ></div>
+              class="post-profile-image"
+              :src="post.profileImage"
+            />
             <img
               src="@/assets/images/profile-man.png"
               alt="profile-man"
-              class="post-profile-image me-4"
+              class="post-profile-image"
               v-else-if="post.gender == 2"
             />
             <img
               src="@/assets/images/profile-woman.png"
               alt="profile-woman"
-              class="post-profile-image me-4"
+              class="post-profile-image"
               v-else-if="post.gender == 1"
             />
             <img
               src="@/assets/images/user.png"
               alt="profile"
-              class="post-profile-image me-4"
+              class="post-profile-image"
               v-else
             />
             <div class="mx-3">

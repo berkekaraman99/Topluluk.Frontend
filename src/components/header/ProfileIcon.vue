@@ -2,13 +2,12 @@
   <div class="dropdown user-options">
     <div data-bs-toggle="dropdown" aria-expanded="false">
       <div class="d-flex align-items-center justify-content-center">
-        <div
-          class="profile-icon"
-          :style="{
-            'background-image': `url(${user.profileImage})`,
-          }"
+        <img
           v-if="user.profileImage != null"
-        ></div>
+          class="profile-icon"
+          :src="user.profileImage"
+          alt="user icon"
+        />
         <img
           src="@/assets/images/profile-man.png"
           alt="profile-man"

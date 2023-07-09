@@ -27,16 +27,16 @@
               </div>
             </div>
 
-            <div class="card-body p-0">
-              <div class="my-4 px-3">
-                <p>{{ comment.message }}</p>
+            <div class="card-body py-2 px-1">
+              <div class="px-3">
+                <p class="mb-0">{{ comment.message }}</p>
               </div>
             </div>
 
             <div class="card-footer border-0">
               <div class="d-flex align-items-center">
                 <div class="d-flex align-items-center">
-                  <div class="fs-5 mx-1">0</div>
+                  <div class="tw-text-lg mx-1">0</div>
                   <div
                     class="rounded-3 py-1 hover:tw-bg-orange-500 hover:tw-text-white tw-transition tw-ease-in-out tw-duration-300 pointer"
                   >
@@ -44,7 +44,7 @@
                   </div>
                 </div>
                 <div class="d-flex align-items-center">
-                  <div class="fs-5 mx-1">0</div>
+                  <div class="tw-text-lg mx-1">0</div>
                   <div
                     class="rounded-3 py-1 hover:tw-bg-purple-500 hover:tw-text-white tw-transition tw-ease-in-out tw-duration-300 pointer"
                   >

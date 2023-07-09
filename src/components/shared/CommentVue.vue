@@ -6,21 +6,40 @@
           <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">
               <div class="d-flex align-items-center">
-                <div
-                  class="post-profile-image"
-                  :style="{
-                    'background-image': `url(${props.comment.profileImage})`,
-                    'background-color': 'grey',
-                  }"
-                ></div>
+                <div>
+                  <img
+                    class="comment-profile-image"
+                    v-if="comment.profileImage != null"
+                    :src="comment.profileImage"
+                    :alt="comment.firstName + comment.lastName"
+                  />
+                  <img
+                    src="@/assets/images/profile-man.png"
+                    alt="profile-man"
+                    class="comment-profile-image"
+                    v-else-if="comment.gender == 2"
+                  />
+                  <img
+                    src="@/assets/images/profile-woman.png"
+                    alt="profile-woman"
+                    class="comment-profile-image"
+                    v-else-if="comment.gender == 1"
+                  />
+                  <img
+                    src="@/assets/images/user.png"
+                    alt="profile"
+                    class="comment-profile-image"
+                    v-else
+                  />
+                </div>
                 <div class="mx-3">
                   <div>
-                    <div class="fw-bold">
+                    <div class="fw-bold tw-text-sm">
                       {{ props.comment.firstName }} {{ props.comment.lastName }}
                     </div>
-                    <small>
+                    <div class="tw-text-xs">
                       {{ formatTime(props.comment.createdAt) }}
-                    </small>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -55,9 +74,9 @@
               </div>
             </div>
           </div>
-          <div class="card-body" v-if="!isCommentEditable">
-            <p>
-              {{ props.comment.message }}
+          <div class="card-body py-2" v-if="!isCommentEditable">
+            <p class="mb-0">
+              <span class="tw-text-sm">{{ props.comment.message }}</span>
               <span
                 v-if="props.comment.isEdited"
                 class="text-secondary-emphasis fst-italic tw-text-xs"
@@ -101,8 +120,8 @@
           </div>
           <div class="card-footer border-0">
             <div class="d-flex align-items-center">
-              <div class="d-flex align-items-center">
-                <div class="fs-5 mx-1">0</div>
+              <div class="d-flex align-items-center justify-content-center">
+                <div class="tw-text-lg mx-1">0</div>
                 <div
                   class="rounded-3 py-1 hover:tw-bg-orange-500 hover:tw-text-white tw-transition tw-ease-in-out tw-duration-300 pointer"
                 >
@@ -110,7 +129,7 @@
                 </div>
               </div>
               <div class="d-flex align-items-center">
-                <div class="fs-5 mx-1">0</div>
+                <div class="tw-text-lg mx-1">0</div>
                 <div
                   class="rounded-3 py-1 hover:tw-bg-purple-500 hover:tw-text-white tw-transition tw-ease-in-out tw-duration-300 pointer"
                 >
@@ -119,7 +138,7 @@
               </div>
 
               <div class="d-flex align-items-center">
-                <div class="fs-5 mx-1">{{ comment.replyCount }}</div>
+                <div class="tw-text-lg mx-1">{{ comment.replyCount }}</div>
                 <RouterLink
                   :to="{
                     name: 'CommentReplies',

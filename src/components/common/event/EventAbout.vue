@@ -9,37 +9,42 @@
         <div class="col-12 col-md-12 col-lg-6">
           <div class="card-text d-flex my-3">
             <div class="me-4">
-              <i class="fa-solid fa-calendar-days"></i>
               <div>
-                <p class="fw-bold mb-0 mt-3">Başlangıç Tarihi</p>
-                <span>
+                <p class="fw-medium tw-text-lg mb-0">
+                  <i class="fa-solid fa-calendar-days"></i> Başlangıç Tarihi
+                </p>
+                <span class="tw-text-sm">
                   {{ formatTime(currentEvent.startDate) }}
                 </span>
               </div>
               <div>
-                <p class="fw-bold mb-0 mt-3">Bitiş Tarihi</p>
-                <span>
+                <p class="fw-medium tw-text-lg mb-0 mt-3">
+                  <i class="fa-solid fa-calendar-days"></i> Bitiş Tarihi
+                </p>
+                <span class="tw-text-sm">
                   {{ formatTime(currentEvent.endDate) }}
                 </span>
               </div>
             </div>
             <div></div>
           </div>
-          <p class="card-text my-2 fw-bold">Etkinlik Açıklama</p>
-          <p class="card-text my-2">
-            {{
-              currentEvent.description != null
-                ? currentEvent.description
-                : "Description not available"
-            }}
-          </p>
-          <p class="card-text">
-            <i class="fa-solid fa-users fa-lg"></i>
+          <div class="my-4">
+            <p class="tw-text-xl my-2 fw-medium">Etkinlik Açıklaması</p>
+            <p class="tw-text-sm my-2">
+              {{
+                currentEvent.description != null
+                  ? currentEvent.description
+                  : "Description not available"
+              }}
+            </p>
+          </div>
+          <p class="tw-text-sm">
+            <i class="fa-solid fa-users fa-lg me-1"></i>
             {{ currentEvent.attendeesCount }} kişi bu etkinliğe gitmeyi
             düşünüyor
           </p>
-          <p class="card-text my-2">
-            <i class="fa-solid fa-location-dot fa-lg"></i>
+          <p class="tw-text-sm my-2">
+            <i class="fa-solid fa-location-dot fa-lg me-1"></i>
             {{
               currentEvent.location != null
                 ? currentEvent.location
@@ -50,17 +55,35 @@
         <div
           class="col-12 col-md-12 col-lg-6 d-flex align-items-end justify-content-end flex-column"
         >
-          <div class="fw-bold text-end">Etkinlik Yöneticisi</div>
+          <div class="fw-medium text-end">Etkinlik Yöneticisi</div>
           <div class="d-flex align-items-center justify-content-end my-3">
             <div class="mx-3">
-              {{ currentEvent.firstName }} {{ currentEvent.lastName }}
+              {{ currentEvent.firstName.concat(" ", currentEvent.lastName) }}
             </div>
-            <div
+            <img
+              v-if="currentEvent.profileImage"
               class="post-profile-image"
-              :style="{
-                'background-image': 'url(' + currentEvent.profileImage + ')',
-              }"
-            ></div>
+              :src="currentEvent.profileImage"
+              alt="profile image"
+            />
+            <img
+              src="@/assets/images/profile-man.png"
+              alt="profile-man"
+              class="post-profile-image"
+              v-else-if="currentEvent.gender == 2"
+            />
+            <img
+              src="@/assets/images/profile-woman.png"
+              alt="profile-woman"
+              class="post-profile-image"
+              v-else-if="currentEvent.gender == 1"
+            />
+            <img
+              src="@/assets/images/user.png"
+              alt="profile"
+              class="post-profile-image"
+              v-else
+            />
           </div>
         </div>
         <div
@@ -98,15 +121,17 @@
 </template>
 
 <script setup lang="ts">
+import type { IEventModel } from "@/models/event_model";
 import { useAuthStore } from "@/stores/auth";
 import { useEventStore } from "@/stores/event";
 import moment from "moment";
 import { storeToRefs } from "pinia";
+import type { PropType } from "vue";
 import { ref } from "vue";
 
 const props = defineProps({
   currentEvent: {
-    type: Object,
+    type: Object as PropType<IEventModel>,
     required: true,
   },
 });

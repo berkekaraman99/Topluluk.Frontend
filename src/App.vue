@@ -46,7 +46,7 @@
     >
       <div class="row overflow-hidden h-100">
         <!-- SIDEBAR LEFT -->
-        <Transition name="scaleInOut" mode="out-in">
+        <!-- <Transition name="scaleInOut" mode="out-in">
           <div
             class="col-md-1 col-lg-2"
             v-if="
@@ -58,11 +58,11 @@
           >
             <SidebarLeft />
           </div>
-        </Transition>
+        </Transition> -->
 
         <!-- MAIN - ROUTER.VIEW -->
         <main
-          class="col-12 col-sm-12 col-md-11 col-lg-7 col-xl-7 px-4 px-md-0"
+          class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 px-4 px-md-0"
           :class="{
             'col-md-12 col-lg-12 col-xl-12 px-0':
               $route.name !== 'home' &&

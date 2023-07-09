@@ -38,10 +38,13 @@
                 class="suggestion-profile-image me-4 shadow-sm"
                 v-if="community.coverImage != null"
               ></div>
-              <div
+              <img
                 v-else
-                class="suggestion-profile-image bg-secondary me-4"
-              ></div>
+                class="me-4"
+                src="@/assets/images/ic_community_avatar.png"
+                alt="test"
+                style="object-fit: cover; height: 48px; width: 48px"
+              />
               <div>
                 <div class="fw-light text-black">
                   {{ community.title }}

@@ -2,21 +2,24 @@ import { defineStore } from "pinia";
 import { instance } from "../utils/network_manager";
 import type { IEventModel } from "@/models/event_model";
 import type { IEventPreview } from "@/models/event_preview_model";
+import type { IEventAttend } from "@/models/event_attend_model";
+import type { IEventComment } from "@/models/event_comment_model";
 
 export const useEventStore = defineStore("eventStore", {
   state: () => ({
     currentEvent: {} as IEventModel,
-    eventComments: [],
-    eventAttendees: [],
+    eventComments: [] as Array<IEventComment>,
+    eventAttendees: [] as Array<IEventAttend>,
     userEvents: [] as Array<IEventPreview>,
     statusCode: 0 as number,
   }),
   getters: {
     _currentEvent: (state: any) => state.currentEvent as IEventModel,
-    _eventComments: (state: any) => state.eventComments,
+    _eventComments: (state: any) => state.eventComments as Array<IEventComment>,
     _userEvents: (state: any) => state.userEvents as Array<IEventPreview>,
     _statusCode: (state: any) => state.statusCode as number,
-    _eventAttendees: (state: any) => state.eventAttendees,
+    _eventAttendees: (state: any) =>
+      state.eventAttendees as Array<IEventPreview>,
   },
   actions: {
     async getEventById(eventId: string) {

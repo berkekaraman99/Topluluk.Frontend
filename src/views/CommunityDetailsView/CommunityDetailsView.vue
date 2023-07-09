@@ -110,12 +110,12 @@
                     />
                   </div>
                   <div class="my-3 my-sm-3 my-md-0 text-center text-md-start">
-                    <h1 class="m-0 mb-2 fs-2">{{ community.title }}</h1>
-                    <p class="fs-6 mb-0">
+                    <h1 class="m-0 mb-2 tw-text-2xl">{{ community.title }}</h1>
+                    <p class="tw-text-sm mb-0">
                       <i class="fa-solid fa-location-dot"></i>
                       {{ community.location }}
                     </p>
-                    <p class="fs-6 mb-0">
+                    <p class="tw-text-sm mb-0">
                       <i class="fa-solid fa-users"></i>
                       {{ community.participiantsCount }} üye
                     </p>

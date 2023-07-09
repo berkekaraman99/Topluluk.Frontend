@@ -18,13 +18,29 @@
       <div class="card-header py-3">
         <div class="d-flex justify-content-between">
           <div class="d-flex align-items-center">
-            <div
+            <img
+              v-if="post.profileImage != null"
               class="post-profile-image"
-              :style="{
-                'background-image': `url(${post.profileImage})`,
-                'background-color': 'grey',
-              }"
-            ></div>
+              :src="post.profileImage"
+            />
+            <img
+              src="@/assets/images/profile-man.png"
+              alt="profile-man"
+              class="post-profile-image"
+              v-else-if="post.gender == 2"
+            />
+            <img
+              src="@/assets/images/profile-woman.png"
+              alt="profile-woman"
+              class="post-profile-image"
+              v-else-if="post.gender == 1"
+            />
+            <img
+              src="@/assets/images/user.png"
+              alt="profile"
+              class="post-profile-image"
+              v-else
+            />
             <div class="mx-3">
               <RouterLink
                 :to="{ name: 'userprofile', params: { id: post.userId } }"

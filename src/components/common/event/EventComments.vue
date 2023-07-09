@@ -1,20 +1,18 @@
 <template>
   <div>
     <div class="row">
-      <div
-        class="col-12 offset-0 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 my-4"
-      >
+      <div class="col-12 my-4">
         <div class="card shadow-sm">
           <div class="card-header"><h1>Yorumunuz</h1></div>
           <div class="card-body">
             <div class="d-flex align-items-center mb-3">
               <div v-if="user.profileImage != null">
-                <div
-                  class="post-profile-image me-3 shadow-sm"
-                  :style="{
-                    'background-image': `url(${user.profileImage})`,
-                  }"
-                ></div>
+                <img
+                  v-if="user.profileImage != null"
+                  class="post-profile-image me-3"
+                  :src="user.profileImage"
+                  alt="profile Image"
+                />
               </div>
               <img
                 src="@/assets/images/profile-man.png"
@@ -65,16 +63,16 @@
     </div>
 
     <div class="container" v-if="eventComments != null">
-      <h4 class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 mb-2">
+      <h4 class="col-12 mb-2 fw-medium">
         Yorumlar (<span>{{ eventComments.length }}</span
         >)
       </h4>
     </div>
 
     <!-- COMMENTS CARD -->
-    <div class="my-2" v-for="comment in eventComments" v-bind:key="comment">
+    <div class="my-2" v-for="comment in eventComments" :key="comment.id">
       <div v-if="eventComments.length !== 0" class="row">
-        <div class="col-12 offset-0 col-sm-12 col-md-8 offset-md-2 my-2">
+        <div class="col-12 my-2">
           <div class="card shadow-sm">
             <div class="card-header">
               <div class="d-flex align-items-center justify-content-between">
@@ -97,17 +95,47 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="comment.userId === user.id" class="delete">
+                <!-- <div v-if="comment.userId === user.id" class="delete">
                   <img
                     src="@/assets/images/ic_delete.png"
                     alt="delete"
                     height="24"
                     @click="deleteComment(comment.id, id)"
                   />
+                </div> -->
+                <div>
+                  <div class="dropup">
+                    <i
+                      class="fa-solid fa-ellipsis fa-2xl"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></i>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li
+                        class="dropdown-item"
+                        v-if="comment.userId === user.id"
+                      >
+                        <i class="fa-solid fa-pen-to-square"></i> Yorumu Düzenle
+                      </li>
+                      <li
+                        class="dropdown-item text-danger"
+                        @click="deleteComment(comment.id, id)"
+                        v-if="comment.userId === user.id"
+                      >
+                        <i class="fa-regular fa-trash-can"></i>
+                        Yorumu Sil
+                      </li>
+                      <li class="dropdown-item text-danger">
+                        <i class="fa-regular fa-flag"></i> Raporla
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="card-body">{{ comment.message }}</div>
+            <div class="card-body">
+              {{ comment.message }}
+            </div>
           </div>
         </div>
       </div>

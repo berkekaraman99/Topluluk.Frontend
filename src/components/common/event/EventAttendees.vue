@@ -9,19 +9,17 @@
       </div>
 
       <!-- ATTEND CARD -->
-      <div v-for="attend in attendees" :key="attend">
+      <div v-for="attend in attendees" :key="attend.id">
         <div
           class="card my-3 border hover:tw-bg-slate-100 tw-transition tw-ease-in-out tw-duration-350"
         >
           <div class="card-body d-flex align-items-center">
-            <div
+            <img
               alt="profile image"
-              class="suggestion-profile-image me-4 shadow-sm"
-              :style="{
-                'background-image': `url(${attend.profileImage})`,
-              }"
+              class="suggestion-profile-image me-4"
+              :src="attend.profileImage"
               v-if="attend.profileImage"
-            ></div>
+            />
             <img
               src="@/assets/images/profile-man.png"
               alt="profile-man"
@@ -56,9 +54,11 @@
 </template>
 
 <script setup lang="ts">
+import type { IEventAttend } from "@/models/event_attend_model";
+
 const props = defineProps({
   attendees: {
-    type: Array<any>,
+    type: Array<IEventAttend>,
     required: true,
   },
 });
