@@ -1,4 +1,5 @@
 <template>
+  <!-- <LocaleChanger /> -->
   <div class="min-vh-100">
     <!-- NAVBAR -->
     <Transition name="fade">
@@ -97,7 +98,8 @@
 </template>
 
 <script setup lang="ts">
-import SidebarLeft from "./components/Sidebar/Left/SidebarLeft.vue";
+// import LocaleChanger from "./components/LocaleChanger.vue";
+// import SidebarLeft from "./components/Sidebar/Left/SidebarLeft.vue";
 import SidebarRight from "./components/Sidebar/Right/SidebarRight.vue";
 import NavBar from "./components/header/NavBar.vue";
 import LeftBar from "./components/shared/LeftBar.vue";

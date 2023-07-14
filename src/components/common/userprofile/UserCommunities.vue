@@ -2,7 +2,9 @@
   <Transition name="scaleInOut" mode="out-in">
     <LoadingSpinner v-if="loading" />
     <div class="my-5" v-else-if="userCommunities.length === 0">
-      <h1 class="text-center fw-light">Burada hiç topluluk yok...</h1>
+      <h1 class="text-center fw-light">
+        {{ t("profile.communitiesnotfound") }}
+      </h1>
     </div>
     <div class="row" v-else-if="userCommunities.length > 0">
       <TransitionGroup
@@ -16,61 +18,7 @@
           v-bind:key="community.id"
           :data-index="index"
         >
-          <RouterLink
-            :to="{
-              name: 'communitydetails',
-              params: { id: community.id, name: community.title },
-            }"
-            class="text-decoration-none text-dark"
-          >
-            <div class="container shadow mb-5 rounded-3">
-              <div class="row">
-                <div
-                  class="col-sm-12 col-md-4 d-sm-flex align-items-sm-center justify-content-sm-center"
-                >
-                  <img
-                    :src="community.coverImage"
-                    alt="community cover"
-                    class="p-2 img-fluid rounded-4"
-                    v-if="community.coverImage"
-                  />
-                  <img
-                    class="my-2 rounded-3 img-fluid"
-                    src="https://picsum.photos/400"
-                    alt="event-image"
-                    v-else
-                  />
-                </div>
-
-                <div class="col-sm-12 col-md-8 col lg-6">
-                  <div
-                    class="d-flex flex-column justify-content-between rounded-4 m-2 p-2"
-                  >
-                    <div>
-                      <h3 class="fw-bold">{{ community.title }}</h3>
-                      <p class="description">
-                        {{
-                          WordCount(community.description) < 30
-                            ? community.description
-                            : getDescriptionCharacters(
-                                community.description
-                              ).concat("...")
-                        }}
-                      </p>
-                    </div>
-                    <div>
-                      <div>
-                        Üye Sayısı:
-                        <span class="fw-bold">{{
-                          community.participiantsCount
-                        }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </RouterLink>
+          <CommunityVue :community="community" />
         </div>
       </TransitionGroup>
     </div>
@@ -83,6 +31,10 @@ import gsap from "gsap";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import { useCommunityStore } from "@/stores/community";
 import { storeToRefs } from "pinia";
+import CommunityVue from "../community/CommunityVue.vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   id: {
@@ -110,16 +62,6 @@ const communityStore = useCommunityStore();
 const loading = ref(true);
 const changeLoadingState = () => {
   loading.value = !loading.value;
-};
-const WordCount = (str: string) => {
-  return str.split(" ").length;
-};
-const getDescriptionCharacters = (str: string) => {
-  let mainStr = "";
-  for (let i = 0; i < 200; i++) {
-    mainStr += str[i];
-  }
-  return mainStr;
 };
 
 communityStore.getUserCommunities(props.id).then(changeLoadingState);

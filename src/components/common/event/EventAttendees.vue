@@ -3,13 +3,15 @@
     <div>
       <div class="card-text d-flex align-items-center">
         <div class="fw-bold fs-3">
-          Katılımcılar (<span class="tw-text-2xl">{{ attendees.length }}</span
+          {{ t("event.attendees") }} (<span class="tw-text-2xl">{{
+            attendees.length
+          }}</span
           >)
         </div>
       </div>
 
       <!-- ATTEND CARD -->
-      <div v-for="attend in attendees" :key="attend.id">
+      <div v-for="attend in props.attendees" :key="attend.id">
         <div
           class="card my-3 border hover:tw-bg-slate-100 tw-transition tw-ease-in-out tw-duration-350"
         >
@@ -55,6 +57,9 @@
 
 <script setup lang="ts">
 import type { IEventAttend } from "@/models/event_attend_model";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   attendees: {

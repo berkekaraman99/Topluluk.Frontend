@@ -20,7 +20,7 @@
       </TransitionGroup>
     </div>
     <div class="container my-5" v-else>
-      <h1 class="text-center fw-light">Burada hiç gönderi yok...</h1>
+      <h1 class="text-center fw-light">{{ t("profile.postsnotfound") }}</h1>
     </div>
   </Transition>
 </template>
@@ -32,6 +32,9 @@ import PostComponentProfile from "@/components/shared/PostComponentProfile.vue";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   id: {

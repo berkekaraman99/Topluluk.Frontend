@@ -7,7 +7,7 @@
           class="sidebar-link justify-content-center align-items-center tt"
           data-bs-toggle="tooltip"
           data-bs-placement="right"
-          data-bs-title="Akış"
+          :data-bs-title="t('feed.header')"
         >
           <i class="fa-solid fa-bolt"></i>
         </RouterLink>
@@ -17,7 +17,7 @@
           class="sidebar-link justify-content-center align-items-center tt"
           data-bs-toggle="tooltip"
           data-bs-placement="right"
-          data-bs-title="Etkinliklerim"
+          :data-bs-title="t('event.header')"
         >
           <i class="fa-solid fa-calendar-days"></i>
         </RouterLink>
@@ -26,7 +26,7 @@
           class="sidebar-link justify-content-center align-items-center tt"
           data-bs-toggle="tooltip"
           data-bs-placement="right"
-          data-bs-title="Topluluklar"
+          :data-bs-title="t('community.header')"
         >
           <i class="fa-solid fa-people-group"></i>
         </RouterLink>
@@ -35,7 +35,7 @@
           class="sidebar-link justify-content-center align-items-center tt"
           data-bs-toggle="tooltip"
           data-bs-placement="right"
-          data-bs-title="Arama"
+          :data-bs-title="t('search.header')"
         >
           <i class="fa-solid fa-magnifying-glass"></i>
         </RouterLink>
@@ -43,6 +43,18 @@
       <div class="tw-bg-slate-200 w-100 text-center py-2 mb-1">
         <i class="fa-solid fa-people-group"></i>
       </div>
+
+      <RouterLink
+        :to="{ name: 'communities' }"
+        class="text-decoration-none w-100 d-flex tw-text-gray-600 justify-content-center tt"
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        :data-bs-title="t('leftbar.explore')"
+      >
+        <div class="my-1 explore pointer">
+          <i class="fa-solid fa-compass fa-xl"></i>
+        </div>
+      </RouterLink>
       <div
         class="tt my-1 w-100"
         v-for="community in communities"
@@ -82,6 +94,9 @@ import { useCommunityStore } from "@/stores/community";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 declare var bootstrap: any;
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const authStore = useAuthStore();
 const { _user: user } = storeToRefs(authStore);
@@ -107,6 +122,23 @@ const { _userCommunities: communities } = storeToRefs(communityStore);
   width: 64px;
   z-index: 1;
 }
+
+.explore {
+  transition: all 0.2s ease;
+  width: 48px;
+  height: 48px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+
+  &:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+  }
+}
+
 .cover-preview {
   transition: all 0.2s ease;
   width: 48px;

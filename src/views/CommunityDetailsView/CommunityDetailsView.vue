@@ -23,7 +23,9 @@
                 :checked="category === 'About'"
               />
               <label for="radio-1">
-                <span class="fw-bold" id="about">Hakkında</span>
+                <span class="fw-bold" id="about">{{
+                  t("community.about")
+                }}</span>
               </label>
             </div>
 
@@ -41,7 +43,9 @@
                 :checked="category === 'Posts'"
               />
               <label for="radio-2">
-                <span class="fw-bold" id="posts">Gönderiler</span>
+                <span class="fw-bold" id="posts">{{
+                  t("community.posts")
+                }}</span>
               </label>
             </div>
 
@@ -59,7 +63,9 @@
                 :checked="category === 'Participiants'"
               />
               <label for="radio-3">
-                <span class="fw-bold" id="participiants">Üyeler </span>
+                <span class="fw-bold" id="participiants">{{
+                  t("community.members")
+                }}</span>
               </label>
             </div>
 
@@ -78,7 +84,9 @@
                 :checked="category === 'Settings'"
               />
               <label for="radio-4">
-                <span class="fw-bold" id="settings">Ayarlar</span>
+                <span class="fw-bold" id="settings">{{
+                  t("community.settings")
+                }}</span>
               </label>
             </div>
           </div>
@@ -117,7 +125,8 @@
                     </p>
                     <p class="tw-text-sm mb-0">
                       <i class="fa-solid fa-users"></i>
-                      {{ community.participiantsCount }} üye
+                      {{ community.participiantsCount }}
+                      {{ t("community.member") }}
                     </p>
                   </div>
                 </div>
@@ -143,14 +152,14 @@
                       v-else-if="!community.isParticipiant"
                       @click="join(community)"
                     >
-                      Topluluğa Katıl
+                      {{ t("community.joincommunity") }}
                     </button>
                     <button
                       class="btn btn-danger"
                       v-else
                       @click="leave(community)"
                     >
-                      Topluluktan Ayrıl
+                      {{ t("community.leavecommunity") }}
                     </button>
                   </div>
                 </div>
@@ -192,6 +201,9 @@ import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import CommunitySettings from "@/components/common/community/CommunitySettings.vue";
 import type { ICommunity } from "@/models/community_model";
 import CommunityPosts from "@/components/common/community/CommunityPosts.vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   id: {

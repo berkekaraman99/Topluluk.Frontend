@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="my-3">
-      <h3>Admin</h3>
+      <h3>{{ t("community.admin") }}</h3>
       <div
         class="card border hover:tw-bg-slate-100 tw-transition tw-ease-in-out tw-duration-350"
       >
@@ -55,7 +55,9 @@
           :disabled="!user"
         />
       </div>
-      <h3 v-if="searchedParticipiants.length >= 1">Üyeler</h3>
+      <h3 v-if="searchedParticipiants.length >= 1">
+        {{ t("community.members") }}
+      </h3>
     </div>
     <Transition name="scaleInOut" mode="out-in">
       <div v-if="loading">
@@ -127,19 +129,22 @@
                       class="dropdown-item"
                       v-if="user.id === community.adminId"
                     >
-                      <i class="fa-solid fa-crown"></i> Assign as Admin
+                      <i class="fa-solid fa-crown"></i>
+                      {{ t("community.assignasadmin") }}
                     </li>
                     <li
                       class="dropdown-item"
                       v-if="user.id === community.adminId"
                     >
-                      <i class="fa-solid fa-user-tie"></i> Assign as Moderator
+                      <i class="fa-solid fa-user-tie"></i
+                      >{{ t("community.assignasmoderator") }}
                     </li>
                     <li
                       class="dropdown-item text-danger"
                       @click="kickUser(community.id, participiant.id)"
                     >
-                      <i class="fa-solid fa-user-xmark"></i> Kick User
+                      <i class="fa-solid fa-user-xmark"></i
+                      >{{ t("community.kickmember") }}
                     </li>
                   </ul>
                 </div>
@@ -160,6 +165,9 @@ import { useCommunityStore } from "@/stores/community";
 import { storeToRefs } from "pinia";
 import type { PropType } from "vue";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   community: {

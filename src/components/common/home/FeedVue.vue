@@ -1,6 +1,6 @@
 <template>
   <Transition appear @before-enter="beforeEnterTitle" @enter="enterTitle">
-    <h1 class="fw-bold display-6 px-2">Akış</h1>
+    <h1 class="fw-bold display-6 px-2">{{ t("feed.header") }}</h1>
   </Transition>
 
   <LoadingSpinner v-if="loading" />
@@ -23,7 +23,7 @@
     </TransitionGroup>
   </div>
   <div class="container my-3" v-else>
-    <h1>Post bulunamadı</h1>
+    <h1>{{ t("feed.postnotfound") }}</h1>
   </div>
 </template>
 
@@ -34,6 +34,9 @@ import PostComponentFeed from "@/components/shared/PostComponentFeed.vue";
 import LoadingSpinner from "@/components/shared/LoadingVue.vue";
 import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const beforeEnterFeed: any = (el: HTMLElement) => {
   el.style.opacity = "0";

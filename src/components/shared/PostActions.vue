@@ -10,7 +10,7 @@
       >
         <div v-if="post.isInteracted == null">
           <i class="fa-regular fa-face-smile fa-lg my-3"></i>
-          <div>İfade Bırak</div>
+          <div>{{ t("feed.interact") }}</div>
         </div>
         <div v-else-if="post.isInteracted.interaction === 0">
           <img
@@ -18,7 +18,7 @@
             alt="Like"
             height="32"
           />
-          <div>Beğendim</div>
+          <div>{{ t("feed.liked") }}</div>
         </div>
         <div v-else-if="post.isInteracted.interaction === 1">
           <img
@@ -26,7 +26,7 @@
             alt="Like"
             height="32"
           />
-          <div>Tebrikler</div>
+          <div>{{ t("feed.congratulations") }}</div>
         </div>
         <div v-else-if="post.isInteracted.interaction === 2">
           <img
@@ -34,7 +34,7 @@
             alt="Like"
             height="32"
           />
-          <div>Destekleyici</div>
+          <div>{{ t("feed.supportive") }}</div>
         </div>
         <div v-else-if="post.isInteracted.interaction === 3">
           <img
@@ -42,7 +42,7 @@
             alt="Like"
             height="32"
           />
-          <div>İlhamlı</div>
+          <div>{{ t("feed.insightfull") }}</div>
         </div>
         <div v-else-if="post.isInteracted.interaction === 4">
           <img
@@ -50,7 +50,7 @@
             alt="Like"
             height="32"
           />
-          <div>Beğenmedim</div>
+          <div>{{ t("feed.disliked") }}</div>
         </div>
       </div>
       <ul class="dropdown-menu shadow horizontal p-0">
@@ -147,7 +147,7 @@
           class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
         >
           <i class="fa-regular fa-message fa-lg my-3"></i>
-          <div>{{ post.commentCount }} Yorumlar</div>
+          <div>{{ post.commentCount }} {{ t("feed.comments") }}</div>
         </div>
       </RouterLink>
     </div>
@@ -157,7 +157,7 @@
         class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
       >
         <i class="fa-regular fa-paper-plane fa-lg my-3"></i>
-        <div>Paylaş</div>
+        <div>{{ t("feed.share") }}</div>
       </div>
     </div>
     <div class="col-12 col-sm-6 col-md-3 text-center my-1">
@@ -167,7 +167,7 @@
         class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
       >
         <i class="fa-solid fa-bookmark fa-lg my-3"></i>
-        <div>Kaydedildi</div>
+        <div>{{ t("feed.saved") }}</div>
       </div>
       <div
         v-else
@@ -176,7 +176,7 @@
         class="d-sm-block d-md-flex align-items-center justify-content-center flex-column d-lg-block"
       >
         <i class="fa-regular fa-bookmark fa-lg my-3"></i>
-        <div>Kaydet</div>
+        <div>{{ t("feed.save") }}</div>
       </div>
     </div>
   </div>
@@ -189,6 +189,10 @@ import type { IPostModel } from "@/models/post_model";
 import { usePostStore } from "@/stores/post";
 import type { PropType } from "vue";
 import { ref } from "vue";
+
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   post: {

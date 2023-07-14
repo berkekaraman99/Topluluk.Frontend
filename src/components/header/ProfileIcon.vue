@@ -32,17 +32,20 @@
     <ul class="dropdown-menu dropdown-menu-end z-3">
       <li>
         <RouterLink :to="{ name: 'profile' }" class="dropdown-item"
-          ><i class="fa-solid fa-user me-1"></i> Profile</RouterLink
+          ><i class="fa-solid fa-user me-1"></i>
+          {{ t("header.profile") }}</RouterLink
         >
       </li>
       <li>
         <RouterLink :to="{ name: 'profileSettings' }" class="dropdown-item"
-          ><i class="fa-solid fa-gear me-1"></i> Settings</RouterLink
+          ><i class="fa-solid fa-gear me-1"></i>
+          {{ t("header.settings") }}</RouterLink
         >
       </li>
       <li @click="emit('logout')">
         <a class="dropdown-item text-danger"
-          ><i class="fa-solid fa-arrow-right-from-bracket me-1"></i> Logout</a
+          ><i class="fa-solid fa-arrow-right-from-bracket me-1"></i>
+          {{ t("header.logout") }}</a
         >
       </li>
     </ul>
@@ -52,6 +55,9 @@
 <script setup lang="ts">
 import type { IAuthUser } from "@/models/auth_user_model";
 import type { PropType } from "vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   user: {

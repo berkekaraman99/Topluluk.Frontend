@@ -49,7 +49,7 @@
             ></i>
             <ul class="dropdown-menu dropdown-menu-end">
               <li class="dropdown-item text-danger">
-                <i class="fa-regular fa-flag"></i> Raporla
+                <i class="fa-regular fa-flag"></i> {{ t("feed.reportpost") }}
               </li>
             </ul>
           </div>
@@ -159,10 +159,10 @@
             </span>
           </span>
           <span v-if="post.interactionCount === 1" class="ms-2">
-            {{ post.interactionCount }} İfade
+            {{ post.interactionCount }} {{ t("feed.expression") }}
           </span>
           <span v-else-if="post.interactionCount > 1" class="ms-2">
-            {{ post.interactionCount }} İfade
+            {{ post.interactionCount }} {{ t("feed.expression") }}
           </span>
         </div>
         <div class="container">
@@ -178,6 +178,10 @@ import moment from "moment";
 import PostActions from "./PostActions.vue";
 import type { PropType } from "vue";
 import type { IFeedPost } from "@/models/feed_post_model";
+
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   post: {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Transition appear @before-enter="beforeEnterTitle" @enter="enterTitle">
-      <h1 class="display-6 fw-bold px-2">Arama</h1>
+      <h1 class="display-6 fw-bold px-2">{{ t("search.header") }}</h1>
     </Transition>
     <div class="container">
       <div class="col-6 offset-3 d-flex justify-content-center">
@@ -12,7 +12,7 @@
           v-model="search.text"
           :style="{ width: search.text.length > 0 ? '100%' : '' }"
           @keydown.enter="handleSearch"
-          placeholder="Arama"
+          :placeholder="t('search.inputplaceholder')"
         />
       </div>
       <div class="container">
@@ -83,6 +83,9 @@ import { storeToRefs } from "pinia";
 import { reactive } from "vue";
 import { useSearchStore } from "@/stores/search";
 import gsap from "gsap";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const beforeEnterTitle: any = (el: HTMLElement) => {
   el.style.transform = "translateY(-30px)";

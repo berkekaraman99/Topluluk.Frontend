@@ -1,13 +1,13 @@
 <template>
   <div>
     <div>
-      <p class="fw-medium tw-text-xl">Topluluk Açıklaması</p>
-      <p class="description">{{ community.description }}</p>
+      <p class="fw-medium tw-text-xl">{{ t("community.description") }}</p>
+      <p class="description">{{ props.community.description }}</p>
     </div>
 
     <div class="d-flex align-items-center justify-content-between mt-5">
       <div>
-        <p class="fw-medium">Topluluğun Sahibi</p>
+        <p class="fw-medium">{{ t("community.owner") }}</p>
         <div class="d-flex align-items-center my-3">
           <img
             v-if="community.adminImage != null"
@@ -45,6 +45,9 @@
 <script setup lang="ts">
 import type { ICommunity } from "@/models/community_model";
 import type { PropType } from "vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   community: {

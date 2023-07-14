@@ -3,7 +3,9 @@
     <div class="card">
       <div class="card-header">
         <div class="d-flex align-items-center justify-content-start">
-          <div class="card-text fw-bold tw-text-2xl">Genel</div>
+          <div class="card-text fw-bold tw-text-2xl">
+            {{ t("community.general") }}
+          </div>
           <!-- <div class="card-text fw-bold">Tab</div> -->
         </div>
       </div>
@@ -18,9 +20,9 @@
             aria-controls="collapseExample"
           >
             <i class="fa-solid fa-pen-to-square"></i>
-            <span class="ms-2 text-primary"
-              >Topluluk Kapak Resmini Değiştir</span
-            >
+            <span class="ms-2 text-primary">{{
+              t("community.changecoverimage")
+            }}</span>
           </div>
         </div>
         <div class="collapse" id="collapseChangeCoverImage">
@@ -81,7 +83,9 @@
             aria-controls="collapseExample"
           >
             <i class="fa-solid fa-pen-to-square"></i>
-            <span class="ms-2 text-primary">Topluluk Afişini Değiştir</span>
+            <span class="ms-2 text-primary">{{
+              t("community.changebannerimage")
+            }}</span>
           </div>
         </div>
         <div class="collapse" id="collapseChangeBannerImage">
@@ -143,7 +147,7 @@
           </div>
           <div class="text-danger" @click="deleteCommunity" v-else>
             <i class="fa-solid fa-trash-can"></i>
-            <span class="ms-2">Topluluğu Sil</span>
+            <span class="ms-2">{{ t("community.removecommunity") }}</span>
           </div>
         </div>
       </div>
@@ -156,7 +160,10 @@ import { useAuthStore } from "@/stores/auth";
 import { useCommunityStore } from "@/stores/community";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
 import { useRouter } from "vue-router";
+
+const { t } = useI18n();
 
 const props = defineProps({
   id: {

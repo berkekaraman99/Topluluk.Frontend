@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="my-3">
-      <h3>Gönderiler</h3>
+      <h3>{{ t("community.posts") }}</h3>
       <Transition name="scaleInOut" mode="out-in">
         <div class="my-5" v-if="loading">
           <LoadingVue />
         </div>
         <div class="my-5" v-else-if="communityPosts.length === 0">
-          <p class="text-center fw-light">Gönderi bulunamadı</p>
+          <p class="text-center fw-light">{{ t("community.postnotfound") }}</p>
         </div>
         <div v-else>
           <div
@@ -45,6 +45,10 @@ import { gsap } from "gsap";
 import PostComponentFeed from "@/components/shared/PostComponentFeed.vue";
 import { ref } from "vue";
 import LoadingVue from "@/components/shared/LoadingVue.vue";
+
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const beforeEnterPost: any = (el: HTMLElement) => {
   el.style.opacity = "0";

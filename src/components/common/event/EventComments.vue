@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-12 my-4">
         <div class="card shadow-sm">
-          <div class="card-header"><h1>Yorumunuz</h1></div>
+          <div class="card-header">
+            <h1>{{ t("event.ucomment") }}</h1>
+          </div>
           <div class="card-body">
             <div class="d-flex align-items-center mb-3">
               <div v-if="user.profileImage != null">
@@ -45,10 +47,10 @@
                 type="button"
                 :label="
                   isPosting
-                    ? 'Gönderiliyor'
+                    ? t('event.sending')
                     : statusCode !== 200
-                    ? 'Yorum Oluştur'
-                    : 'Başarılı'
+                    ? t('event.createcomment')
+                    : t('event.success')
                 "
                 wrapper-class="mx-auto text-center"
                 @click="createComment"
@@ -64,7 +66,7 @@
 
     <div class="container" v-if="eventComments != null">
       <h4 class="col-12 mb-2 fw-medium">
-        Yorumlar (<span>{{ eventComments.length }}</span
+        {{ t("event.comments") }} (<span>{{ eventComments.length }}</span
         >)
       </h4>
     </div>
@@ -115,7 +117,8 @@
                         class="dropdown-item"
                         v-if="comment.userId === user.id"
                       >
-                        <i class="fa-solid fa-pen-to-square"></i> Yorumu Düzenle
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        {{ t("event.editcomment") }}
                       </li>
                       <li
                         class="dropdown-item text-danger"
@@ -123,10 +126,11 @@
                         v-if="comment.userId === user.id"
                       >
                         <i class="fa-regular fa-trash-can"></i>
-                        Yorumu Sil
+                        {{ t("event.deletecomment") }}
                       </li>
                       <li class="dropdown-item text-danger">
-                        <i class="fa-regular fa-flag"></i> Raporla
+                        <i class="fa-regular fa-flag"></i>
+                        {{ t("event.report") }}
                       </li>
                     </ul>
                   </div>
@@ -148,6 +152,10 @@ import { useAuthStore } from "@/stores/auth";
 import { useEventStore } from "@/stores/event";
 import { storeToRefs } from "pinia";
 import { onBeforeUnmount, ref } from "vue";
+
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   id: {

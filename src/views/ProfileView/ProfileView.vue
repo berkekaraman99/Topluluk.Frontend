@@ -24,11 +24,15 @@
         </div>
         <div class="col-12 col-lg-8 col-xl-9 px-0 mt-3" v-else>
           <div class="profile-header position-relative">
+            <img
+              v-if="currentUser.bannerImage != null"
+              class="profile-banner rounded-top-4"
+              :src="currentUser.bannerImage"
+              alt="banner"
+            />
             <div
+              v-else
               class="profile-banner rounded-top-4 tw-bg-slate-100"
-              :style="{
-                'background-image': `url(${currentUser.bannerImage})`,
-              }"
             ></div>
             <div
               class="profile-image shadow"
@@ -71,7 +75,7 @@
                     <h3 class="fw-bold d-inline-block">
                       {{ followerCount }}
                     </h3>
-                    Takipçiler
+                    {{ t("profile.followers") }}
                   </div>
                   <div
                     class="me-3 pointer"
@@ -82,7 +86,7 @@
                     <h3 class="fw-bold d-inline-block">
                       {{ followingCount }}
                     </h3>
-                    Takipler
+                    {{ t("profile.followings") }}
                   </div>
                   <div
                     class="me-3 pointer"
@@ -92,7 +96,7 @@
                     <h3 class="fw-bold d-inline-block">
                       {{ followersRequests.length }}
                     </h3>
-                    Takip İstekleri
+                    {{ t("profile.followrequests") }}
                   </div>
                 </div>
                 <!-- Bio -->
@@ -166,7 +170,7 @@
                 :class="{ selected: category === 'activities' }"
                 id="activities"
                 @click="changeCategory('activities')"
-                >Aktiviteler</span
+                >{{ t("profile.activities") }}</span
               >
             </label>
           </div>
@@ -186,7 +190,7 @@
                 :class="{ selected: category === 'posts' }"
                 id="posts"
                 @click="changeCategory('posts')"
-                >Gönderiler</span
+                >{{ t("profile.posts") }}</span
               >
             </label>
           </div>
@@ -206,7 +210,7 @@
                 :class="{ selected: category === 'events' }"
                 id="events"
                 @click="changeCategory('events')"
-                >Etkinlikler</span
+                >{{ t("profile.events") }}</span
               >
             </label>
           </div>
@@ -226,7 +230,9 @@
                 :class="{ selected: category === 'communities' }"
                 id="communities"
                 @click="changeCategory('communities')"
-                >Topluluklar ({{ currentUser.communityCount }})</span
+                >{{ t("profile.communities") }} ({{
+                  currentUser.communityCount
+                }})</span
               >
             </label>
           </div>
@@ -246,7 +252,7 @@
                 :class="{ selected: category === 'saved' }"
                 id="saved"
                 @click="changeCategory('saved')"
-                >Kaydedilenler</span
+                >{{ t("profile.saved") }}</span
               >
             </label>
           </div>
@@ -275,6 +281,9 @@ import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/user";
 import FollowerRequestsModal from "@/components/shared/FollowerRequestsModal.vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const followerCount = ref(0);
 const followingCount = ref(0);

@@ -6,9 +6,10 @@
         <div
           class="col-12 col-sm-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2"
         >
-          <h1 class="display-5 fw-bold">Ayarlar</h1>
+          <h1 class="display-5 fw-bold">{{ t("settings.header") }}</h1>
           <h4 class="mb-3 text-primary-emphasis">
-            <i class="fa-solid fa-shield-halved"></i> Gizlilik & Güvenlik
+            <i class="fa-solid fa-shield-halved"></i>
+            {{ t("settings.securityprivacy") }}
           </h4>
           <hr />
           <!-- CHANGE PASSWORD -->
@@ -22,7 +23,7 @@
                 aria-controls="collapsePassword"
               >
                 <i class="fa-solid fa-key"></i>
-                Şifreyi Değiştir
+                {{ t("settings.changepassword") }}
               </div>
             </div>
             <ChangePassword />
@@ -35,7 +36,7 @@
             data-bs-target="#offcanvasDeleteMyAccount"
           >
             <i class="fa-solid fa-user-large-slash"></i>
-            Hesabımı Sil
+            {{ t("settings.deleteaccount") }}
           </div>
 
           <DeleteAccount />
@@ -54,15 +55,18 @@
               />
               <label class="form-check-label" for="privateSwitch">
                 <i class="fa-solid fa-user-ninja"></i>
-                Profilimi Gizle
+                {{ t("settings.hidemyaccount") }}
               </label>
             </div>
           </div>
 
           <h4 class="mt-4 mb-3 text-primary-emphasis">
-            <i class="fa-solid fa-user-gear"></i> Genel
+            <i class="fa-solid fa-user-gear"></i> {{ t("settings.general") }}
           </h4>
           <hr />
+          <div class="my-1">
+            <LocaleChangerVue />
+          </div>
 
           <!-- EDIT PROFILE -->
           <div class="my-1">
@@ -75,7 +79,7 @@
                 aria-controls="collapseEditProfile"
               >
                 <i class="fa-solid fa-user-pen"></i>
-                Profil Bilgilerini Düzenle
+                {{ t("settings.editprofileinfo") }}
               </div>
             </div>
             <EditProfile />
@@ -92,7 +96,7 @@
                 aria-controls="collapseProfileImage"
               >
                 <i class="fa-solid fa-image-portrait"></i>
-                Profil Resmini Değiştir
+                {{ t("settings.changeprofileimage") }}
               </div>
             </div>
             <ChangeProfileImage :id="userId" />
@@ -109,7 +113,7 @@
                 aria-controls="collapseBannerImage"
               >
                 <i class="fa-solid fa-panorama"></i>
-                Afişi Değiştir
+                {{ t("settings.changebannerimage") }}
               </div>
             </div>
             <ChangeBannerImage :id="userId" />
@@ -127,7 +131,7 @@
               />
               <label class="form-check-label" for="darkModeSwitch">
                 <i class="fa-solid fa-circle-half-stroke"></i>
-                Koyu Tema
+                {{ t("settings.darkmode") }}
               </label>
             </div>
           </div>
@@ -148,6 +152,10 @@ import ChangeProfileImage from "@/components/common/settings/ChangeProfileImage.
 import ChangeBannerImage from "@/components/common/settings/ChangeBannerImage.vue";
 import EditProfile from "@/components/common/settings/EditProfile.vue";
 import DeleteAccount from "@/components/common/settings/DeleteAccount.vue";
+import LocaleChangerVue from "@/components/LocaleChanger.vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const authStore = useAuthStore();
 const { _user: user } = storeToRefs(authStore);

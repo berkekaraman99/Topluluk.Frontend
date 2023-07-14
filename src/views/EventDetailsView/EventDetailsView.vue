@@ -24,7 +24,7 @@
                   :checked="category === 'About'"
                 />
                 <label for="radio-1">
-                  <span class="fw-bold" id="about">Hakkında</span>
+                  <span class="fw-bold" id="about">{{ t("event.about") }}</span>
                 </label>
               </div>
 
@@ -42,7 +42,9 @@
                   :checked="category === 'Attendees'"
                 />
                 <label for="radio-2">
-                  <span class="fw-bold" id="attendees">Katılımcılar</span>
+                  <span class="fw-bold" id="attendees">{{
+                    t("event.attendees")
+                  }}</span>
                 </label>
               </div>
 
@@ -60,7 +62,9 @@
                   :checked="category === 'Comments'"
                 />
                 <label for="radio-3">
-                  <span class="fw-bold" id="event-comments">Yorumlar</span>
+                  <span class="fw-bold" id="event-comments">{{
+                    t("event.comments")
+                  }}</span>
                 </label>
               </div>
 
@@ -79,7 +83,9 @@
                   :checked="category === 'Settings'"
                 />
                 <label for="radio-4">
-                  <span class="fw-bold" id="posts">Ayarlar</span>
+                  <span class="fw-bold" id="posts">{{
+                    t("event.settings")
+                  }}</span>
                 </label>
               </div>
             </div>
@@ -213,6 +219,10 @@ import EventAbout from "@/components/common/event/EventAbout.vue";
 import EventAttendees from "@/components/common/event/EventAttendees.vue";
 import EventComments from "@/components/common/event/EventComments.vue";
 import EventSettings from "@/components/common/event/EventSettings.vue";
+
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   id: {

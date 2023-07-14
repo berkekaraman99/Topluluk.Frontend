@@ -19,7 +19,7 @@ export const useEventStore = defineStore("eventStore", {
     _userEvents: (state: any) => state.userEvents as Array<IEventPreview>,
     _statusCode: (state: any) => state.statusCode as number,
     _eventAttendees: (state: any) =>
-      state.eventAttendees as Array<IEventPreview>,
+      state.eventAttendees as Array<IEventAttend>,
   },
   actions: {
     async getEventById(eventId: string) {

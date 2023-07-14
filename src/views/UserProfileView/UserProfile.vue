@@ -108,7 +108,7 @@
                         currentUser.isBlocked ? "-" : currentUser.followersCount
                       }}
                     </h3>
-                    Takipçiler
+                    {{ t("profile.followers") }}
                   </div>
 
                   <div
@@ -130,7 +130,7 @@
                         currentUser.isBlocked ? "-" : currentUser.followingCount
                       }}
                     </h3>
-                    Takipler
+                    {{ t("profile.followings") }}
                   </div>
                 </div>
                 <!-- Bio -->
@@ -147,7 +147,7 @@
                   @click="removeFollowRequest(currentUser)"
                   v-if="currentUser.isFollowRequestSent"
                 >
-                  Takip İsteğinden Vazgeç
+                  {{ t("profile.unfollowrequest") }}
                 </button>
                 <button
                   class="btn follow px-4 fw-light"
@@ -158,7 +158,7 @@
                     !currentUser.isBlocked
                   "
                 >
-                  Takip Et
+                  {{ t("profile.follow") }}
                 </button>
                 <div class="d-flex align-items-center pointer ms-3">
                   <div class="dropdown">
@@ -178,7 +178,7 @@
                           alt="block"
                           height="21"
                         />
-                        Kullanıcıyı Engelle
+                        {{ t("profile.block") }}
                       </li>
                       <li
                         class="dropdown-item text-danger"
@@ -190,14 +190,14 @@
                           alt="block"
                           height="21"
                         />
-                        Engellemeyi Kaldır
+                        {{ t("profile.unblock") }}
                       </li>
                       <li
                         class="dropdown-item text-warning-emphasis"
                         v-if="currentUser.isFollowing"
                         @click="unfollowUser(currentUser)"
                       >
-                        Takipten Çık
+                        {{ t("profile.unfollow") }}
                       </li>
                     </ul>
                   </div>
@@ -238,7 +238,7 @@
                     :class="{ selected: category === 'activities' }"
                     id="activities"
                     @click="changeCategory('activities')"
-                    >Aktiviteler</span
+                    >{{ t("profile.activities") }}</span
                   >
                 </label>
               </div>
@@ -258,7 +258,7 @@
                     :class="{ selected: category === 'posts' }"
                     id="posts"
                     @click="changeCategory('posts')"
-                    >Postlar</span
+                    >{{ t("profile.posts") }}</span
                   >
                 </label>
               </div>
@@ -278,7 +278,7 @@
                     :class="{ selected: category === 'events' }"
                     id="events"
                     @click="changeCategory('events')"
-                    >Etkinlikler</span
+                    >{{ t("profile.events") }}</span
                   >
                 </label>
               </div>
@@ -298,7 +298,9 @@
                     :class="{ selected: category === 'communities' }"
                     id="communities"
                     @click="changeCategory('communities')"
-                    >Topluluklar ({{ currentUser.communityCount }})</span
+                    >{{ t("profile.communities") }} ({{
+                      currentUser.communityCount
+                    }})</span
                   >
                 </label>
               </div>
@@ -306,10 +308,9 @@
           </div>
 
           <div class="mt-3 mx-3 fs-5" v-else>
-            <p class="fw-light">Bu hesap gizli</p>
+            <p class="fw-light">{{ t("profile.profileisprivate") }}</p>
             <p class="fw-light">
-              Bu hesabın postlarını, etkinliklerini ve diğer aktivitelerini
-              görmek için lütfen takip ediniz
+              {{ t("profile.profileisprivatedescription") }}
             </p>
           </div>
 
@@ -333,6 +334,9 @@ import { useUserStore } from "@/stores/user";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import type { IUser } from "@/models/user_model";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   id: {

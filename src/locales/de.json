@@ -1,0 +1,37 @@
+{
+  "main": {
+    "hello": "Merhaba Dünya!"
+  },
+  "login": {
+    "header": "Topluluk'a Giriş Yap",
+    "rememberme": "Beni Hatırla",
+    "forgotpassword": "Şifremi Unuttum?",
+    "login": "Giriş Yap",
+    "loginprogress": "Giriş Yapılıyor",
+    "donthaveaccount": "Hesabınız yok mu?",
+    "signup": "Hemen kaydolun",
+    "or": "veya",
+    "google": "Google ile Giriş Yap",
+    "apple": "Apple ile Giriş Yap"
+  },
+  "signup": {
+    "header": "Topluluk'a Katılın",
+    "name": "Adınız",
+    "surname": "Soyadınız",
+    "email": "E-mail Adresiniz",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "gender": "Cinsiyet",
+    "genderplaceholder": "Cinsiyet seçiniz",
+    "man": "Erkek",
+    "woman": "Kadın",
+    "other": "Diğer",
+    "terms": "Şartlar ve Koşullar",
+    "agreeterms": "Hizmet şartlarımızı kabul ediyor musunuz?",
+    "signup": "Kayıt Ol",
+    "or": "veya",
+    "google": "Google ile Kayıt Ol",
+    "apple": "Apple ile Kayıt Ol",
+    "return": "Geri Dön"
+  }
+}

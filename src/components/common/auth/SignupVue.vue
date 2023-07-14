@@ -16,7 +16,7 @@
   >
     <div class="row w-100 align-items-center mt-4">
       <div class="col-md-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-        <p class="fw-bold text-center fs-2 py-4">Topluluk'a Katılın</p>
+        <p class="fw-bold text-center fs-2 py-4">{{ t("signup.header") }}</p>
         <FormKit
           type="form"
           submit-label="Hesap Oluştur"
@@ -38,7 +38,7 @@
             <FormKit type="step" label="Name">
               <FormKit
                 type="text"
-                label="Adınız"
+                :label="t('signup.name')"
                 validation="required"
                 v-model="userObject.firstName"
                 :classes="{
@@ -47,7 +47,7 @@
               />
               <FormKit
                 type="text"
-                label="Soyadınız"
+                :label="t('signup.surname')"
                 validation="required"
                 v-model="userObject.lastName"
                 :classes="{
@@ -56,7 +56,7 @@
               />
               <FormKit
                 type="email"
-                label="E-mail Adresiniz"
+                :label="t('signup.email')"
                 validation="required|email"
                 prefix-icon="email"
                 v-model="userObject.email"
@@ -70,7 +70,7 @@
             <FormKit type="step" label="Adim">
               <FormKit
                 type="text"
-                label="Kullanıcı Adı"
+                :label="t('signup.username')"
                 validation="required"
                 v-model="userObject.userName"
                 prefix-icon="avatarMan"
@@ -81,7 +81,7 @@
               />
               <FormKit
                 type="password"
-                label="Şifre"
+                :label="t('signup.password')"
                 validation="required"
                 v-model="userObject.password"
                 prefix-icon="password"
@@ -92,12 +92,12 @@
               />
               <FormKit
                 type="select"
-                label="Cinsiyet"
-                placeholder="Select a gender"
+                :label="t('signup.gender')"
+                :placeholder="t('signup.genderplaceholder')"
                 :options="[
-                  { label: 'Kadın', value: '1' },
-                  { label: 'Erkek', value: '2' },
-                  { label: 'Diğer', value: '3' },
+                  { label: t('signup.woman'), value: '1' },
+                  { label: t('signup.man'), value: '2' },
+                  { label: t('signup.other'), value: '3' },
                 ]"
                 validation="required"
                 v-model="userObject.gender"
@@ -109,8 +109,8 @@
           </FormKit>
           <FormKit
             type="checkbox"
-            label="Terms and Conditions"
-            help="Do you agree to our terms of service?"
+            :label="t('signup.terms')"
+            :help="t('signup.agreeterms')"
             name="terms"
             :value="isAccepted"
             @click="handleCheckbox"
@@ -121,7 +121,7 @@
           />
           <FormKit
             type="submit"
-            label="Kayıt Ol"
+            :label="t('signup.signup')"
             :disabled="!isAccepted"
             :wrapper-class="{
               'formkit-wrapper': false,
@@ -134,7 +134,7 @@
         </FormKit>
 
         <div class="d-flex justify-content-center align-items-center my-4">
-          <span class="text-secondary">veya</span>
+          <span class="text-secondary">{{ t("signup.or") }}</span>
         </div>
 
         <!-- ALTERNATIVE SIGNUPS -->
@@ -149,11 +149,11 @@
               alt="Google"
               class="me-2"
             />
-            <span class="fw-bold">Google ile Kayıt Ol</span>
+            <span class="fw-bold">{{ t("signup.google") }}</span>
           </div>
           <div class="btn btn-dark w-75 shadow-sm mt-3 rounded-5">
             <i class="fa-brands fa-apple fa-lg me-2"></i>
-            <span class="fw-bold">Apple ile Kayıt Ol</span>
+            <span class="fw-bold">{{ t("signup.apple") }}</span>
           </div>
         </div>
 
@@ -163,7 +163,7 @@
           @click="router.back()"
         >
           <i class="fa-solid fa-angle-left"></i>
-          <span class="ps-2">Geri Dön</span>
+          <span class="ps-2">{{ t("signup.return") }}</span>
         </div>
       </div>
     </div>
@@ -178,6 +178,9 @@ import ToastSuccess from "@/components/shared/ToastSuccess.vue";
 import ToastDanger from "@/components/shared/ToastDanger.vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/auth";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const isAccepted = ref(false);
 const authStore = useAuthStore();

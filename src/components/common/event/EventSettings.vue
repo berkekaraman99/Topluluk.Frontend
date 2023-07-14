@@ -2,7 +2,9 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex align-items-center justify-content-start">
-        <div class="card-text fw-bold tw-text-2xl">Genel</div>
+        <div class="card-text fw-bold tw-text-2xl">
+          {{ t("event.general") }}
+        </div>
         <!-- <div class="card-text fw-bold">Tab</div> -->
       </div>
     </div>
@@ -23,7 +25,7 @@
         >
           <i class="fa-solid fa-trash-can"></i>
           <span class="ms-2">{{
-            loading ? "İşleniyor" : "Etkinliği Sil"
+            loading ? t("event.deleteprogress") : t("event.deleteevent")
           }}</span>
         </div>
       </div>
@@ -39,6 +41,10 @@ import { storeToRefs } from "pinia";
 import type { PropType } from "vue";
 import { onBeforeUnmount, ref } from "vue";
 import { useRouter } from "vue-router";
+
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   id: {

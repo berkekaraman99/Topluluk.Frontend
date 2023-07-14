@@ -11,7 +11,7 @@
         <span
           class="navbar-brand pointer fw-bold px-2 fs-4"
           @click="router.push({ name: 'home' })"
-          >Topluluk</span
+          >{{ t("header.title") }}</span
         >
       </div>
 
@@ -24,7 +24,7 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Oluştur
+                {{ t("header.create") }}
               </button>
               <CreateLink />
             </div>
@@ -70,12 +70,12 @@
             <ProfileIcon :user="user" @logout="logout" />
           </div>
           <div class="d-flex" v-else>
-            <RouterLink :to="{ name: 'login' }" class="btn btn-primary me-3"
-              >Log In</RouterLink
-            >
-            <RouterLink :to="{ name: 'signup' }" class="btn btn-warning"
-              >Sign Up</RouterLink
-            >
+            <RouterLink :to="{ name: 'login' }" class="btn btn-primary me-3">{{
+              t("header.login")
+            }}</RouterLink>
+            <RouterLink :to="{ name: 'signup' }" class="btn btn-warning">{{
+              t("header.signup")
+            }}</RouterLink>
           </div>
         </template>
       </div>
@@ -90,6 +90,9 @@ import { useRouter } from "vue-router";
 import CreateLink from "./CreateLink.vue";
 import ProfileIcon from "./ProfileIcon.vue";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const router = useRouter();
 const authStore = useAuthStore();

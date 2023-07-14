@@ -11,7 +11,8 @@
             <div class="me-4">
               <div>
                 <p class="fw-medium tw-text-lg mb-0">
-                  <i class="fa-solid fa-calendar-days"></i> Başlangıç Tarihi
+                  <i class="fa-solid fa-calendar-days"></i>
+                  {{ t("event.startDate") }}
                 </p>
                 <span class="tw-text-sm">
                   {{ formatTime(currentEvent.startDate) }}
@@ -19,7 +20,8 @@
               </div>
               <div>
                 <p class="fw-medium tw-text-lg mb-0 mt-3">
-                  <i class="fa-solid fa-calendar-days"></i> Bitiş Tarihi
+                  <i class="fa-solid fa-calendar-days"></i>
+                  {{ t("event.endDate") }}
                 </p>
                 <span class="tw-text-sm">
                   {{ formatTime(currentEvent.endDate) }}
@@ -29,7 +31,9 @@
             <div></div>
           </div>
           <div class="my-4">
-            <p class="tw-text-xl my-2 fw-medium">Etkinlik Açıklaması</p>
+            <p class="tw-text-xl my-2 fw-medium">
+              {{ t("event.description") }}
+            </p>
             <p class="tw-text-sm my-2">
               {{
                 currentEvent.description != null
@@ -40,8 +44,7 @@
           </div>
           <p class="tw-text-sm">
             <i class="fa-solid fa-users fa-lg me-1"></i>
-            {{ currentEvent.attendeesCount }} kişi bu etkinliğe gitmeyi
-            düşünüyor
+            {{ currentEvent.attendeesCount }} {{ t("event.attendsgoing") }}
           </p>
           <p class="tw-text-sm my-2">
             <i class="fa-solid fa-location-dot fa-lg me-1"></i>
@@ -55,7 +58,7 @@
         <div
           class="col-12 col-md-12 col-lg-6 d-flex align-items-end justify-content-end flex-column"
         >
-          <div class="fw-medium text-end">Etkinlik Yöneticisi</div>
+          <div class="fw-medium text-end">{{ t("event.owner") }}</div>
           <div class="d-flex align-items-center justify-content-end my-3">
             <div class="mx-3">
               {{ currentEvent.firstName.concat(" ", currentEvent.lastName) }}
@@ -128,6 +131,9 @@ import moment from "moment";
 import { storeToRefs } from "pinia";
 import type { PropType } from "vue";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
+
+const { t } = useI18n();
 
 const props = defineProps({
   currentEvent: {
