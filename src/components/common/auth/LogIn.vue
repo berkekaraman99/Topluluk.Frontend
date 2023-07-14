@@ -114,9 +114,8 @@
 
         <!-- ALTERNATIVE LOGINS -->
         <div class="alternative-logins my-4">
-          <div
+          <!-- <div
             class="btn btn-light d-block shadow-sm mt-3 rounded-5 hover:tw-bg-slate-50"
-            @click="login"
           >
             <img
               src="@/assets/images/logos/ic_google.png"
@@ -126,14 +125,14 @@
               class="me-2"
             />
             <span class="fw-bold">{{ t("login.google") }}</span>
+          </div> -->
+          <div class="d-flex align-items-center justify-content-center my-3">
+            <GoogleLogin :callback="callback" />
           </div>
           <div class="btn btn-dark d-block shadow-sm mt-3 rounded-5">
             <i class="fa-brands fa-apple fa-lg me-2"></i>
             <span class="fw-bold">{{ t("login.apple") }}</span>
           </div>
-          <!-- <div class="d-flex align-items-center justify-content-center my-3">
-            <GoogleLogin :callback="callback" />
-          </div> -->
         </div>
       </div>
     </div>
@@ -149,24 +148,30 @@ import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n/dist/vue-i18n.cjs";
-import {
-  type GoogleLogin,
-  type CallbackTypes,
-  googleTokenLogin,
-  googleSdkLoaded,
-} from "vue3-google-login";
-// import { decodeCredential } from "vue3-google-login";
+import { type GoogleLogin, type CallbackTypes } from "vue3-google-login";
 
 const { t } = useI18n();
 
-// const callback: CallbackTypes.CredentialCallback = (response) => {
-//   const userData = decodeCredential(response.credential);
-//   console.log("Handle the response", response);
-//   console.log("Handle the userData", userData);
-// };
-
-const callback: CallbackTypes.TokenResponseCallback = (response) => {
-  console.log("Handle the response", response.access_token);
+const callback: CallbackTypes.CredentialCallback = async (response) => {
+  console.log("Handle the response", response);
+  await authStore
+    .loginWithGoogle(response.credential)
+    .then(changeLoadingState)
+    .then(() => {
+      console.log(statusCode.value);
+      if (statusCode.value === 10401) {
+        header.value = "Giriş Başarısız";
+        content.value = "Kullanıcı adı veya şifre hatalı.";
+        handleToast();
+      } else if (statusCode.value === 200) {
+        header.value = "Giriş Başarılı";
+        content.value = "Ana sayfaya yönlendiriliyorsunuz.";
+        handleToast();
+        setTimeout(() => {
+          router.push({ name: "home" });
+        }, 2500);
+      }
+    });
 };
 
 const handleIconClick = (node: any, e: any) => {
@@ -180,28 +185,13 @@ const authStore = useAuthStore();
 const router = useRouter();
 const { _statusCode: statusCode } = storeToRefs(authStore);
 
-const login = () => {
-  googleTokenLogin().then(async (response) => {
-    console.log("Handle the response", response);
-    authStore.$patch({
-      accessToken: response.access_token,
-    });
-    await authStore.getUserAfterLogin();
-  });
-};
-
 // const login = () => {
-//   googleSdkLoaded((google) => {
-//     google.accounts.oauth2
-//       .initCodeClient({
-//         client_id:
-//           "986753015425-6atqct07o1o8a7epeg0qgn2tbmqtv5rl.apps.googleusercontent.com",
-//         scope: "email profile openid",
-//         callback: async (response) => {
-//           console.log("Handle the response", response);
-//         },
-//       })
-//       .requestCode();
+//   googleTokenLogin().then(async (response) => {
+//     console.log("Handle the response", response);
+//     authStore.$patch({
+//       accessToken: response.access_token,
+//     });
+//     await authStore.getUserAfterLogin();
 //   });
 // };
 

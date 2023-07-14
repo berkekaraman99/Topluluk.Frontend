@@ -85,6 +85,36 @@ export const useAuthStore = defineStore("authStore", {
       }
     },
 
+    //LOGIN WITH GOOGLE
+    async loginWithGoogle(credential: string) {
+      try {
+        const res = await instance.post(
+          "https://localhost:7149/api/authentication/google-login",
+          {
+            idToken: credential,
+          }
+        );
+        console.log(res.data);
+        this.accessToken = res.data.data.accessToken;
+        this.refreshToken = res.data.data.refreshToken;
+
+        instance.defaults.headers[
+          "Authorization"
+        ] = `Bearer ${this.accessToken}`;
+        this.userIsAuthorized = true;
+
+        const getUserAfterLogin = await instance.get("/User/GetUserAfterLogin");
+        this.user = getUserAfterLogin.data.data;
+        console.log(this.user);
+        this.statusCode = res.data.statusCode;
+        setTimeout(() => {
+          this.statusCode = 0;
+        }, 3000);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    },
+
     //LOGOUT
     async logout() {
       try {
